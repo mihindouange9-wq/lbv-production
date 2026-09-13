@@ -232,16 +232,18 @@
     const W = 420, H = 150;
     canvas.width = W; canvas.height = H;
     const pal = [];
-    for (let i = 0; i < 37; i++) { const t = i / 36; pal.push([Math.min(255, 40 + t * 215), Math.max(0, t * t * 40 - 4), 0, t < 0.06 ? 0 : Math.min(255, t * 400)]); }
+    const stops = [[0,0,0],[40,0,0],[110,0,0],[153,0,0],[190,4,7],[214,4,7],[240,40,20],[255,90,40],[255,150,90]];
+    for (let i = 0; i < 37; i++) { const t = i / 36 * (stops.length - 1), k = Math.floor(t), fr = t - k, s0 = stops[k], s1 = stops[Math.min(k + 1, stops.length - 1)]; pal.push([s0[0] + (s1[0] - s0[0]) * fr, s0[1] + (s1[1] - s0[1]) * fr, s0[2] + (s1[2] - s0[2]) * fr, i < 2 ? 0 : 255]); }
     const buf = new Uint8Array(W * H);
     for (let x = 0; x < W; x++) buf[(H - 1) * W + x] = 36;
     const img = ctx.createImageData(W, H);
     let running = false, raf = 0;
     const step = () => {
       if (!running) return;
+      for (let x = 0; x < W; x++) buf[(H - 1) * W + x] = Math.random() < 0.985 ? 36 : 24;
       for (let x = 0; x < W; x++) for (let y = 1; y < H; y++) {
         const src = y * W + x; const r = Math.floor(Math.random() * 3); const dst = src - r + 1 - W;
-        if (dst >= 0) buf[dst] = Math.max(0, buf[src] - (r & 1));
+        if (dst >= 0) buf[dst] = Math.max(0, buf[src] - (r & 1) - (Math.random() < 0.08 ? 1 : 0));
       }
       for (let i = 0; i < W * H; i++) { const c = pal[buf[i]]; img.data[i * 4] = c[0]; img.data[i * 4 + 1] = c[1]; img.data[i * 4 + 2] = c[2]; img.data[i * 4 + 3] = c[3]; }
       ctx.putImageData(img, 0, 0);
@@ -468,56 +470,14 @@
     } catch (err) { console.warn('Fluide indisponible', err); }
   } else { const c = $('#fluid2'); if (c) c.remove(); }
 
-  /* ---------- Pied de page : vinyle 3D en lumière rouge ---------- */
-  const holder = $('.roman-statue-viewer, .three-container');
-  if (window.THREE && holder && !reduce) {
-    const T = window.THREE;
-    const scene = new T.Scene();
-    const mobile = window.innerWidth <= 768;
-    const cam = new T.PerspectiveCamera(35, holder.clientWidth / holder.clientHeight, 0.1, 100);
-    cam.position.set(0, 0, mobile ? 20 : 14);
-    const rend = new T.WebGLRenderer({ antialias: !mobile, alpha: true });
-    rend.setSize(holder.clientWidth, holder.clientHeight);
-    rend.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
-    holder.appendChild(rend.domElement);
-    const l1 = new T.PointLight('#ff1f1f', 30, 15); l1.position.set(0, 2, 5); scene.add(l1);
-    const l2 = new T.PointLight('#ff1f1f', 60, 20); l2.position.set(3, 2, 4); scene.add(l2);
-    const l3 = new T.PointLight('#8b0000', 40, 15); l3.position.set(-3, 1, 3); scene.add(l3);
-    const l4 = new T.PointLight('#ff0000', 80, 20); l4.position.set(0, 2, -5); scene.add(l4);
-    scene.add(new T.HemisphereLight('#450606', '#000000', 2));
-    scene.add(new T.AmbientLight('#b90707', 0.5));
-    const group = new T.Group(); scene.add(group);
-    const makeVinyl = (metal, rough) => {
-      const g = new T.Group();
-      const disc = new T.Mesh(new T.CylinderGeometry(2.6, 2.6, 0.06, 96), new T.MeshStandardMaterial({ color: '#0a0a0a', metalness: metal, roughness: rough }));
-      disc.rotation.x = Math.PI / 2; g.add(disc);
-      for (let i = 0; i < 14; i++) { const ring = new T.Mesh(new T.TorusGeometry(0.9 + i * 0.115, 0.006, 6, 120), new T.MeshStandardMaterial({ color: '#3a0000', metalness: 0.9, roughness: 0.25, emissive: '#2a0000' })); ring.position.z = 0.032; g.add(ring); const ring2 = ring.clone(); ring2.position.z = -0.032; g.add(ring2); }
-      const label = new T.Mesh(new T.CylinderGeometry(0.85, 0.85, 0.07, 64), new T.MeshStandardMaterial({ color: '#990000', metalness: 0.2, roughness: 0.5, emissive: '#3a0000' }));
-      label.rotation.x = Math.PI / 2; g.add(label);
-      const hole = new T.Mesh(new T.CylinderGeometry(0.08, 0.08, 0.08, 24), new T.MeshStandardMaterial({ color: '#000' })); hole.rotation.x = Math.PI / 2; g.add(hole);
-      return g;
-    };
-    const A = makeVinyl(0.25, 0.35), B = makeVinyl(0.45, 0.2);
-    A.position.set(-1.2, 3, 0); A.rotation.y = 3.1; B.position.set(25, 3, 0);
-    group.add(A, B); group.position.y = mobile ? 0.3 : 1.3; group.position.z = -2.5;
-    const delay = isReload ? 0 : (playLoader ? 5 : 0.5);
-    K.to(B.position, { x: 1.4, duration: 4, ease: 'power4.inOut', delay });
-    K.to(A.position, { x: -1.4, duration: 4, ease: 'power4.inOut', delay });
-    K.to(group.rotation, { x: -6.4, delay, duration: 5, ease: 'power2.out' });
-    const mouse = { x: 0, y: 0 };
-    if (!mobile) window.addEventListener('mousemove', (e) => { mouse.x = (e.clientX / window.innerWidth - 0.5) * 2; mouse.y = (e.clientY / window.innerHeight - 0.5) * 2; K.to(group.rotation, { x: mouse.y * 0.08, y: mouse.x * 0.12, duration: 0.8, ease: 'power3.out', overwrite: 'auto' }); K.to(group.position, { x: mouse.x * 0.2, y: 2.3 + mouse.y * 0.12, duration: 0.8, ease: 'power3.out', overwrite: 'auto' }); });
-    K.to(group.rotation, { y: Math.PI * 10, ease: 'none', scrollTrigger: { trigger: '.footer-hit', start: 'top top', end: '900% top', scrub: true } });
-    K.timeline({ scrollTrigger: { trigger: '.footer-hit', start: 'top bottom', end: 'bottom bottom', scrub: 0.8, invalidateOnRefresh: true } })
-      .to(group.position, { z: 1, ease: 'none' }, 0).to(A.rotation, { x: 12.6, ease: 'none' }, 0).to(B.rotation, { x: -12.6, ease: 'none' }, 0);
-    let visible = false;
-    new IntersectionObserver((en) => { visible = en[0].isIntersecting; }, { threshold: 0.01 }).observe(holder);
-    const tick = () => { if (visible) { A.rotation.z += 0.004; B.rotation.z -= 0.004; rend.render(scene, cam); } requestAnimationFrame(tick); };
-    tick();
-    window.addEventListener('resize', () => { cam.aspect = holder.clientWidth / holder.clientHeight; cam.updateProjectionMatrix(); rend.setSize(holder.clientWidth, holder.clientHeight); });
-  }
+  /* ---------- Logo LBV en 3D (calque fixe du haut de page) ---------- */
+  if (window.LBVLogo3D && !reduce) window.LBVLogo3D({ container: '.roman-statue-viewer', src: 'images/lbv-logo-new.png', cropBottom: 0.74, delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: '.box-section-ups' });
 
   };
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(init); else init();
+  // Polices : on attend au plus 2,5 s (Google Fonts), puis on démarre quoi qu’il arrive
+  let started = false; const startOnce = () => { if (!started) { started = true; init(); } };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(startOnce);
+  setTimeout(startOnce, 2500);
 
   /* ---------- Rafraîchissements ---------- */
   let rt;

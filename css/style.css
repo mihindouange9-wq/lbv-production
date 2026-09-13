@@ -94,6 +94,10 @@ nav ul li .plus-for-hover .plus-svg { transition: all .3s ease; transform: rotat
 nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 @media (max-width: 1000px) { nav { display: none; } }
 
+/* ---------- Calque 3D fixe ---------- */
+.roman-statue-viewer { position: fixed; inset: 0; z-index: 2000; width: 100vw; height: 100vh; pointer-events: none; overflow: hidden; }
+.roman-statue-viewer canvas { display: block; width: 100%; height: 100%; }
+
 /* ---------- Logo 3D ---------- */
 .logo-3d { position: fixed; top: 2rem; left: 3%; z-index: 950; width: 70px; height: 70px; perspective: 800px; opacity: 0; }
 .logo-card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
@@ -143,9 +147,9 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 .facts-box h1 { font-size: 10rem; font-weight: 400; font-family: var(--script); }
 .facts-box p { font-size: 2rem; width: 28%; text-transform: uppercase; font-weight: 200; }
 .numbers-facts .char, .para-facts .word { display: inline-block; opacity: 0; will-change: transform, opacity, filter; }
-.section-break-fire { height: 70vh; position: absolute; top: 0; overflow: hidden; width: 100vw; left: 0; }
-.section-break-fire-2 { width: 100vw; height: 60vh; position: relative; }
-.fire-canvas { width: 100%; height: 100%; display: block; }
+.section-break-fire { height: 60vh; position: absolute; top: 0; overflow: hidden; width: 100vw; left: 0; z-index: 2; }
+.section-break-fire-2 { width: 100vw; height: 60vh; position: relative; margin-bottom: -1px; }
+.fire-canvas { width: 100%; height: 100%; display: block; background: #000; }
 .section-break-fire .fire-canvas { transform: rotate(180deg); }
 @media (max-width: 800px) { .facts-figure-container { height: auto; padding-top: 40vh; } .facts-box { height: auto; flex-direction: column; align-items: flex-start; padding: 2rem 0; transform: none; } .facts-box h1 { font-size: 6rem; } .facts-box p { width: 100%; font-size: 1.2rem; } }
 
@@ -347,8 +351,6 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 
 /* ---------- Pied de page ---------- */
 .footer-hit { position: relative; width: 100vw; min-height: 100vh; overflow: hidden; background: var(--black); z-index: 90; }
-.three-container { width: 100%; z-index: 0; height: 100vh; position: absolute; top: 0; left: 0; overflow: hidden; mix-blend-mode: screen; }
-.three-container canvas { display: block; width: 100%; height: 100%; }
 .footer-hit .scrolling-text { position: relative; height: 100vh; z-index: 2; pointer-events: none; }
 .footer-hit .scrolling-text .rail h4 { pointer-events: none; }
 .title-word { display: inline-block; white-space: nowrap; }

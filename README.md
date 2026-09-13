@@ -9,6 +9,7 @@ lbv-production/
   index.html          Page unique : hero, le label, chiffres, services, artistes, méthode, sorties, actualités, appel, pied de page
   css/style.css       Styles portés de la référence (mêmes classes, mêmes valeurs), adaptés au label
   js/data.js          Données : 6 artistes (bios, liens, galeries), 3 actualités
+  js/logo3d.js        Logo LBV extrudé en 3D (remplace la statue GLB de la référence), js/logo-shape.js = contours précalculés
   js/main.js          Moteur d'animation (port du code de la référence, GSAP 3.13 + ScrollTrigger + SplitText + Flip, Lenis, three.js r128, webgl-fluid)
   images/             56 visuels du label (photos d'artistes, covers, clips, logo), redimensionnés à 1600 px max
   audio/              Extrait exclusif « Amiricher » de Le T (musique de fond, tel que proposé sur le site actuel)
@@ -28,13 +29,13 @@ Déploiement : `node tools/export-netlify.mjs` produit `../lbv-production-netlif
 | Hero : portrait révélé (brightness/scale), rail géant qui monte, lignes en blur, dégradé rouge, barre du bas avec croix qui tournent au défilement | Identique avec le portrait de Dac-M, « Libreville a une voix. », TALENT · SON · SCÈNE |
 | Nav en lettres qui se cachent à la descente et reviennent à la montée ; bouton flottant magnétique qui se cache | Identique (WhatsApp du label) |
 | Titre cinématique lettres aléatoires, texte mots aléatoires flous | « Ça va Sonner Différent » + mission du label |
-| Chiffres avec feu (GIF) | Feu généré en canvas 2D, 3 chiffres du label |
+| Chiffres avec feu (GIF de flammes rouges sur noir, retourné en haut de section) | Feu procédural en canvas 2D (algorithme « Doom fire », palette noir → rouge → orange), retourné en haut, droit en bas ; 3 chiffres du label |
 | « LEGACY » : titre déplacé (Flip), lettres qui grossissent puis montent, section épinglée 690 %, lignes SVG tracées, images révélées par clip + parallaxe, mots et listes, panneau noir qui monte, papier déchiré, silhouette | « Le Label » : identique, PRODUIRE / DIFFUSER, prestations, panneau rouge déchiré (CSS clip-path) avec photo d'artiste traitée |
 | Portfolio épinglé : pile de vignettes, fond flou, titre/desc mot à mot, cercle de progression, « VIEW », sidebar clip-path avec galerie, tags, rôles | Artistes : 6 fiches (photo, bio, tags, sorties, liens plateformes) |
 | Processus : fond en parallaxe, 4 boîtes mot à mot, grand titre | Signature → Direction artistique → Production → Sortie et promotion |
 | Journal : titre mots flous, 3 cartes, carte centrale décalée, modale rotative clip-path | Sorties (Spotify) + Actualités (modale, lien YouTube) |
 | Appel final lettres 3D, bouton anneau, modale contact | « Chaque grand titre commence par une Rencontre. » / « Parlons Musique » |
-| Pied de page : statue 3D GLB en lumière rouge, rotation au scroll, rail | Vinyle 3D généré (three.js), mêmes lumières et mouvements |
+| Statue 3D (GLB) en calque fixe au-dessus du hero, entrée par les côtés, suivi de la souris, culbute et rotation au scroll, éloignement à la section services | **Logo LBV en 3D** : le PNG du logo est vectorisé (marching squares,  → ) puis extrudé avec biseau dans three.js ; mêmes lumières, mêmes mouvements () |
 | Menu à 5 barres, liens en masque, curseur personnalisé, logo 3D qui tourne | Identique, logo LBV |
 
 Sur mobile : fluide, curseur, inclinaison et magnétisme désactivés ; sections épinglées conservées ; `prefers-reduced-motion` coupe préchargeur et fluide.
