@@ -95,7 +95,7 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 @media (max-width: 1000px) { nav { display: none; } }
 
 /* ---------- Calque 3D fixe ---------- */
-.roman-statue-viewer { position: fixed; inset: 0; z-index: 2000; width: 100vw; height: 100vh; pointer-events: none; overflow: hidden; }
+.roman-statue-viewer { position: fixed; inset: 0; z-index: 1300; width: 100vw; height: 100vh; pointer-events: none; overflow: hidden; }
 .roman-statue-viewer canvas { display: block; width: 100%; height: 100%; }
 
 /* ---------- Logo 3D ---------- */
