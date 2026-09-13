@@ -469,6 +469,9 @@
     ST.create({ trigger: '.footer-infos', start: 'top 92%', once: true, onEnter: () => K.to(footCols, { y: 0, opacity: 1, duration: 1, stagger: 0.12, ease: 'power3.out' }) });
   }
 
+  /* ---------- Clavier : Entrée / Espace activent les éléments à rôle bouton ---------- */
+  document.querySelectorAll('[role="button"]').forEach((el) => el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } }));
+
   /* ---------- Logo LBV en 3D (calque fixe du haut de page) ---------- */
   if (window.LBVLogo3D && !reduce) window.LBVLogo3D({ container: '.roman-statue-viewer', src: 'images/lbv-logo-new.png', cropBottom: 0.74, delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: '.box-section-ups' });
 

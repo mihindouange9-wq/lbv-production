@@ -99,7 +99,10 @@ window.LBVLogo3D = function (opts) {
 
   // La lumière clé tourne lentement : les reflets glissent sur les faces
   const clock = new T.Clock();
-  const tick = () => { const t = clock.getElapsedTime(); key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6); rend.render(scene, cam); requestAnimationFrame(tick); };
+  // Rendu seulement tant que le logo est dans le champ (il quitte l'écran après la section services)
+  let active = true;
+  window.ScrollTrigger.create({ trigger: opts.leaveTrigger || '.box-section-ups', start: 'top top', end: '+=2600', onLeave: () => { active = false; }, onEnterBack: () => { active = true; } });
+  const tick = () => { if (active) { const t = clock.getElapsedTime(); key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6); rend.render(scene, cam); } requestAnimationFrame(tick); };
   tick();
   window.addEventListener('resize', () => { cam.aspect = holder.clientWidth / holder.clientHeight; cam.updateProjectionMatrix(); rend.setSize(holder.clientWidth, holder.clientHeight); });
 };

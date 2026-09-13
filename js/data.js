@@ -3,7 +3,7 @@ window.LBV = {
   artists: [
     { name: 'CARTY', slug: 'carty', img: 'images/img-0766.jpg', short: 'Textes percutants, flow distinctif : Carty représente la nouvelle génération de la musique gabonaise.',
       bio: 'Chanteur aux textes percutants et au flow distinctif, Carty représente la nouvelle génération de la musique gabonaise. On le retrouve sur « Djouzz » avec NSTA et Slime Sandro, et sur « Wandafull » avec Boykls et Sandro.',
-      tags: ['Rap', 'Afro-urbain', 'Libreville'], gallery: ['images/ab67616d0000b273b74f7d784aabf755b1e8b9df.jpg', 'images/img-656.jpg', 'images/img-1849.jpg'],
+      tags: ['Rap', 'Afro-urbain', 'Libreville'], gallery: ['images/img-656.jpg', 'images/img-1849.jpg'],
       links: [['Instagram', 'https://www.instagram.com/carty_slow_/'], ['TikTok', 'https://www.tiktok.com/@cartyslow7'], ['YouTube', 'https://www.youtube.com/@Cartyslow'], ['Spotify', 'https://open.spotify.com/intl-fr/artist/33p7Ux3XLYuYDP1cjIaycW']] },
     { name: 'D.O.M', slug: 'dom', img: 'images/whatsapp-image-2026-02-08-at-11-31-02.jpg', short: 'Un univers à part, entre nuit et lumière. D.O.M construit son propre langage.',
       bio: 'D.O.M, alias Purple Trees, développe un univers à part, entre nuit et lumière. Un artiste de la nouvelle vague LBV, à suivre sur toutes les plateformes.',
