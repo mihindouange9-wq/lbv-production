@@ -1,0 +1,6 @@
+tools/shots/
+research/lbv-assets/
+research/*.js
+research/*.css
+research/*.html
+research/supabase-key.txt

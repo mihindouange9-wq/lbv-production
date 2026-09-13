@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LBV Production — Label de musique gabonais</title>
+  <meta name="description" content="LBV Production, label indépendant gabonais : artistes urbains de Libreville, sorties, clips, actualités et contact.">
+  <meta name="theme-color" content="#0D0D0D">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LBV Production">
+  <meta property="og:title" content="LBV Production — Label de musique gabonais">
+  <meta property="og:description" content="Label indépendant gabonais dédié à la visibilité, au développement et à la promotion des talents locaux.">
+  <meta property="og:image" content="images/og-image.jpg">
+  <link rel="icon" type="image/png" href="images/lbv-logo.png">
+  <link rel="apple-touch-icon" href="images/lbv-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;700&family=Ruthie&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"Organization","name":"LBV Production","url":"https://lbvproduction.com/","logo":"images/lbv-logo-new.png","description":"Label indépendant gabonais dédié à la visibilité, au développement et à la promotion des talents locaux.","address":{"@type":"PostalAddress","streetAddress":"Cité Magnolia (Villa 163)","addressLocality":"Akanda","addressRegion":"Libreville","addressCountry":"GA"},"telephone":"+241077047564","email":"contact@lbvproduction.com","sameAs":["https://www.instagram.com/lbv_production/","https://www.youtube.com/@LBVProduction-241","https://www.facebook.com/people/LBV-Production/61575781109680/","https://x.com/Lbvproduction1"]}
+  </script>
+</head>
+<body>
+  <!-- Bouton flottant WhatsApp -->
+  <div class="cta-connect" role="button" tabindex="0" aria-label="Contacter LBV Production sur WhatsApp">
+    <div class="icon"><img src="images/lbv-logo.png" alt=""></div>
+    <div class="text-mask">
+      <div class="live"><div class="dots"></div>EN LIGNE</div>
+      <div class="text-mask"><div class="live-2">Parlons musique</div></div>
+    </div>
+  </div>
+
+  <!-- Fluide WebGL plein écran -->
+  <canvas id="fluid2"></canvas>
+
+  <!-- Bouton du menu (deux barres) -->
+  <div class="menu-2-bar" role="button" tabindex="0" aria-label="Menu">
+    <div class="line-m line-1"></div>
+    <div class="line-m line-2"></div>
+  </div>
+
+  <!-- Menu plein écran à barres -->
+  <div class="navigation-menu">
+    <div class="bars-overlays">
+      <div class="bar-bgs"></div><div class="bar-bgs"></div><div class="bar-bgs"></div><div class="bar-bgs"></div><div class="bar-bgs"></div>
+    </div>
+    <div class="menu-navigate-scroll">
+      <a href="#home">ACCUEIL <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#about">LE LABEL <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#services">SERVICES <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#work">ARTISTES <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#sorties">SORTIES <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#blog">ACTUALITÉS <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+      <a href="#contact">CONTACT <div class="plus-rotates"><span class="plus-svg"></span></div></a>
+    </div>
+    <div class="bottom-contact-ctas">
+      <div class="head-cta">
+        <p>NOTRE E-MAIL</p>
+        <span class="gapss-1"><a href="mailto:contact@lbvproduction.com?subject=Contact%20LBV%20Production" class="mailss">contact@lbvproduction.com</a></span>
+      </div>
+      <div class="head-cta">
+        <p>RÉSEAUX</p>
+        <span class="gapss">
+          <a href="https://www.instagram.com/lbv_production/" target="_blank" rel="noopener">INSTAGRAM</a>
+          <a href="https://www.youtube.com/@LBVProduction-241" target="_blank" rel="noopener">YOUTUBE</a>
+          <a href="https://www.facebook.com/people/LBV-Production/61575781109680/" target="_blank" rel="noopener">FACEBOOK</a>
+          <a href="https://x.com/Lbvproduction1" target="_blank" rel="noopener">X</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Onde sonore (musique de fond : exclu Le T) -->
+  <div class="sound-wave" role="button" tabindex="0" aria-label="Activer ou couper le son"></div>
+  <div class="sound-label">EXCLU · LE T — AMIRICHER</div>
+
+  <!-- Modale contact -->
+  <div class="modal-contact-us">
+    <div class="close-sidebar-contact" role="button" tabindex="0" aria-label="Fermer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
+    </div>
+    <h1>PARLONS <span class="fancy">Musique</span></h1>
+    <img src="images/talents-gabonais-live.jpg" alt="" loading="lazy" decoding="async" width="1200" height="800">
+    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="mailto:contact@lbvproduction.com">
+      <input type="hidden" name="form-name" value="contact">
+      <p class="hidden-field"><label>Ne pas remplir : <input name="bot-field"></label></p>
+      <input type="text" name="name" placeholder="Votre nom" required autocomplete="name">
+      <input type="tel" name="phone" placeholder="Votre numéro" required autocomplete="tel">
+      <input type="email" name="email" placeholder="Votre e-mail" required autocomplete="email">
+      <textarea name="message" class="textarea" placeholder="Artiste, partenaire, média… dites-nous tout." required></textarea>
+      <input type="submit" value="Envoyer" class="cta-submit">
+      <div class="form-info">
+        <span>Cité Magnolia (Villa 163), Akanda, Libreville</span>
+        <a href="tel:+241077047564">+241 077 04 75 64</a>
+        <span>Du lundi au vendredi, 10 h – 19 h</span>
+      </div>
+    </form>
+  </div>
+
+  <!-- Logo 3D (carte qui tourne) -->
+  <div class="logo-3d">
+    <div class="logo-card">
+      <img class="front" src="images/lbv-logo-new.png" alt="LBV Production">
+      <img class="back" src="images/lbv-logo-new.png" alt="">
+    </div>
+  </div>
+
+  <!-- Préchargeur -->
+  <div class="site-pre-loader">
+    <canvas id="loader-canvas"></canvas>
+    <div class="sound-follow">CLIQUEZ N'IMPORTE OÙ POUR ACTIVER L'EXPÉRIENCE</div>
+    <div class="number-count">000</div>
+  </div>
+
+  <!-- Modale actualités -->
+  <div class="modal-blogs">
+    <div class="close-sidebar-blog" role="button" tabindex="0" aria-label="Fermer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
+    </div>
+    <div class="content-blogs">
+      <div class="Date-blog"></div>
+      <h1></h1>
+      <p></p>
+      <a class="by-who" href="#" target="_blank" rel="noopener"></a>
+    </div>
+    <div class="image-blog"><img src="" alt="" loading="lazy" decoding="async" width="1200" height="800"></div>
+  </div>
+
+  <!-- Curseur -->
+  <div class="custom-cursor"><span></span></div>
+
+  <!-- Navigation d'en-tête -->
+  <nav>
+    <ul>
+      <li><a class="active-animate" href="#home">ACCUEIL</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#about">LE LABEL</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#services">SERVICES</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#work">ARTISTES</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#sorties">SORTIES</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#blog">ACTUALITÉS</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="#contact">CONTACT</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+    </ul>
+    <ul>
+      <li><a class="active-animate" href="https://www.instagram.com/lbv_production/" target="_blank" rel="noopener">INSTAGRAM</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="https://www.youtube.com/@LBVProduction-241" target="_blank" rel="noopener">YOUTUBE</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+      <li><a class="active-animate" href="https://www.facebook.com/people/LBV-Production/61575781109680/" target="_blank" rel="noopener">FACEBOOK</a><div class="plus-for-hover"><span class="plus-svg"></span></div></li>
+    </ul>
+  </nav>
+
+  <audio id="bgMusic" loop preload="none">
+    <source src="audio/le-t-amiricher-premix.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Barre fixe du bas -->
+  <div class="fixed-bar-ledger">
+    <div class="plus-rotate"><span class="plus-svg"></span></div>
+    <p class="Name-plus scale-up">TALENT</p>
+    <div class="plus-rotate"><span class="plus-svg"></span></div>
+    <p class="Name-plus scale-up">SON</p>
+    <div class="plus-rotate"><span class="plus-svg"></span></div>
+    <p class="Name-plus scale-up">SCÈNE</p>
+    <div class="plus-rotate"><span class="plus-svg"></span></div>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <div class="hero-section-home">
+    <div class="expertise-text">
+      <span>LABEL INDÉPENDANT</span>
+      <span>MUSIQUE URBAINE</span>
+      <span>LIBREVILLE · GABON</span>
+    </div>
+    <div class="para-introduce-hero">
+      Un label gabonais indépendant, sans orientation politique. Une vraie visibilité et une vraie plateforme d'écoute <br> pour toutes les musiques du Gabon, sans distinction de genre, de style ou d'origine.
+    </div>
+    <div class="my-face-animate" id="home">
+      <img class="face-image" src="images/img-9991.jpg" alt="Dac-M, artiste LBV Production" width="1600" height="2164" fetchpriority="high">
+      <div class="shade"></div>
+    </div>
+    <div class="scrolling-text">
+      <div class="rail">
+        <h4>Libreville a une voix.</h4>
+        <h4>Libreville a une voix.</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LE LABEL ================= -->
+  <div class="about-us" id="about">
+    <div class="intro-ab-section">
+      <h1 class="cinematic-title">Ça va <br> <span class="fonts-c"> Sonner </span> <br> Différent</h1>
+    </div>
+    <div class="about-us-pictures">
+      <p class="cinematic-text"><span class="space"></span> LBV Production est un label indépendant gabonais, dépourvu de toute orientation politique. Sa mission : donner une vraie visibilité et une véritable plateforme d'écoute à toutes les formes de musique présentes au Gabon, sans discrimination de genre, de style ou d'origine.</p>
+    </div>
+  </div>
+
+  <!-- ================= CHIFFRES ================= -->
+  <div class="facts-figure-container">
+    <div class="section-break-fire"><canvas class="fire-canvas" data-flip="1"></canvas></div>
+    <div class="facts-box">
+      <h1 class="numbers-facts">6+</h1>
+      <p class="para-facts">Artistes signés. Chacun avec son univers, sa voix, sa ville.</p>
+    </div>
+    <div class="facts-box">
+      <h1 class="numbers-facts">20+</h1>
+      <p class="para-facts">Clips, singles et projets sortis depuis 2025.</p>
+    </div>
+    <div class="facts-box">
+      <h1 class="numbers-facts">1</h1>
+      <p class="para-facts">LBV Show à Libreville. La scène, en vrai.</p>
+    </div>
+    <div class="section-break-fire-2"><canvas class="fire-canvas"></canvas></div>
+  </div>
+
+  <!-- ================= SERVICES ================= -->
+  <div class="box-section-ups">
+    <div class="services-para" id="services">
+      <p class="services-text">La production donne la matière. La promotion lui donne une audience. LBV réunit les deux pour faire entendre les artistes gabonais, ici et bien plus loin.</p>
+      <div class="services-heading"><div class="breaks">Le Label</div></div>
+    </div>
+  </div>
+  <section class="services-project">
+    <div class="svg-strokee">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+        <g>
+          <line x1="-56.9661" y1="540.293" x2="1986.12" y2="540.293"/>
+          <line x1="959.823" y1="540.177" x2="264.823" y2="-153.822"/>
+          <line x1="564.829" y1="540.183" x2="-152.523" y2="-128.776"/>
+          <line x1="565.175" y1="541.228" x2="-152.186" y2="1210.18"/>
+          <line x1="370.648" y1="540" x2="1088" y2="-129"/>
+          <line x1="371.17" y1="540.817" x2="1090.17" y2="1206.81"/>
+          <line x1="1544.83" y1="540.183" x2="827.477" y2="-128.776"/>
+          <line x1="1545.17" y1="541.228" x2="827.814" y2="1210.18"/>
+          <line x1="1356.65" y1="540" x2="2074" y2="-129"/>
+          <line x1="1356.64" y1="541.045" x2="2074" y2="1210"/>
+          <line x1="959.823" y1="539.823" x2="1654.18" y2="-154.175"/>
+          <line x1="959.624" y1="539.626" x2="1653.3" y2="1233.3"/>
+          <path d="M959.5 540L406.598 1092.12"/>
+          <line x1="959.333" y1="1207.09" x2="959.333" y2="-125.999"/>
+          <path d="M1356.75 933.75H565.25V145.749L1356.75 143.25V933.75Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="pictures-services">
+      <div class="uiux right1"><img src="images/1781444415268.jpg" alt="Allo — Dac-M" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/1777103063580.jpg" alt="Skelewu" loading="lazy" decoding="async"></div>
+      <div class="uiux right1"><img src="images/img-0772.jpg" alt="Xquality sur scène" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/1777091931479.jpg" alt="Wobebie" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/img-0766.jpg" alt="Carty" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/1777103268304.jpg" alt="Heroes and Villains — Le T" loading="lazy" decoding="async"></div>
+      <div class="uiux right1"><img src="images/img-999.jpg" alt="Lunxy" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/1777093338967.jpg" alt="Venez voir — Dac-M" loading="lazy" decoding="async"></div>
+      <div class="uiux right1"><img src="images/1777093778745.jpg" alt="10 Days in Hell — Chinois A4C" loading="lazy" decoding="async"></div>
+      <div class="uiux left1"><img src="images/789880b2-6ba6-4d84-8aa4-34253cb707ec.jpg" alt="LBV Show" loading="lazy" decoding="async"></div>
+    </div>
+    <div class="scroll-downn">
+      <div class="services-change-1">
+        <div class="word1">PRODUIRE</div>
+        <div class="word1">DIFFUSER</div>
+      </div>
+    </div>
+    <div class="expertise-wrapper">
+      <div class="expertise-set set-1">
+        <div class="points">Direction artistique</div>
+        <div class="points">Enregistrement, mix, mastering</div>
+        <div class="points">Clips officiels</div>
+        <div class="points">Covers et visuels</div>
+      </div>
+      <div class="expertise-set set-2">
+        <div class="points">Distribution digitale</div>
+        <div class="points">Promotion et médias</div>
+        <div class="points">Scène et LBV Show</div>
+        <div class="points">Boutique et merch</div>
+      </div>
+    </div>
+    <div class="another-fall">
+      <div class="content-section-fall">
+        <div class="heading-fall">Chaque titre est un <span class="fonts">pas</span> de plus.</div>
+        <p class="fall-para">Et à partir de là, tout se construit avec intention.</p>
+      </div>
+      <div class="paper-tear"><div class="tear-top"></div><div class="tear-bottom"></div></div>
+      <div class="men-fall"><img src="images/img-0772.jpg" alt="" loading="lazy" decoding="async"></div>
+    </div>
+  </section>
+
+  <!-- Sidebar fiche artiste -->
+  <div class="case-study-side-bar">
+    <div class="close-sidebar" role="button" tabindex="0" aria-label="Fermer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
+    </div>
+    <div class="image-hero-side"><img src="" alt="" loading="lazy" decoding="async"></div>
+    <div class="image-bg-hero"><img src="" alt="" loading="lazy" decoding="async"></div>
+    <div class="date-about-project"><p class="sidebar-date"></p></div>
+    <h1 class="sidebar-h1"></h1>
+    <p class="sidebar-p"></p>
+    <div class="project-tags"></div>
+    <section class="gallery-section">
+      <h3>Sorties</h3>
+      <div class="gallery-grid"></div>
+    </section>
+    <section class="project-role">
+      <div class="section-heading"><span>Écouter et suivre</span></div>
+      <ul class="role-list"></ul>
+    </section>
+  </div>
+
+  <!-- ================= ARTISTES (section épinglée) ================= -->
+  <div class="container" id="work">
+    <div class="circle-follow-view"><div class="ring-circle"><span class="ring-svg"></span></div>VOIR</div>
+    <div class="time-steps-slider">
+      <div class="circle-steps">
+        <svg width="80" height="80"><circle cx="40" cy="40" r="35" stroke="white" stroke-width="1" fill="none" stroke-dasharray="219.91" stroke-dashoffset="219.91"/></svg>
+        <h1>01</h1>
+      </div>
+    </div>
+    <div class="steps-overlay-bg-change"><img src="" alt="" loading="lazy" decoding="async"></div>
+    <div class="text-chnage-on-steps">
+      <h1>Nos artistes</h1>
+      <p>Défilez pour les découvrir</p>
+    </div>
+    <div class="step" id="step-1"><img src="images/img-0766.jpg" alt="Carty" loading="lazy" decoding="async"></div>
+    <div class="step"><img src="images/whatsapp-image-2026-02-08-at-11-31-02.jpg" alt="D.O.M" loading="lazy" decoding="async"></div>
+    <div class="step"><img src="images/img-0769.jpg" alt="Le T" loading="lazy" decoding="async"></div>
+    <div class="step"><img src="images/img-9991.jpg" alt="Dac-M" loading="lazy" decoding="async"></div>
+    <div class="step"><img src="images/img-0772.jpg" alt="Xquality" loading="lazy" decoding="async"></div>
+    <div class="step"><img src="images/img-999.jpg" alt="Lunxy" loading="lazy" decoding="async"></div>
+  </div>
+
+  <!-- ================= MÉTHODE ================= -->
+  <div class="step-of-work">
+    <div class="boxes-for-step">
+      <div class="box-step-main">
+        <h1>Signature</h1>
+        <p>Tout commence par une écoute. On rencontre l'artiste, son univers, son public et ses ambitions, pour construire une base honnête et durable.</p>
+      </div>
+      <div class="box-step-main">
+        <h1>Direction artistique</h1>
+        <p>Choix des sons, des visuels, des collaborations. Chaque décision sert une identité claire, celle de l'artiste, jamais celle du label.</p>
+      </div>
+      <div class="box-step-main moving-out">
+        <h1>Production</h1>
+        <p>Enregistrement, mix, mastering, tournage des clips. Des productions de qualité professionnelle, pensées pour durer et pour voyager.</p>
+      </div>
+      <div class="box-step-main">
+        <h1>Sortie et promotion</h1>
+        <p>Distribution sur toutes les plateformes, presse, réseaux, scène. La sortie n'est qu'un début : on suit, on ajuste, on fait grandir.</p>
+      </div>
+    </div>
+    <div class="para-for-stepss">Chaque projet est abordé avec intention, pas avec des recettes. De la signature à la scène, chaque étape est travaillée pour que la musique gabonaise soit entendue, respectée et écoutée au-delà de ses frontières.</div>
+    <img src="images/img-0769.jpg" alt="" loading="lazy" decoding="async">
+    <div class="heading-of-step-work">
+      <h1>De la première maquette à la scène, chaque étape est pensée pour faire entendre le <span class="fancy"> Gabon.</span></h1>
+    </div>
+  </div>
+
+  <!-- ================= SORTIES ================= -->
+  <div class="blog-section releases-section" id="sorties">
+    <div class="blogs-main-headings">
+      <p class="blog-heading releases-heading">NOS <span class="fonts">Sorties</span></p>
+      <div class="points-blogs">
+        <span class="blog-para releases-para">Les titres et projets qui font bouger la scène. Singles, EP, clips : chaque sortie est disponible sur toutes les plateformes.</span>
+      </div>
+    </div>
+    <div class="cards-blogs cards-releases">
+      <a class="card-1 release-card" href="https://open.spotify.com/intl-fr/album/2PLtFOs85PgHhzTyfWP9jR" target="_blank" rel="noopener">
+        <div class="image-blog"><img src="images/1781444415268.jpg" alt="Allo — Dac-M" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>ALLO · Dac-M</p>
+        <span>Single · Afrobeat · 8 mai 2026</span>
+      </a>
+      <a class="card-1 release-card" href="https://open.spotify.com/intl-fr/album/1kpcS0QHCYGbSmZg2exdBh" target="_blank" rel="noopener">
+        <div class="image-blog"><img src="images/1777103063580.jpg" alt="Skelewu" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>SKELEWU · Slime Sandro, NSTA, Chinois A4C, Nicosurf</p>
+        <span>Single · Trap · 9 avril 2026</span>
+      </a>
+      <a class="card-1 release-card" href="https://open.spotify.com/intl-fr/track/51iEuZiPAKOhGhxjiBbjIx" target="_blank" rel="noopener">
+        <div class="image-blog"><img src="images/1777091931479.jpg" alt="Wobebie" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>WOBEBIE · Frenezy, Slime Sandro</p>
+        <span>Single · Hip-Hop · 21 mars 2026</span>
+      </a>
+    </div>
+    <div class="releases-more">
+      <a href="https://open.spotify.com/intl-fr/album/3FMbz0yWTddeZsK1OTmFjk" target="_blank" rel="noopener">SUMMER IN LBV · FC88</a>
+      <a href="https://open.spotify.com/intl-fr/track/3Ox8cvyfJ5EBJaI7VPBbj7" target="_blank" rel="noopener">VENEZ VOIR · Dac-M</a>
+      <a href="https://open.spotify.com/intl-fr/album/7lSDBjNmyhxkbgbEEV2Ean" target="_blank" rel="noopener">HEROES AND VILLAINS · Le T</a>
+      <a href="https://open.spotify.com/intl-fr/track/0ls8jIwaX1x9xit8c8cFDY" target="_blank" rel="noopener">SANG FROID · Xquality</a>
+      <a href="https://open.spotify.com/intl-fr/track/6boR10H2fJEFwWO3AGOlzV" target="_blank" rel="noopener">CASAMIGOS · Chinois A4C, Boykls</a>
+    </div>
+  </div>
+
+  <!-- ================= ACTUALITÉS ================= -->
+  <div class="blog-section" id="blog">
+    <div class="blogs-main-headings">
+      <p class="blog-heading">ACTUALITÉS <span class="fonts">du label</span></p>
+      <div class="points-blogs">
+        <span class="blog-para">Clips, sorties, événements : ce qui se passe chez LBV Production et sur la scène urbaine gabonaise, au fil des semaines.</span>
+      </div>
+    </div>
+    <div class="cards-blogs">
+      <div class="card-1" data-blog="0">
+        <div class="image-blog"><img src="images/1781439013684-h4m1bt4q40b.jpg" alt="Le T — Money Dance" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>Le T — Money Dance (clip officiel)</p>
+        <span>3 juin 2026</span>
+      </div>
+      <div class="card-1" data-blog="1">
+        <div class="image-blog"><img src="images/1781439308315-l2e95uy53za.jpg" alt="Chinois A4C — Tue 3" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>Chinois A4C — Tue 3 (clip officiel)</p>
+        <span>20 mai 2026</span>
+      </div>
+      <div class="card-1" data-blog="2">
+        <div class="image-blog"><img src="images/1781440983367-fjhfw4xsod5.jpg" alt="Dac-M — Allô" loading="lazy" decoding="async"><div class="follow-blog"></div></div>
+        <p>Dac-M — Allô (clip vidéo)</p>
+        <span>3 mai 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= APPEL ================= -->
+  <div class="before-footer-cta" id="contact">
+    <h1 class="cta-title">Chaque grand titre commence par une <span class="fonts">Rencontre.</span></h1>
+    <div class="cta-footer" id="contactopen" role="button" tabindex="0">
+      <div class="ring-circle"><span class="ring-svg"></span></div>
+      PARLONS <span class="fonts">Musique</span>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer-hit" id="footer">
+    <div id="app" class="three-container"></div>
+    <div class="footer-infos">
+      <div>
+        <p class="f-label">LBV PRODUCTION</p>
+        <p>Cité Magnolia (Villa 163)<br>Akanda, Libreville, Gabon</p>
+      </div>
+      <div>
+        <p class="f-label">CONTACT</p>
+        <p><a href="tel:+241077047564">+241 077 04 75 64</a><br><a href="mailto:contact@lbvproduction.com">contact@lbvproduction.com</a><br>Lundi – vendredi, 10 h – 19 h</p>
+      </div>
+      <div>
+        <p class="f-label">SUIVRE</p>
+        <p><a href="https://www.instagram.com/lbv_production/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.youtube.com/@LBVProduction-241" target="_blank" rel="noopener">YouTube</a> · <a href="https://www.facebook.com/people/LBV-Production/61575781109680/" target="_blank" rel="noopener">Facebook</a> · <a href="https://x.com/Lbvproduction1" target="_blank" rel="noopener">X</a></p>
+      </div>
+      <div>
+        <p class="f-label">© 2026</p>
+        <p>LBV Production. Tous droits réservés.<br>Label indépendant gabonais.</p>
+      </div>
+    </div>
+    <div class="scrolling-text">
+      <div class="rail">
+        <h4 class="fonts-change">Libreville a une voix.</h4>
+        <h4 class="fonts-change">Libreville a une voix.</h4>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Flip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webgl-fluid@0.3.7/dist/webgl-fluid.umd.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

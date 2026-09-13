@@ -1,0 +1,6 @@
+"site_content
+"newsletter_subscribers
+"release_banner
+"articles
+"shipping_zones
+"orders
