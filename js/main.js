@@ -226,31 +226,8 @@
       .to(para.words, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power4.out', stagger: { each: 0.05, from: 'random' } }, '-=0.8');
   });
 
-  /* ---------- Feu (canvas 2D, remplace le GIF de la référence) ---------- */
-  $$('.fire-canvas').forEach((canvas) => {
-    const ctx = canvas.getContext('2d');
-    const W = 420, H = 150;
-    canvas.width = W; canvas.height = H;
-    const pal = [];
-    const stops = [[0,0,0],[40,0,0],[110,0,0],[153,0,0],[190,4,7],[214,4,7],[240,40,20],[255,90,40],[255,150,90]];
-    for (let i = 0; i < 37; i++) { const t = i / 36 * (stops.length - 1), k = Math.floor(t), fr = t - k, s0 = stops[k], s1 = stops[Math.min(k + 1, stops.length - 1)]; pal.push([s0[0] + (s1[0] - s0[0]) * fr, s0[1] + (s1[1] - s0[1]) * fr, s0[2] + (s1[2] - s0[2]) * fr, i < 2 ? 0 : 255]); }
-    const buf = new Uint8Array(W * H);
-    for (let x = 0; x < W; x++) buf[(H - 1) * W + x] = 36;
-    const img = ctx.createImageData(W, H);
-    let running = false, raf = 0;
-    const step = () => {
-      if (!running) return;
-      for (let x = 0; x < W; x++) buf[(H - 1) * W + x] = Math.random() < 0.985 ? 36 : 24;
-      for (let x = 0; x < W; x++) for (let y = 1; y < H; y++) {
-        const src = y * W + x; const r = Math.floor(Math.random() * 3); const dst = src - r + 1 - W;
-        if (dst >= 0) buf[dst] = Math.max(0, buf[src] - (r & 1) - (Math.random() < 0.08 ? 1 : 0));
-      }
-      for (let i = 0; i < W * H; i++) { const c = pal[buf[i]]; img.data[i * 4] = c[0]; img.data[i * 4 + 1] = c[1]; img.data[i * 4 + 2] = c[2]; img.data[i * 4 + 3] = c[3]; }
-      ctx.putImageData(img, 0, 0);
-      raf = requestAnimationFrame(step);
-    };
-    new IntersectionObserver((en) => { if (en[0].isIntersecting) { if (!running) { running = true; step(); } } else { running = false; cancelAnimationFrame(raf); } }).observe(canvas);
-  });
+  /* ---------- Feu : flammes en shader (js/fire.js) ---------- */
+  if (window.LBVFire && !reduce) window.LBVFire('.fire-canvas');
 
   /* ---------- Services : titre déplacé (Flip), lettres, pin, lignes SVG, mots, chute ---------- */
   const heading = $('.services-heading');

@@ -14,12 +14,12 @@ window.LBVLogo3D = function (opts) {
   const area = (pts) => { let a = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; a += p[0] * q[1] - q[0] * p[1]; } return Math.abs(a / 2); };
   // Lissage de Chaikin : arrondit les marches de la vectorisation sans perdre la forme
   const chaikin = (pts, n) => { let p = pts; for (let k = 0; k < n; k++) { const out = []; for (let i = 0; i < p.length; i++) { const a = p[i], b = p[(i + 1) % p.length]; out.push([a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25], [a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75]); } p = out; } return p; };
-  const size = mobile ? 5.6 : 7.4, depth = 0.9;
+  const size = mobile ? 3.8 : 4.9, depth = 0.42;
   const s = size / Math.max(SH.w, SH.h);
   const toV = (p) => new T.Vector2((p[0] - SH.w / 2) * s, -(p[1] - SH.h / 2) * s);
   const outers = [...SH.outers].sort((a, b) => area(b) - area(a));
   const shapeOf = (o) => { const sh = new T.Shape(chaikin(o, 2).map(toV)); SH.holes.filter((hl) => inside(hl[0], o)).forEach((hl) => sh.holes.push(new T.Path(chaikin(hl, 2).map(toV)))); return sh; };
-  const extrude = (shapes) => { const g = new T.ExtrudeGeometry(shapes, { depth, bevelEnabled: true, bevelThickness: 0.16, bevelSize: 0.12, bevelOffset: 0, bevelSegments: 6, curveSegments: 6 }); g.computeVertexNormals(); return g; };
+  const extrude = (shapes) => { const g = new T.ExtrudeGeometry(shapes, { depth, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.055, bevelOffset: 0, bevelSegments: 5, curveSegments: 6 }); g.computeVertexNormals(); return g; };
   // Lettres (3 plus grandes formes) et étoile (les autres)
   const letters = outers, star = [];
   const gLetters = extrude(letters.map(shapeOf));
@@ -36,7 +36,7 @@ window.LBVLogo3D = function (opts) {
   rend.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   rend.outputEncoding = T.sRGBEncoding;
   rend.toneMapping = T.ACESFilmicToneMapping;
-  rend.toneMappingExposure = 0.9;
+  rend.toneMappingExposure = 1.0;
   rend.physicallyCorrectLights = true;
   holder.appendChild(rend.domElement);
 
@@ -49,17 +49,20 @@ window.LBVLogo3D = function (opts) {
   panel(2, 6, '#ff3b3b', 5, 6, 1, 0, 0, -Math.PI / 2);        // côté droit rouge
   panel(8, 3, '#ff1a1a', 3, 0, 0, -6, 0, 0);                  // fond rouge
   panel(3, 1, '#ffffff', 8, 2, 3, 5, -0.4, Math.PI);         // reflet clé
+  panel(10, 0.5, '#ffffff', 9, 0, -3.5, 0, Math.PI / 2, 0);   // bande claire au sol
+  panel(0.6, 6, '#ffd9d9', 7, 4.5, 1, 3, 0, -Math.PI / 4);    // fine bande pour les reflets sur les arêtes
+  panel(0.6, 6, '#ffffff', 7, -4.5, 1, 3, 0, Math.PI / 4);
   const pmrem = new T.PMREMGenerator(rend); pmrem.compileEquirectangularShader();
   const envMap = pmrem.fromScene(studio, 0.04).texture;
 
-  const matLetters = new T.MeshPhysicalMaterial({ color: '#8e0000', metalness: 0.3, roughness: 0.24, clearcoat: 1, clearcoatRoughness: 0.1, envMap, envMapIntensity: 0.95, emissive: '#240000', emissiveIntensity: 0.3 });
+  const matLetters = new T.MeshPhysicalMaterial({ color: '#a80000', metalness: 1, roughness: 0.11, clearcoat: 0.3, clearcoatRoughness: 0.1, envMap, envMapIntensity: 2.4, emissive: '#160000', emissiveIntensity: 0.25 });
   const matStar = new T.MeshPhysicalMaterial({ color: '#f5f5f5', metalness: 0.95, roughness: 0.18, clearcoat: 0.6, envMap, envMapIntensity: 2, emissive: '#331111', emissiveIntensity: 0.2 });
-  const matBack = new T.MeshPhysicalMaterial({ color: '#7a0000', metalness: 0.5, roughness: 0.3, clearcoat: 0.8, envMap, envMapIntensity: 1.2, emissive: '#200000', emissiveIntensity: 0.4 });
+  const matBack = new T.MeshPhysicalMaterial({ color: '#3a0000', metalness: 1, roughness: 0.35, envMap, envMapIntensity: 0.8, emissive: '#100000', emissiveIntensity: 0.3 });
 
   const makeLogo = (mat) => { const g = new T.Group(); g.add(new T.Mesh(gLetters, mat)); if (gStar) g.add(new T.Mesh(gStar, matStar)); return g; };
   const A = makeLogo(matLetters);
   // Ombre volumique : une copie sombre légèrement en retrait donne de la profondeur sans doublon visible
-  const B = makeLogo(matBack); B.scale.set(1.02, 1.02, 0.6); B.position.z = -0.75;
+  const B = makeLogo(matBack); B.scale.set(1.015, 1.015, 0.7); B.position.z = -0.32;
 
   // Lumières : clé chaude, contre-jour rouge, remplissages rouges (comme la référence, calibrés en mode physique)
   const key = new T.DirectionalLight('#ffe9d6', 1.7); key.position.set(3, 5, 6); scene.add(key);
@@ -73,7 +76,7 @@ window.LBVLogo3D = function (opts) {
   const group = new T.Group(); scene.add(group);
   const inner = new T.Group(); group.add(inner);
   // Entrée par les côtés (référence) : A vient de la gauche, B de la droite et se cale dos à dos derrière A
-  A.position.set(-25, 0, 0); B.position.set(25, 0, -0.75);
+  A.position.set(-25, 0, 0); B.position.set(25, 0, -0.32);
   inner.add(A, B);
   group.position.y = mobile ? 0.3 : 1.3; group.position.z = -2.5;
   const delay = opts.delay ?? 5;
