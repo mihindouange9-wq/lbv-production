@@ -35,7 +35,7 @@ Déploiement : `node tools/export-netlify.mjs` produit `../lbv-production-netlif
 | Processus : fond en parallaxe, 4 boîtes mot à mot, grand titre | Signature → Direction artistique → Production → Sortie et promotion |
 | Journal : titre mots flous, 3 cartes, carte centrale décalée, modale rotative clip-path | Sorties (Spotify) + Actualités (modale, lien YouTube) |
 | Appel final lettres 3D, bouton anneau, modale contact | « Chaque grand titre commence par une Rencontre. » / « Parlons Musique » |
-| Statue 3D (GLB) en calque fixe au-dessus du hero, entrée par les côtés, suivi de la souris, culbute et rotation au scroll, éloignement à la section services | **Logo LBV en 3D** : le PNG du logo est vectorisé (marching squares,  → ) puis extrudé avec biseau dans three.js ; mêmes lumières, mêmes mouvements () |
+| Statue 3D (GLB) en calque fixe au-dessus du hero, entrée par les côtés, suivi de la souris, culbute et rotation au scroll, éloignement à la section services | **Logo LBV en 3D** : le PNG du logo est vectorisé (marching squares, `tools/trace-logo.mjs` → `js/logo-shape.js`) puis extrudé avec biseau dans three.js ; mêmes lumières, mêmes mouvements (`js/logo3d.js`) |
 | Menu à 5 barres, liens en masque, curseur personnalisé, logo 3D qui tourne | Identique, logo LBV |
 
 Sur mobile : fluide, curseur, inclinaison et magnétisme désactivés ; sections épinglées conservées ; `prefers-reduced-motion` coupe préchargeur et fluide.
