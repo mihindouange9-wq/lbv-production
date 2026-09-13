@@ -355,7 +355,8 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 .footer-hit .scrolling-text { position: relative; height: 100vh; z-index: 2; pointer-events: none; }
 .footer-hit .scrolling-text .rail h4 { pointer-events: none; }
 .title-word { display: inline-block; white-space: nowrap; }
-.footer-hit .scrolling-text .rail h4 { transform: translateY(0); font-size: 16rem; color: var(--red); }
+.footer-hit .scrolling-text .rail { overflow: visible; will-change: transform; }
+.footer-hit .scrolling-text .rail h4 { transform: translateY(0); font-size: 16rem; color: var(--red); padding-right: .35em; margin: 0; }
 .footer-infos { position: relative; z-index: 3; padding: 6vh 3% 12vh; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; font-size: .95rem; line-height: 1.6; color: var(--grey); border-top: 1px solid rgba(255,255,255,.08); background: var(--black); }
 .footer-infos .f-label { font-size: .7rem; letter-spacing: .25em; color: var(--red-3); margin-bottom: .5rem; }
 .footer-infos a:hover { color: var(--red-3); }
