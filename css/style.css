@@ -119,12 +119,12 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 .face-image { width: 100%; height: 110% !important; object-fit: cover; object-position: center 12%; filter: brightness(0); transform: translateY(5%) scale(.9); }
 .shade { height: 55vh; z-index: 10; width: 100vw; position: absolute; bottom: -20%; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.85) 45%, #000 100%); }
 .scrolling-text { overflow: hidden; width: 100%; height: 100vh; display: flex; align-items: center; position: absolute; top: 0; left: 0; z-index: 5; pointer-events: none; }
-.scrolling-text .rail { display: flex; pointer-events: none; overflow: hidden; color: #fff; }
-.scrolling-text .rail h4 { white-space: nowrap; font-size: 19rem; transform: translateY(100%); font-weight: 500; text-transform: uppercase; font-family: var(--light-font); line-height: 1em; margin: 0 30px 0 0; color: var(--white); }
+.scrolling-text .rail { display: flex; pointer-events: none; overflow: visible; color: #fff; will-change: transform; }
+.scrolling-text .rail h4 { white-space: nowrap; font-size: clamp(6rem, 13.5vw, 19rem); transform: translateY(100%); font-weight: 500; text-transform: uppercase; font-family: var(--light-font); line-height: 1em; margin: 0; padding-right: .3em; color: var(--white); }
 @media (max-width: 800px) {
-  .scrolling-text .rail h4 { font-size: 9rem; }
-  .expertise-text { top: auto; bottom: 16%; font-size: .9rem; }
-  .para-introduce-hero { top: 15%; font-size: .95rem; max-width: 60%; }
+  .expertise-text { top: auto; bottom: 25%; font-size: .9rem; }
+  .para-introduce-hero { top: 14%; font-size: .92rem; max-width: 64%; }
+  .cta-connect { bottom: 13%; right: 4%; }
   .face-image { object-position: center 20%; }
 }
 
@@ -367,4 +367,35 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
   .site-pre-loader, #fluid2 { display: none !important; }
   .face-image { filter: none; transform: none; }
   .bar, .ring-svg, .cta-connect .icon::before { animation: none !important; }
+}
+
+/* ---------- Petits écrans : tailles fluides et chevauchements ---------- */
+@media (max-width: 480px) {
+  .facts-box h1 { font-size: 4.6rem; }
+  .blog-heading { font-size: 2.6rem; } .blog-heading .fonts { font-size: 3.6rem; }
+  .text-chnage-on-steps h1 { font-size: 1.5rem; }
+  .services-heading { font-size: 2rem; }
+  .content-section-fall .heading-fall { font-size: 2.1rem; }
+  .step-of-work .heading-of-step-work h1 { font-size: 2.1rem; }
+  .before-footer-cta .cta-footer { font-size: 1.1rem; padding: 2.4rem 2rem; } .before-footer-cta .cta-footer .fonts { font-size: 1.8rem; } .before-footer-cta .cta-footer .ring-circle { width: 220px; height: 220px; }
+  .footer-infos { grid-template-columns: 1fr; }
+  .modal-blogs { inset: 3vh 3vw; }
+  .sound-label { display: none; }
+}
+@media (max-height: 560px) and (orientation: landscape) {
+  .para-introduce-hero { top: 12%; max-width: 42%; font-size: .85rem; }
+  .expertise-text { bottom: 20%; font-size: .8rem; }
+  .cinematic-title { font-size: 3rem; } .fonts-c { font-size: 6rem; }
+}
+
+/* ---------- Tablette (801–1024 px) : pile d'artistes et colonnes ---------- */
+@media (min-width: 801px) and (max-width: 1024px) {
+  .step { width: 64vw; left: 18vw; height: 44vh; }
+  .text-chnage-on-steps { flex-direction: column; align-items: flex-start; justify-content: flex-start; top: 5%; transform: none; padding: 2rem 3rem; gap: .4rem; }
+  .text-chnage-on-steps h1 { width: 100%; padding: 0; text-align: left; font-size: 2.2rem; } .text-chnage-on-steps p { width: 70%; font-size: .95rem; }
+  .time-steps-slider { left: 4%; bottom: 5%; }
+  .blogs-main-headings .points-blogs { width: 42%; padding-left: 1rem; margin-right: 0; font-size: 1.2rem; }
+  .blog-heading { font-size: 4.2rem; } .blog-heading .fonts { font-size: 5.6rem; }
+  .boxes-for-step .box-step-main { width: 40%; }
+  .expertise-set { font-size: 1.2rem; }
 }

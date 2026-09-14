@@ -111,7 +111,16 @@
 
   const init = () => {
   /* ---------- Séquence d'entrée du hero ---------- */
-  K.to('.scrolling-text .rail h4', { y: 0, delay: D, duration: 2 });
+  // Rail du hero : monte à l'entrée puis défile en boucle (tous appareils), accélère et s'incline au scroll
+  K.to('.hero-section-home .scrolling-text .rail h4', { y: 0, delay: D, duration: 2 });
+  const heroRail = $('.hero-section-home .scrolling-text .rail');
+  if (heroRail) {
+    const heroMarquee = K.to(heroRail, { xPercent: -50, duration: 22, ease: 'none', repeat: -1, delay: D + 0.6 });
+    let hv = 0;
+    lenis.on('scroll', (e) => { hv = e.velocity || 0; });
+    const heroSkew = K.quickTo(heroRail, 'skewX', { duration: 0.6, ease: 'power3' });
+    K.ticker.add(() => { const boost = Math.min(Math.abs(hv) / 10, 4); heroMarquee.timeScale(K.utils.interpolate(heroMarquee.timeScale(), 1 + boost, 0.08)); heroSkew(Math.max(-10, Math.min(10, -hv / 5))); });
+  }
   const introLines = new Split('.para-introduce-hero', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.set(introLines.lines, { yPercent: 100, opacity: 0, filter: 'blur(4px)' });
   K.to(introLines.lines, { yPercent: 0, opacity: 1, stagger: 0.01, duration: 1.5, ease: 'power3.out', delay: D, filter: 'blur(0px)' });

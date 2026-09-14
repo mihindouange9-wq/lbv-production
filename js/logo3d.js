@@ -95,14 +95,17 @@ window.LBVLogo3D = function (opts) {
   K.timeline({ scrollTrigger: { trigger: opts.container, start: 'top top', end: () => (window.innerWidth <= 800 ? '270% bottom' : '450% bottom'), scrub: 0.8, invalidateOnRefresh: true } })
     .to(group.position, { z: 1, ease: 'none' }, 0).to(A.rotation, { x: 12.6, ease: 'none' }, 0).to(B.rotation, { x: 12.6, ease: 'none' }, 0);
   K.timeline({ scrollTrigger: { trigger: opts.leaveTrigger || '.box-section-ups', start: 'top top', end: '+=2500', scrub: 0.8, invalidateOnRefresh: true } })
-    .to(group.position, { z: -35, y: 12, ease: 'none', duration: 8 }).to(group.position, { y: 20, ease: 'none' });
+    .to(group.position, { z: -35, y: mobile ? 26 : 12, ease: 'none', duration: 8 }).to(group.position, { y: mobile ? 60 : 30, ease: 'none' });
 
   // La lumière clé tourne lentement : les reflets glissent sur les faces
   const clock = new T.Clock();
   // Rendu seulement tant que le logo est dans le champ (il quitte l'écran après la section services)
   let active = true;
-  window.ScrollTrigger.create({ trigger: opts.leaveTrigger || '.box-section-ups', start: 'top top', end: '+=2600', onLeave: () => { active = false; }, onEnterBack: () => { active = true; } });
-  const tick = () => { if (active) { const t = clock.getElapsedTime(); key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6); rend.render(scene, cam); } requestAnimationFrame(tick); };
+  const leaveEl = document.querySelector(opts.leaveTrigger || '.box-section-ups');
+  const checkActive = () => { if (!leaveEl) return; active = leaveEl.getBoundingClientRect().top > -2600; };
+  window.addEventListener('scroll', checkActive, { passive: true }); checkActive();
+  let cleared = false;
+  const tick = () => { if (active) { cleared = false; const t = clock.getElapsedTime(); key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6); rend.render(scene, cam); } else if (!cleared) { rend.clear(); cleared = true; } requestAnimationFrame(tick); };
   tick();
   window.addEventListener('resize', () => { cam.aspect = holder.clientWidth / holder.clientHeight; cam.updateProjectionMatrix(); rend.setSize(holder.clientWidth, holder.clientHeight); });
 };
