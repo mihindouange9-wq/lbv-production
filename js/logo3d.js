@@ -33,7 +33,7 @@ window.LBVLogo3D = function (opts) {
   cam.position.set(0, 0, mobile ? 20 : 14);
   const rend = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   rend.setSize(holder.clientWidth, holder.clientHeight);
-  rend.setPixelRatio(1);
+  rend.setPixelRatio(mobile ? 0.75 : 1);
   rend.outputEncoding = T.sRGBEncoding;
   rend.toneMapping = T.ACESFilmicToneMapping;
   rend.toneMappingExposure = 1.0;

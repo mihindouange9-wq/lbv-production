@@ -12,8 +12,8 @@ window.LBVFire = function (selector) {
   // au nombre d'échantillons de lueur, à la surface rendue et à la cadence.
   const small = window.innerWidth <= 900 || !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const OCTAVES = small ? 4 : 5;
-  const SCALE = small ? 0.4 : 0.55;      // pixels rendus par pixel CSS
-  const FPS = small ? 24 : 30;
+  const SCALE = small ? 0.26 : 0.55;      // pixels rendus par pixel CSS
+  const FPS = small ? 20 : 30;
   const frag = `
     precision highp float;
     #define OCTAVES ${OCTAVES}

@@ -59,8 +59,9 @@ node tools/charte-assets.mjs && node tools/build-charte.mjs && node tools/pdf-ch
 Le coût est concentré dans trois calques : le feu (shader), le symbole en volume et le fluide qui suit la souris. Règles tenues :
 
 - Les shaders sont compilés au chargement, pendant le préchargeur. Compilés à l'entrée de la section, ils bloquaient le fil principal près de deux secondes.
+- Coût mesuré de ce choix, processeur quatre fois ralenti : environ 30 images par seconde sur téléphone avec tous les effets, contre 58 avec la version simplifiée. Sur un téléphone récent non bridé, la différence ne se voit pas ; sur un appareil d'entrée de gamme, elle se sent.
 - Le feu s'adapte : quatre octaves de bruit et 24 images par seconde sur téléphone, cinq octaves et 30 sur ordinateur, résolution réduite dans les deux cas, rendu seulement quand il est à l'écran.
-- Sur téléphone, le volume et le fluide ne sont pas chargés, la section artistes devient une grille et les ornements fixes disparaissent.
+- Le téléphone reçoit les mêmes effets que l'ordinateur (séquence épinglée du Label, pile d'artistes, fluide, feu, logo en volume) : seules les tailles changent. Ce qui est allégé est invisible à l'œil : GSAP cadencé à 45 images par seconde, rappels de ScrollTrigger limités, fluide rendu à 40 % puis agrandi, feu à 20 images par seconde et à 26 % de résolution, volume plafonné à 30 images par seconde.
 - Aucun calque fixe plein écran avec fusion ou filtre : il force le repaint de tout l'écran à chaque image.
 
 ## Déploiement
