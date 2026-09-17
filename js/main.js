@@ -255,6 +255,11 @@
     // Téléphone : un bloc court et lisible, aucun épinglage, aucun titre déplacé
     K.fromTo('.label-section .label-thumb', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.label-thumbs', start: 'top 85%', once: true } });
     K.fromTo('.label-section .label-list, .label-section .label-panel-text', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.label-lists', start: 'top 85%', once: true } });
+    // les quatre visuels glissent à des vitesses différentes : la profondeur sans coût
+    $$('.label-section .label-thumb img').forEach((img, i) => K.fromTo(img, { yPercent: -6 - i * 2 }, { yPercent: 6 + i * 2, ease: 'none', scrollTrigger: { trigger: img.closest('.label-thumb'), start: 'top bottom', end: 'bottom top', scrub: 0.6 } }));
+    // le panneau oxblood monte et son titre se découvre
+    K.fromTo('.label-panel', { yPercent: 12, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 88%', once: true } });
+    K.fromTo('.label-panel-title, .label-panel-para', { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 82%', once: true } });
   } else {
   const flipState = window.Flip.getState(heading);
   scrollDown.appendChild(heading);
@@ -302,6 +307,8 @@
   const steps = K.utils.toArray('.artist-card'), total = steps.length;
   if (isMobile()) {
     // Téléphone : une grille de six vignettes carrées, nom et style sous chaque photo, aucun épinglage
+    const legende = document.querySelector('.artists-legend p');
+    if (legende) legende.textContent = 'Touchez une fiche pour la découvrir';
     steps.forEach((s, i) => {
       const a = ARTISTS[i];
       if (!a) return;
@@ -318,7 +325,9 @@
       cap.innerHTML = '<b>' + a.name + '</b><span>' + a.tags.slice(0, 2).join(' · ') + '</span>';
       s.appendChild(cap);
     });
-    K.fromTo(steps, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.07, scrollTrigger: { trigger: '.container', start: 'top 85%', once: true } });
+    K.fromTo(steps, { opacity: 0, y: 26, clipPath: 'inset(18% 0% 18% 0%)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.container', start: 'top 85%', once: true } });
+    // la photo glisse dans son cadre pendant le défilement
+    steps.forEach((s) => { const img = s.querySelector('img'); if (img) K.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); });
   } else {
     const bgImg = $('.artists-backdrop img');
     const textBox = $('.artists-legend'), textH1 = textBox.querySelector('h2'), textP = textBox.querySelector('p');
@@ -435,6 +444,7 @@
   /* ---------- Sorties et actualités : cartes, titres ---------- */
   $$('.blog-section').forEach((sec) => {
     if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
+    else K.fromTo(sec.querySelectorAll('.news-card'), { opacity: 0, y: 30, clipPath: 'inset(14% 0% 14% 0%)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: sec.querySelector('.news-cards, .releases-cards') || sec, start: 'top 88%', once: true } });
     new Split(sec.querySelector('.blog-heading'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     new Split(sec.querySelector('.blog-para'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     K.set(sec.querySelectorAll('.blog-heading .word, .blog-para .word'), { yPercent: 120, opacity: 0 });
@@ -543,7 +553,9 @@
   document.querySelectorAll('[role="button"]').forEach((el) => el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } }));
 
   /* ---------- Logo LBV en 3D (calque fixe du haut de page) ---------- */
-  if (window.LBVLogo3D && !reduce && !isMobile()) window.LBVLogo3D({ container: '.logo-stage', delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: isMobile() ? '.facts-figure-container' : '.box-section-ups' });
+  // Le logo en volume tourne aussi sur téléphone ; il n'est écarté que si l'appareil est manifestement trop juste
+  const appareilJuste = (navigator.hardwareConcurrency || 8) <= 3 || (navigator.deviceMemory || 8) <= 2;
+  if (window.LBVLogo3D && !reduce && !appareilJuste) window.LBVLogo3D({ container: '.logo-stage', delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: isMobile() ? '.facts-figure-container' : '.box-section-ups' });
 
   };
   // Polices : on attend au plus 2,5 s (Google Fonts), puis on démarre quoi qu’il arrive

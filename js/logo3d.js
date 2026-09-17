@@ -94,8 +94,10 @@ window.LBVLogo3D = function (opts) {
   K.to(group.rotation, { y: Math.PI * 10, ease: 'none', scrollTrigger: { trigger: opts.container, start: 'top top', end: '900% top', scrub: true } });
   K.timeline({ scrollTrigger: { trigger: opts.container, start: 'top top', end: () => (window.innerWidth <= 800 ? '270% bottom' : '450% bottom'), scrub: 0.8, invalidateOnRefresh: true } })
     .to(group.position, { z: 1, ease: 'none' }, 0).to(A.rotation, { x: 12.6, ease: 'none' }, 0).to(B.rotation, { x: 12.6, ease: 'none' }, 0);
-  K.timeline({ scrollTrigger: { trigger: opts.leaveTrigger || '.box-section-ups', start: 'top top', end: '+=2500', scrub: 0.8, invalidateOnRefresh: true } })
+  const sortie = K.timeline({ scrollTrigger: { trigger: opts.leaveTrigger || '.box-section-ups', start: mobile ? 'top 85%' : 'top top', end: mobile ? '+=1400' : '+=2500', scrub: 0.8, invalidateOnRefresh: true } })
     .to(group.position, { z: -35, y: mobile ? 26 : 12, ease: 'none', duration: 8 }).to(group.position, { y: mobile ? 60 : 30, ease: 'none' });
+  // Sur téléphone, le logo s'efface en sortant : l'écran est trop étroit pour qu'il traverse le texte
+  if (mobile) { [matLetters, matBack, matStar].forEach((m) => { m.transparent = true; m.opacity = 1; }); sortie.to([matLetters, matBack, matStar], { opacity: 0, ease: 'none', duration: 1.8 }, 0); }
 
   // La lumière clé tourne lentement : les reflets glissent sur les faces
   const clock = new T.Clock();
@@ -105,7 +107,19 @@ window.LBVLogo3D = function (opts) {
   const checkActive = () => { if (!leaveEl) return; active = leaveEl.getBoundingClientRect().top > -2600; };
   window.addEventListener('scroll', checkActive, { passive: true }); checkActive();
   let cleared = false;
-  const tick = () => { if (active) { cleared = false; const t = clock.getElapsedTime(); key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6); rend.render(scene, cam); } else if (!cleared) { rend.clear(); cleared = true; } requestAnimationFrame(tick); };
+  // Sur téléphone, 30 images par seconde suffisent pour une rotation lente et coûtent deux fois moins
+  const interval = mobile ? 1000 / 30 : 0;
+  let lastDraw = -1e9;
+  const tick = (now = 0) => {
+    requestAnimationFrame(tick);
+    if (active) {
+      if (now - lastDraw < interval) return;
+      lastDraw = now; cleared = false;
+      const t = clock.getElapsedTime();
+      key.position.set(Math.sin(t * 0.35) * 4, 5, Math.cos(t * 0.35) * 6);
+      rend.render(scene, cam);
+    } else if (!cleared) { rend.clear(); cleared = true; }
+  };
   tick();
   window.addEventListener('resize', () => { cam.aspect = holder.clientWidth / holder.clientHeight; cam.updateProjectionMatrix(); rend.setSize(holder.clientWidth, holder.clientHeight); });
 };
