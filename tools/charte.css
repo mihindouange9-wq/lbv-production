@@ -511,3 +511,6 @@ table.files code { color: var(--os); }
 .cover-logo::before { content: ""; position: absolute; left: 50%; top: 50%; width: 760px; height: 420px; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, rgba(122, 10, 10, .5), transparent 65%); z-index: -1; }
 .cover-logo .lg { filter: drop-shadow(0 18px 60px rgba(10, 10, 10, .85)); }
 .cover-bottom .cover-line { max-width: 22ch; }
+
+.back-inner .signature { margin-top: 10px; color: var(--cendre); letter-spacing: .22em; }
+.files + div h3 + p b { font-weight: 400; color: var(--os); }

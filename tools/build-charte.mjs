@@ -378,6 +378,8 @@ page({ ch: 'fichiers', title: 'Fichiers livrés et contacts', body: `
       <p>Les fichiers vectoriels se trouvent dans le dossier <code>brand/</code> du projet. Ils sont tracés à partir du logo officiel en haute définition. Pour un PNG, exporter depuis le SVG à la taille voulue, jamais agrandir un PNG existant.</p>
       <h3>Contact de la marque</h3>
       <p>LBV Production<br>Cité Magnolia, Villa 163, Akanda, Libreville, Gabon<br>contact@lbvproduction.com · +241 077 04 75 64<br>Instagram @lbv_production · YouTube @LBVProduction-241</p>
+      <h3>Conception</h3>
+      <p>Identité, charte graphique et site : <b>MÉTHODE AURA</b>.<br>Les fichiers sources restent la propriété de LBV Production.</p>
       <p class="small">Toute application non prévue dans ce document est soumise à la validation du label avant diffusion.</p>
     </div>
   </div>` });
@@ -385,7 +387,7 @@ page({ ch: 'fichiers', title: 'Fichiers livrés et contacts', body: `
 /* Dos */
 page({ cls: 'back-cover', bare: true, body: `
   <img class="back-fire" src="img/feu.jpg" alt="">
-  <div class="back-inner">${mark(120)}<p class="cover-line">Ça va sonner <em>différent.</em></p><span>© LBV Production 2026 · Charte graphique, édition 01</span></div>` });
+  <div class="back-inner">${mark(120)}<p class="cover-line">Ça va sonner <em>différent.</em></p><span>© LBV Production 2026 · Charte graphique, édition 01</span><span class="signature">Conception et réalisation : MÉTHODE AURA</span></div>` });
 
 /* ---------- Assemblage ---------- */
 const TOTAL = pages.length;
