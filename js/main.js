@@ -76,12 +76,12 @@
           float edge = 1.0 - abs(rawStrength); edge = pow(clamp(edge, 0.0, 1.0), 8.0); edge *= min(uTransition, 1.0);
           vec3 deepMidnightColor = vec3(0.16, 0.02, 0.02); vec3 richGlowingColor = uBorderColor * 1.5;
           vec3 edgeColor = mix(deepMidnightColor, richGlowingColor, sin(uTime * 1.5) * 0.5 + 0.5);
-          vec3 baseRed = vec3(0.46, 0.04, 0.04);
-          vec3 planeColor = mix(baseRed, edgeColor * 6.5, edge);
+          vec3 baseRed = vec3(0.478, 0.039, 0.039); // Oxblood #7A0A0A (charte)
+          vec3 planeColor = mix(baseRed, edgeColor * 4.5, edge);
           float finalAlpha = max(strength, edge);
           planeColor += sin(gl_FragCoord.y * 2.5) * 0.02;
           float grain = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711, 0.00584)))); planeColor += (grain - 0.5) * 0.02;
-          gl_FragColor = vec4(planeColor, finalAlpha);
+          gl_FragColor = vec4(planeColor * finalAlpha, finalAlpha); // alpha prémultiplié : la couleur reste exacte sur le fond
         }`,
     });
     const mesh = new T.Mesh(new T.PlaneGeometry(2, 2), mat);
@@ -107,7 +107,7 @@
     K.to(n, { value: 100, duration: 3.5, ease: 'power2.inOut',
       onUpdate() { counter.textContent = Math.floor(n.value).toString().padStart(3, '0'); },
       onComplete() { const tl = K.timeline(); tl.to(counter, { opacity: 0, duration: 1.45, ease: 'power3.out' }).to('.site-pre-loader', { duration: 2.85 }).to('.site-pre-loader', { autoAlpha: 0, duration: 0.5 }); } });
-    K.fromTo('.sound-follow', { opacity: 0 }, { opacity: 1, duration: 4, ease: 'power1.inOut', repeat: -1, yoyo: true });
+    K.fromTo('.sound-follow', { opacity: 0 }, { opacity: 0.85, duration: 1.4, ease: 'expo.out', delay: 0.6 });
   }
 
   /* ---------- Lecture progressive (téléphone) : court par défaut, « Lire la suite » ---------- */
@@ -168,7 +168,7 @@
   /* ---------- Bouton WhatsApp : magnétique, se cache à la descente ---------- */
   const connect = $('.cta-connect');
   connect.addEventListener('mousemove', (e) => { const r = connect.getBoundingClientRect(); K.to(connect, { x: (e.clientX - r.left - r.width / 2) * 0.2, y: (e.clientY - r.top - r.height / 2) * 0.2, duration: 0.4, ease: 'power3.out' }); });
-  connect.addEventListener('mouseleave', () => K.to(connect, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' }));
+  connect.addEventListener('mouseleave', () => K.to(connect, { x: 0, y: 0, duration: 1.2, ease: 'expo.out' }));
   connect.addEventListener('click', () => window.open('https://wa.me/241077047564?text=' + encodeURIComponent('Bonjour LBV Production, '), '_blank'));
   let lastScroll = window.scrollY;
   window.addEventListener('scroll', () => { const y = window.scrollY; K.to(connect, { x: y > lastScroll && y > 100 ? '300%' : 0, duration: 0.5, ease: 'power3.out', overwrite: true }); lastScroll = y; }, { passive: true });
@@ -183,11 +183,7 @@
   }
 
   /* ---------- Logo 3D ---------- */
-  const spin = K.to('.logo-card', { rotationY: '+=360', duration: 8, ease: 'none', repeat: -1 });
-  const logoCard = $('.logo-card');
-  logoCard.addEventListener('mouseenter', () => K.to(spin, { timeScale: 6, duration: 0.4, ease: 'power3.out' }));
-  logoCard.addEventListener('mouseleave', () => K.to(spin, { timeScale: 1, duration: 1.2, ease: 'power3.out' }));
-  $('.logo-3d').addEventListener('click', () => lenis.scrollTo(0));
+  $('.logo-3d').addEventListener('click', (e) => { e.preventDefault(); lenis.scrollTo(0); });
 
   /* ---------- Musique et onde ---------- */
   const music = $('#bgMusic');
@@ -212,7 +208,7 @@
   menuTl.to('.line-1', { xPercent: 0, y: 4.5, rotation: 45, background: '#000', duration: 0.35, ease: 'power3.inOut' }, 0)
     .to('.line-2', { xPercent: 0, y: -4, rotation: -45, background: '#000', duration: 0.35, ease: 'power3.inOut' }, 0)
     .to('.logo-3d', { filter: 'brightness(0)', duration: 0.35 }, 0)
-    .from('.line-mask', { yPercent: 100, opacity: 0, filter: 'blur(4px)', stagger: 0.03, duration: 0.8, ease: 'power4.out' }, 0);
+    .from('.line-mask', { yPercent: 100, opacity: 0, stagger: 0.03, duration: 1.2, ease: 'expo.out' }, 0);
   let menuOpen = false;
   const openMenu = () => { lenis.stop(); K.fromTo('.bar-bgs', { scaleX: 0, transformOrigin: 'right center' }, { scaleX: 1, duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => menuTl.play(0) }); K.set('.navigation-menu', { visibility: 'visible', pointerEvents: 'auto' }); K.set('.menu-2-bar', { mixBlendMode: 'normal' }); menuOpen = true; };
   const closeMenu = () => { menuTl.reverse(); K.delayedCall(0.45, () => K.to('.bar-bgs', { scaleX: 0, transformOrigin: 'left center', duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => { K.set('.navigation-menu', { visibility: 'hidden', pointerEvents: 'none' }); K.set('.menu-2-bar', { mixBlendMode: 'difference' }); lenis.start(); } })); menuOpen = false; };
@@ -220,7 +216,7 @@
   $$('.menu-navigate-scroll a').forEach((a) => a.addEventListener('click', (e) => {
     e.preventDefault();
     K.to('.plus-rotates', { scale: 0, rotation: 0, duration: 0.3, ease: 'power3.out' });
-    K.to(a.querySelector('.plus-rotates'), { scale: 1.1, rotation: 180, duration: 0.4, ease: 'back.out(2)' });
+    K.to(a.querySelector('.plus-rotates'), { scale: 1, rotation: 90, duration: 0.8, ease: 'expo.out' });
     closeMenu();
     const target = $(a.getAttribute('href'));
     if (target) K.delayedCall(0.9, () => lenis.scrollTo(target, { offset: 0, duration: 1.6 }));
@@ -230,7 +226,7 @@
   /* ---------- Titre cinématique et texte du label ---------- */
   const cine = $('.cinematic-title');
   if (cine) {
-    cine.innerHTML = cine.innerHTML.replace(/(<[^>]+>)|([^<s]+)/g, (m, tag, word) => tag || ('<span class="title-word">' + [...word].map((ch) => `<span class="title-letter">${ch}</span>`).join('') + '</span>'));
+    cine.innerHTML = cine.innerHTML.replace(/(<[^>]+>)|([^<\s]+)/g, (m, tag, word) => tag || ('<span class="title-word">' + [...word].map((ch) => `<span class="title-letter">${ch}</span>`).join('') + '</span>'));
     K.from($('.title-letter', cine), { opacity: 0, yPercent: 40, duration: 1.4, stagger: { each: 0.035, from: 'start' }, ease: 'expo.out', scrollTrigger: { trigger: cine, start: 'top 60%', once: true } });
   }
   const cineText = new Split('.cinematic-text', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
@@ -413,7 +409,7 @@
   let followClose = () => {};
   if (fine) { const qx = K.quickTo(mClose, 'x', { duration: 0.3, ease: 'power3.out' }), qy = K.quickTo(mClose, 'y', { duration: 0.3, ease: 'power3.out' }); followClose = (e) => { qx(e.clientX - 28); qy(e.clientY - 28); }; }
   else K.set(mClose, { x: window.innerWidth - 72, y: 16 });
-  const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.4, ease: 'back.out(1.7)' }); window.addEventListener('mousemove', followClose); };
+  const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
   const hideClose = () => { K.to(mClose, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' }); window.removeEventListener('mousemove', followClose); };
   const openBlog = (i) => {
     if (modalBusy) return; modalBusy = true; lenis.stop();
@@ -481,9 +477,8 @@
   if (footRail) {
     const rows = footRail.querySelectorAll('h4');
     K.set(rows, { yPercent: 100, opacity: 0 });
-    ST.create({ trigger: '.footer-hit', start: 'top 70%',
-      onEnter: () => K.to(rows, { yPercent: 0, opacity: 1, duration: 1.6, ease: 'power4.out', stagger: 0.08, overwrite: true }),
-      onLeaveBack: () => K.to(rows, { yPercent: 100, opacity: 0, duration: 0.8, ease: 'power3.in', overwrite: true }) });
+    ST.create({ trigger: '.footer-hit', start: 'top 70%', once: true,
+      onEnter: () => K.to(rows, { yPercent: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: 0.08, overwrite: true }) });
     const marquee = K.to(footRail, { xPercent: -50, duration: 26, ease: 'none', repeat: -1 });
     let vel = 0;
     lenis.on('scroll', (e) => { vel = e.velocity || 0; });

@@ -80,3 +80,11 @@ node tools/charte-shots.mjs 1  # captures de relecture → tools/shots/charte/
 ```
 
 Fichiers de marque livrés dans `brand/` : logo os, noir, braise, oxblood ; symbole os, noir, braise ; avatar carré. La charte n'est pas exportée avec le site (`tools/export-netlify.mjs`).
+
+### Site conforme à la charte
+
+- Symbole vectoriel (`#lbv-mark`, défini une fois en haut de `index.html`) dans l'en-tête et le bouton WhatsApp ; plus de PNG de logo ni de carte qui tourne. Favicon, icône 180 px, logo 512 px et image de partage générés par `node tools/brand-exports.mjs`.
+- Logo en volume : contours issus du tracé HD (`node tools/brand-to-3d.mjs` → `js/logo-shape.js`).
+- Palette réduite aux couleurs de la charte (jetons dans `css/style.css`), préchargeur en oxblood exact, grain à 6 %.
+- Typographie : phrases longues en casse normale, graisses légères, un seul mot en braise par titre, même graisse que le titre.
+- Mouvement : plus de rebond, de flou d'apparition, de clignotement ni de rotation continue ; révélation du pied de page jouée une fois.
