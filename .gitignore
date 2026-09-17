@@ -4,3 +4,5 @@ research/*.js
 research/*.css
 research/*.html
 research/supabase-key.txt
+charte/*.pdf
+tools/tmp/

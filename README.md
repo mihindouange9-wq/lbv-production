@@ -66,3 +66,17 @@ node tools/cdp-shoot.mjs index.html 1440 900 desktop      # planche-contact au d
 node tools/cdp-shoot.mjs index.html 390 844 mobile mobile
 node tools/cdp-frame.mjs index.html 2500 tools/shots/menu.png ".menu-2-bar"   # capture après un clic
 ```
+
+## Charte graphique (17 septembre 2026)
+
+Charte complète en 45 planches 16:9 : univers et plateforme de marque, logo (anatomie, construction en unité X, zone de protection, tailles minimales, versions, symbole seul, logo sur image, interdits, co-signature), couleur (dominante, palette HEX / RVB / CMJN, neutres et couleurs d'ambiance, contrastes WCAG), typographie (Stack Sans Headline, Bebas Neue, hiérarchie, règles), image (étalonnage, portraits carrés, pochettes), signes et mouvement, voix, applications (réseaux, pochettes, LBV Show, merch, papeterie, écrans), fichiers.
+
+```bash
+node tools/trace-brand.mjs     # vectorise le logo 1080 px → brand/*.svg + brand/lbv-geometry.json
+node tools/charte-assets.mjs   # visuels allégés → charte/img/
+node tools/build-charte.mjs    # → charte/index.html (mise en page : tools/charte.css)
+node tools/pdf-charte.mjs      # → charte/LBV_Production_Charte_Graphique.pdf (non versionné, 28 Mo)
+node tools/charte-shots.mjs 1  # captures de relecture → tools/shots/charte/
+```
+
+Fichiers de marque livrés dans `brand/` : logo os, noir, braise, oxblood ; symbole os, noir, braise ; avatar carré. La charte n'est pas exportée avec le site (`tools/export-netlify.mjs`).

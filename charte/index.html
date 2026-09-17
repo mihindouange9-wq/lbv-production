@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charte graphique LBV Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>/* Charte graphique LBV Production : mise en page des planches (1200 × 675, mise à l'échelle à l'écran) */
+:root {
+  --k: 1;
+  --noir: #0a0a0a; --charbon: #161616; --graphite: #1e1e1e;
+  --os: #e7e3da; --os-2: #cfcac0; --cendre: #8c8a85; --cendre-2: #5f5d59;
+  --ox: #7a0a0a; --braise: #d8261e; --sang: #1c0505; --flamme: #f2a03d;
+  --line: rgba(231, 227, 218, .12); --line-2: rgba(231, 227, 218, .22);
+  --display: "Stack Sans Headline", "Helvetica Neue", Arial, sans-serif;
+  --num: "Bebas Neue", Impact, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #050505; color: var(--os); font: 300 15px/1.5 var(--display); -webkit-font-smoothing: antialiased; }
+em { font-style: normal; color: var(--braise); }
+code { font: 400 12px/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--os-2); }
+img { display: block; max-width: none; }
+.lg { display: block; fill: currentColor; overflow: visible; }
+
+/* Planches et mise à l'échelle */
+.deck { display: flex; flex-direction: column; align-items: center; gap: calc(28px * var(--k)); padding-block: 24px 48px; padding-inline: 16px; }
+.sheet { width: calc(1200px * var(--k)); height: calc(675px * var(--k)); flex: none; }
+.page { position: relative; width: 1200px; height: 675px; transform: scale(var(--k)); transform-origin: 0 0; background: var(--noir); overflow: hidden; padding: 40px 56px 36px; display: flex; flex-direction: column; box-shadow: 0 0 0 1px rgba(231, 227, 218, .06); }
+
+header, footer { display: flex; justify-content: space-between; align-items: baseline; font: 400 10.5px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--cendre); }
+header b { color: var(--braise); font-weight: 400; margin-right: .6em; }
+footer { margin-top: auto; padding-top: 14px; }
+.pnum { font: 400 15px/1 var(--num); letter-spacing: .08em; color: var(--os-2); }
+.title { font: 300 38px/1.02 var(--display); letter-spacing: -.03em; margin: 22px 0 24px; text-wrap: balance; }
+.body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 18px; }
+
+h3 { font: 400 16px/1.2 var(--display); letter-spacing: -.01em; margin-bottom: 6px; color: var(--os); }
+p + h3, .mins + h3 { margin-top: 20px; }
+p { max-width: 62ch; color: var(--os-2); }
+p.lead { font: 300 22px/1.3 var(--display); letter-spacing: -.02em; color: var(--os); max-width: 34ch; }
+.small { font-size: 12px; line-height: 1.5; color: var(--cendre); }
+.wide { max-width: none; }
+.eyebrow { display: block; font: 400 10.5px/1.2 var(--display); letter-spacing: .28em; text-transform: uppercase; color: var(--cendre); margin-bottom: 10px; }
+.num { font-variant-numeric: tabular-nums; }
+
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; flex: 1; min-height: 0; }
+.two.top { align-items: start; }
+.two.tight { flex: none; align-items: start; gap: 40px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+/* Couverture */
+.cover { padding: 0; }
+.cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 40%; filter: contrast(1.1) saturate(.9) brightness(.55); }
+.cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0a0a0a 0%, rgba(10, 10, 10, .92) 38%, rgba(10, 10, 10, .2) 75%, rgba(10, 10, 10, .5) 100%); }
+.cover > * { position: relative; z-index: 2; }
+.cover-top, .cover-bottom { position: absolute; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: baseline; font: 400 10.5px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--os-2); }
+.cover-top { top: 40px; } .cover-bottom { bottom: 36px; }
+.cover-logo { position: absolute; left: 56px; top: 168px; }
+.cover-line { font: 200 44px/1 var(--display); letter-spacing: -.03em; text-transform: none; color: var(--os); }
+
+/* Sommaire */
+.toc-page .body { justify-content: space-between; }
+.howto { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; border-top: 1px solid var(--line-2); padding-top: 18px; }
+.howto p { font-size: 14px; }
+.toc { list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 72px; margin-top: 8px; }
+.toc li { display: grid; grid-template-columns: 52px 1fr auto; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.toc-n { font: 400 22px/1 var(--num); color: var(--braise); letter-spacing: .04em; }
+.toc-t { font: 300 24px/1 var(--display); letter-spacing: -.02em; }
+.toc-p { font: 400 18px/1 var(--num); color: var(--cendre); letter-spacing: .06em; }
+
+/* Intercalaires */
+.divider { padding: 0; justify-content: flex-end; }
+.div-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) saturate(.85) brightness(.5); }
+.divider::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #0a0a0a 8%, rgba(10, 10, 10, .55) 55%, rgba(10, 10, 10, .15) 100%); }
+.div-num { position: absolute; z-index: 2; right: 48px; top: 10px; font: 400 300px/1 var(--num); color: var(--os); opacity: .92; letter-spacing: -.01em; }
+.div-txt { position: relative; z-index: 2; padding: 0 56px 26px; }
+.div-txt h2 { font: 200 96px/.95 var(--display); letter-spacing: -.045em; margin-bottom: 18px; }
+.div-txt p { font: 300 19px/1.35 var(--display); color: var(--os-2); max-width: 44ch; }
+.divider footer { position: relative; z-index: 2; padding: 0 56px 36px; margin: 0; }
+
+/* Univers */
+.mani { display: grid; grid-template-rows: auto 1fr; gap: 40px; }
+.mani-big { font: 200 64px/1 var(--display); letter-spacing: -.04em; color: var(--os); max-width: none; }
+.mani-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; border-top: 1px solid var(--line); padding-top: 22px; }
+.mani-cols p { font-size: 14.5px; }
+.iata { display: grid; grid-template-columns: 470px 1fr; gap: 48px; align-items: center; flex: 1; }
+.iata-code { font: 400 290px/.8 var(--num); letter-spacing: .01em; color: var(--os); padding-top: 20px; }
+.iata-text { display: flex; flex-direction: column; gap: 16px; }
+.triad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; border-top: 1px solid var(--line); padding-top: 16px; margin-top: 6px; }
+.triad b { display: block; font: 400 11px/1 var(--display); letter-spacing: .28em; text-transform: uppercase; color: var(--braise); margin-bottom: 8px; }
+.triad span { font-size: 13px; color: var(--os-2); line-height: 1.45; }
+.platform { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.pf { padding: 20px 22px 26px 0; }
+.pf + .pf { padding-left: 22px; border-left: 1px solid var(--line); }
+.pf p { font: 300 21px/1.22 var(--display); letter-spacing: -.02em; color: var(--os); }
+.traits ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 40px; }
+.traits li { font: 300 22px/1.2 var(--display); letter-spacing: -.02em; color: var(--cendre); }
+.traits li b { font-weight: 300; color: var(--os); }
+.mood-page .body { flex-direction: row; gap: 36px; }
+.mood { flex: 1; display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; }
+.mood figure { position: relative; overflow: hidden; background: var(--charbon); }
+.mood img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.08) saturate(.9) brightness(.85); }
+.mood .m1 { grid-row: span 2; }
+.mood-side { width: 300px; display: flex; flex-direction: column; gap: 14px; }
+.mood-side p { font-size: 14px; }
+.keywords { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: auto; }
+.keywords li { font: 400 11px/1.8 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--os); }
+.keywords li::before { content: "+ "; color: var(--braise); }
+
+/* Logo */
+.logo-hero { flex: 1; display: flex; align-items: center; padding-left: 20px; }
+.logo-hero-cap { position: absolute; right: 56px; bottom: 80px; width: 330px; display: flex; flex-direction: column; gap: 10px; }
+.logo-hero-cap p { font-size: 14px; }
+.anat { display: grid; grid-template-columns: 1fr 340px; gap: 30px; align-items: center; flex: 1; }
+.anat-svg { display: block; overflow: visible; margin-left: 60px; }
+.ann line { stroke: var(--braise); }
+.ann circle { fill: var(--braise); }
+.ann text { fill: var(--os); font-family: var(--display); letter-spacing: .02em; }
+.anat-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.anat-list b { display: block; font: 400 15px/1.2 var(--display); color: var(--os); margin-bottom: 3px; }
+.anat-list span { font-size: 13px; line-height: 1.45; color: var(--os-2); }
+.constr { display: flex; gap: 48px; align-items: center; flex: 1; }
+.constr-svg { clip-path: inset(0); }
+.constr-svg { display: block; flex: none; overflow: visible; }
+.grid line { stroke: rgba(231, 227, 218, .2); }
+.grid text { fill: var(--os-2); font-family: var(--display); letter-spacing: .08em; }
+.xsq rect { fill: rgba(216, 38, 30, .1); stroke: var(--braise); }
+.dims line { stroke: var(--braise); }
+.dimt { fill: var(--braise); font-family: var(--num); letter-spacing: .06em; }
+.constr-side { display: flex; flex-direction: column; gap: 16px; }
+table.kv { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+table.kv td { padding: 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--os-2); }
+table.kv td:last-child { text-align: right; font: 400 17px/1.1 var(--num); letter-spacing: .05em; color: var(--os); padding-left: 20px; }
+.motion-table td:last-child { font: 300 13.5px/1.45 var(--display) !important; letter-spacing: 0 !important; text-align: left !important; color: var(--os) !important; }
+.protect { display: flex; justify-content: center; }
+.protect svg { overflow: visible; }
+.pz { fill: none; stroke: var(--braise); }
+.xs { fill: rgba(216, 38, 30, .16); stroke: none; }
+.protect text { fill: var(--braise); font-family: var(--num); }
+.mins { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0 12px; }
+.mins > div { border-top: 1px solid var(--line); padding-top: 14px; }
+.min-demo { height: 48px; display: flex; align-items: center; margin-bottom: 10px; }
+.mins b { display: block; font-weight: 400; font-size: 14px; }
+.mins span { font: 400 15px/1.2 var(--num); letter-spacing: .05em; color: var(--cendre); }
+.plate { display: flex; align-items: center; justify-content: center; height: 250px; }
+.plate.tall { height: 290px; position: relative; }
+.ver b { display: block; font-weight: 400; font-size: 15px; margin-top: 12px; }
+.ver span { display: block; font-size: 12.5px; color: var(--cendre); margin-top: 2px; line-height: 1.45; }
+.avatar { width: 156px; height: 156px; border-radius: 50%; background: var(--noir); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px var(--line); }
+.appicon { width: 110px; height: 110px; border-radius: 24px; background: var(--noir); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px var(--line); }
+.fav32, .fav16 { position: absolute; bottom: 26px; background: var(--noir); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px var(--line); }
+.fav32 { width: 32px; height: 32px; right: 70px; border-radius: 6px; } .fav16 { width: 18px; height: 18px; right: 40px; border-radius: 3px; bottom: 33px; }
+.onimg figure { display: flex; flex-direction: column; gap: 12px; }
+.shot { position: relative; height: 380px; overflow: hidden; }
+.shot img { width: 100%; height: 100%; object-fit: cover; }
+.veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 10, 10, .92) 0%, rgba(10, 10, 10, 0) 55%); }
+.shot-logo { position: absolute; left: 22px; bottom: 22px; }
+.shot-logo.tl { top: 22px; bottom: auto; }
+.shot-logo.mid { left: 50%; top: 42%; transform: translate(-50%, -50%); bottom: auto; }
+.onimg figcaption, .grade figcaption { font-size: 13px; color: var(--os-2); }
+figcaption b { font-weight: 400; color: var(--os); margin-right: .4em; }
+.ok figcaption b { color: var(--os); }
+.no figcaption b, .ver.no b { color: var(--braise); }
+.no .shot::after, .no .g-img::after, .ver.no .plate::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent calc(50% - 1px), var(--braise) calc(50% - 1px), var(--braise) calc(50% + 1px), transparent calc(50% + 1px)); }
+.ver.no .plate { position: relative; height: 188px; }
+.donts { row-gap: 14px; }
+.donts .ver b { margin-top: 8px; font-size: 13.5px; }
+.cosign { gap: 34px; height: 380px; }
+.cosign .x { font: 200 44px/1 var(--display); color: var(--os-2); }
+.partner { font: 400 22px/1 var(--display); letter-spacing: .24em; }
+.partner small { font-size: 11px; letter-spacing: .24em; color: var(--cendre); }
+.rules { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+.rules b { display: block; font-weight: 400; font-size: 15px; }
+.rules span { font-size: 13.5px; color: var(--os-2); }
+
+/* Couleur */
+.dominant { display: flex; flex-direction: column; gap: 34px; }
+.dom-bar { display: flex; height: 250px; gap: 2px; }
+.dom-bar > div { position: relative; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: inset 0 0 0 1px var(--line); }
+.dom-bar span { font: 400 44px/1 var(--num); letter-spacing: .03em; }
+.dom-bar b { font-weight: 400; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; }
+.dom-notes p { font-size: 13.5px; }
+.swatch .chip { height: 250px; padding: 16px; display: flex; align-items: flex-end; }
+.swatch .chip span { font: 300 22px/1 var(--display); letter-spacing: -.02em; }
+.swatch dl { display: grid; grid-template-columns: 48px 1fr; gap: 4px 8px; margin: 14px 0 8px; font-size: 13px; }
+.swatch dt { color: var(--cendre); font-size: 10.5px; letter-spacing: .2em; padding-top: 2px; }
+.swatch dd { font: 400 16px/1.2 var(--num); letter-spacing: .06em; }
+.swatch p { font-size: 12.5px; color: var(--cendre); }
+.mini { display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.mini i { display: block; width: 64px; height: 48px; }
+.mini b { display: block; font-weight: 400; font-size: 15px; }
+.mini code { display: block; font-size: 11px; color: var(--cendre); margin: 2px 0; }
+.mini span { font-size: 12.5px; color: var(--os-2); }
+table.contrast { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.contrast th { text-align: left; font: 400 10px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: var(--cendre); padding: 0 12px 10px 0; border-bottom: 1px solid var(--line-2); }
+table.contrast td { padding: 4px 12px 4px 0; border-bottom: 1px solid var(--line); color: var(--os-2); }
+table.contrast td.num { font: 400 17px/1 var(--num); letter-spacing: .05em; color: var(--os); }
+table.contrast tr.fail td:last-child { color: var(--braise); }
+.sample { display: inline-flex; width: 58px; height: 26px; align-items: center; justify-content: center; font: 400 16px/1 var(--display); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* Typographie */
+.specimen { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center; }
+.aa { font: 200 250px/.8 var(--display); letter-spacing: -.06em; }
+.weights { display: flex; flex-wrap: wrap; gap: 8px 26px; font: 24px/1.2 var(--display); letter-spacing: -.02em; margin-bottom: 18px; }
+.alphabet { font: 300 25px/1.45 var(--display); letter-spacing: -.01em; color: var(--os-2); margin-bottom: 18px; }
+.specimen.bebas { display: flex; flex-direction: column; gap: 22px; }
+.big-num { font: 400 230px/.82 var(--num); letter-spacing: .01em; }
+.big-num span { color: var(--braise); margin: 0 .12em; }
+.num-font { font-family: var(--num); letter-spacing: .06em; font-size: 30px; color: var(--os); }
+.hier { display: grid; grid-template-columns: 1.15fr 1fr; gap: 44px; align-items: start; }
+.sample-comp { padding: 30px 32px; background: var(--charbon); }
+.h-eyebrow { display: block; font: 400 11.5px/1 var(--display); letter-spacing: .28em; text-transform: uppercase; color: var(--cendre); }
+.h-display { font: 200 70px/.96 var(--display); letter-spacing: -.035em; margin: 16px 0 20px; }
+.h-title { font: 300 26px/1.1 var(--display); letter-spacing: -.02em; margin-bottom: 10px; }
+.h-body { font-size: 15px; line-height: 1.5; max-width: 48ch; }
+.h-meta { display: flex; gap: 20px; align-items: baseline; margin-top: 16px; font-size: 12px; color: var(--cendre); }
+.h-num { font: 400 22px/1 var(--num); letter-spacing: .05em; color: var(--os); }
+table.scale { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.scale td { padding: 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--os-2); }
+table.scale td:first-child { width: 90px; color: var(--os); }
+.comp-rules { flex: 1; }
+.demo-type { height: 150px; display: flex; align-items: center; font: 200 38px/1 var(--display); letter-spacing: -.03em; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+.demo-type.caps { font: 400 17px/1 var(--display); letter-spacing: .3em; }
+.comp-rules p { font-size: 13.5px; }
+.fonts-legal { border-top: 1px solid var(--line); padding-top: 14px; }
+
+/* Image */
+.grade { flex: 1; }
+.grade figure { display: flex; flex-direction: column; gap: 12px; }
+.g-img { position: relative; height: 360px; overflow: hidden; }
+.g-img img { width: 100%; height: 100%; object-fit: cover; }
+.vign { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 75% at 50% 40%, transparent 45%, rgba(10, 10, 10, .6) 100%); }
+.artists { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.artists .sq { aspect-ratio: 1; overflow: hidden; background: var(--charbon); }
+.artists img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.08) saturate(.78) brightness(.86); }
+.artists figcaption { margin-top: 10px; }
+.artists b { display: block; font: 400 13px/1.2 var(--display); letter-spacing: .2em; text-transform: uppercase; }
+.artists span { font-size: 11.5px; color: var(--cendre); }
+.art-rules { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 16px; }
+.art-rules p { font-size: 13px; }
+.art-rules b { font-weight: 400; color: var(--os); }
+.covers-wrap { display: grid; grid-template-columns: 690px 1fr; gap: 40px; align-items: start; }
+.covers-text { display: flex; flex-direction: column; gap: 22px; padding-top: 4px; }
+.covers-text p { font-size: 15px; }
+.covers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.covers img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.checks { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--os-2); }
+.checks li::before { content: "+ "; color: var(--braise); }
+
+/* Signes */
+.signs { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px 28px; flex: 1; }
+.signs figure { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+.s-fire { grid-row: span 2; }
+.s-fire img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center 85%; }
+.signs figcaption b { display: block; font-weight: 400; font-size: 14.5px; margin: 0 0 2px; }
+.signs figcaption span { font-size: 12.5px; color: var(--os-2); line-height: 1.45; }
+.s-demo { flex: 1; min-height: 90px; background: var(--charbon); display: flex; align-items: center; justify-content: center; gap: 22px; position: relative; overflow: hidden; }
+.line-demo { display: block; width: 70%; height: 1px; background: var(--line-2); position: absolute; top: 40%; }
+.line-demo.short { width: 1px; height: 60%; left: 30%; top: 20%; }
+.s-demo.cross { gap: 18px; }
+.grain { background-color: #0d0d0d; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .9 0 0 0 0 .86 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.motion { display: grid; grid-template-columns: 330px 1fr; gap: 56px; align-items: start; }
+.curve { display: flex; flex-direction: column; gap: 12px; }
+.curve code { font-size: 13px; color: var(--os); }
+.motion h3 { margin-top: 22px; color: var(--braise); }
+
+/* Voix */
+.voice p { font-size: 13.5px; }
+.voice h3 { font: 200 30px/1 var(--display); letter-spacing: -.03em; margin-bottom: 10px; }
+.voice-page .voice { margin-top: 10px; }
+.voice-ex { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: auto; }
+.voice-ex > div { min-height: 190px; }
+.voice-ex > div { background: var(--charbon); padding: 18px 18px 22px; }
+.voice-ex q { quotes: none; display: block; font: 300 22px/1.2 var(--display); letter-spacing: -.02em; color: var(--os); }
+.voice-ex .bad q { color: var(--cendre); text-decoration: line-through; text-decoration-color: var(--braise); text-decoration-thickness: 1px; font-size: 16px; }
+.voice-ex .bad .eyebrow { color: var(--braise); }
+
+/* Applications : réseaux */
+.social { display: grid; grid-template-columns: 310px 216px 310px 1fr; gap: 26px; align-items: end; margin-top: auto; margin-bottom: auto; }
+.social figure { display: flex; flex-direction: column; gap: 10px; }
+.social figcaption { font: 400 10.5px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--cendre); }
+.ig { position: relative; overflow: hidden; background: var(--noir); box-shadow: 0 0 0 1px var(--line); }
+.ig.post { width: 310px; height: 310px; }
+.ig.story { width: 216px; height: 384px; }
+.ig img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.post-veil { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 10, 10, .9) 0%, transparent 60%); }
+.post-mark { position: absolute; top: 14px; left: 14px; }
+.post-mark.br { top: auto; left: auto; right: 14px; bottom: 14px; }
+.post-txt { position: absolute; left: 16px; bottom: 14px; }
+.post-txt .eyebrow { font-size: 8px; margin-bottom: 4px; color: var(--os-2); }
+.post-txt b { display: block; font: 200 64px/.9 var(--display); letter-spacing: -.04em; }
+.post-art { font: 400 9px/1 var(--display); letter-spacing: .3em; color: var(--braise); }
+.post-num { position: absolute; right: 14px; top: 12px; font: 400 18px/1 var(--num); letter-spacing: .05em; }
+.story-fire { top: auto !important; height: 55% !important; bottom: 0; object-position: center 85%; }
+.story-top { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); }
+.story-mid { position: absolute; left: 16px; top: 78px; }
+.story-mid .eyebrow { font-size: 7.5px; margin-bottom: 6px; }
+.story-mid b { display: block; font: 200 58px/.88 var(--display); letter-spacing: -.04em; }
+.post-num.big { position: static; display: block; margin-top: 8px; font-size: 26px; color: var(--braise); }
+.story-names { position: absolute; left: 16px; bottom: 16px; font: 400 8px/1.6 var(--display); letter-spacing: .16em; text-transform: uppercase; }
+.ig.quote { display: flex; flex-direction: column; justify-content: center; padding: 22px; background: var(--sang); }
+.ig.quote .eyebrow { font-size: 8px; }
+.ig.quote b { font: 200 44px/1 var(--display); letter-spacing: -.035em; }
+.avatars { align-self: stretch; justify-content: flex-end; }
+.av { width: 110px; height: 110px; border-radius: 50%; background: var(--noir); box-shadow: 0 0 0 1px var(--line-2); display: flex; align-items: center; justify-content: center; }
+.profile { display: flex; flex-direction: column; gap: 2px; margin: 8px 0 20px; }
+.profile b { font-weight: 400; font-size: 15px; }
+.profile span { font-size: 12.5px; color: var(--os-2); }
+.profile .cendre { color: var(--cendre); }
+
+/* Pochettes */
+.sleeves figure { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.sleeves figcaption { font-size: 12.5px; color: var(--cendre); }
+.sleeve { position: relative; width: 330px; height: 330px; overflow: hidden; background: var(--noir); box-shadow: 0 0 0 1px var(--line); }
+.sleeve img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.sleeve.red { background: var(--ox); }
+.sl-title { position: absolute; left: 18px; top: 16px; font: 300 58px/.9 var(--display); letter-spacing: -.04em; }
+.sl-title.low { top: auto; bottom: 44px; }
+.sl-sub { position: absolute; left: 20px; top: 76px; font: 400 10px/1 var(--display); letter-spacing: .3em; text-transform: uppercase; color: var(--os-2); }
+.sl-sub.low { top: auto; bottom: 24px; }
+.sl-sub.dark { top: auto; bottom: 20px; color: var(--noir); }
+.sl-big { position: absolute; left: 18px; top: 18px; font: 200 86px/.86 var(--display); letter-spacing: -.05em; color: var(--noir); }
+.sl-big em { color: var(--os); }
+.sl-mark { position: absolute; right: 16px; bottom: 16px; }
+.sl-fire { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 10, 10, .95) 0%, transparent 50%); }
+
+/* LBV Show */
+.show { display: grid; grid-template-columns: 330px 1fr; grid-template-rows: auto 1fr; gap: 20px 48px; align-items: start; }
+.poster { grid-row: span 2; position: relative; width: 330px; height: 470px; overflow: hidden; margin-top: -14px; box-shadow: 0 0 0 1px var(--line); }
+.poster > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.poster-fire { top: auto !important; height: 45% !important; bottom: 0; object-position: center 90%; mix-blend-mode: screen; }
+.poster-top { position: absolute; top: 18px; left: 18px; right: 18px; display: flex; justify-content: space-between; align-items: flex-start; }
+.poster-top .post-num { position: static; font-size: 24px; }
+.poster-title { position: absolute; left: 16px; top: 120px; font: 200 108px/.84 var(--display); letter-spacing: -.055em; }
+.poster-names { position: absolute; left: 18px; right: 18px; bottom: 58px; font: 400 9px/1.7 var(--display); letter-spacing: .2em; text-transform: uppercase; }
+.poster-foot { position: absolute; left: 18px; right: 18px; bottom: 18px; display: flex; justify-content: space-between; font: 400 8.5px/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--os-2); border-top: 1px solid var(--line-2); padding-top: 10px; }
+.ticket { display: flex; height: 250px; background: var(--os); color: var(--noir); }
+.t-main { flex: 1; padding: 22px 26px; display: flex; flex-direction: column; justify-content: space-between; }
+.t-head { display: flex; justify-content: space-between; align-items: center; font: 400 10px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; }
+.t-head .lg { color: var(--noir) !important; }
+.t-route { display: flex; align-items: center; gap: 26px; }
+.t-route span, .t-meta span, .t-stub span { display: block; font: 400 8.5px/1 var(--display); letter-spacing: .24em; text-transform: uppercase; color: #6b6862; margin-bottom: 4px; }
+.t-route b { display: block; font: 400 62px/.9 var(--num); letter-spacing: .02em; }
+.t-route i { font-style: normal; font-size: 11px; color: #4d4a45; }
+.t-meta { display: grid; grid-template-columns: repeat(4, auto); gap: 18px; border-top: 1px solid rgba(10, 10, 10, .18); padding-top: 12px; }
+.t-meta b { font: 400 20px/1 var(--num); letter-spacing: .04em; }
+.t-stub { width: 150px; border-left: 1.5px dashed rgba(10, 10, 10, .35); padding: 22px 18px; display: flex; flex-direction: column; background: var(--braise); color: var(--noir); }
+.t-stub b { font: 400 40px/1 var(--num); letter-spacing: .03em; }
+.t-stub span { color: rgba(10, 10, 10, .7); }
+.barcode { margin-top: auto; height: 46px; background: repeating-linear-gradient(90deg, #0a0a0a 0 2px, transparent 2px 4px, #0a0a0a 4px 5px, transparent 5px 8px, #0a0a0a 8px 11px, transparent 11px 12px); }
+.show-note { max-width: 60ch; }
+
+/* Merch */
+.merch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1; }
+.merch figure { display: flex; flex-direction: column; gap: 12px; }
+.merch figcaption b { display: block; font-weight: 400; font-size: 14.5px; }
+.merch figcaption span { font-size: 12.5px; color: var(--cendre); }
+.tee { position: relative; height: 350px; background: var(--charbon); display: flex; align-items: center; justify-content: center; }
+.tee-shape { width: 300px; height: 320px; }
+.tee-print { position: absolute; left: 50%; top: 110px; transform: translateX(22px); }
+.tee-print.back { transform: translateX(-50%); top: 118px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.tee-line { font: 300 13px/1 var(--display); letter-spacing: .08em; white-space: nowrap; }
+.tee-small { font: 400 6.5px/1 var(--display); letter-spacing: .3em; color: var(--os-2); }
+.merch figure:last-child > div:first-child { height: 160px; }
+.label-woven { background: #0d0d0d; box-shadow: 0 0 0 1px var(--line-2); display: flex; align-items: center; justify-content: center; gap: 16px; }
+.label-woven span { font: 400 10px/1 var(--display); letter-spacing: .3em; }
+.sticker { height: 174px; background: var(--charbon); display: flex; align-items: center; justify-content: center; }
+.sticker .lg { background: var(--braise); padding: 18px 20px; border-radius: 40px; box-sizing: content-box; }
+
+/* Papeterie */
+.paper { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; }
+.cards { position: relative; display: flex; flex-direction: column; gap: 16px; }
+.card { width: 340px; height: 220px; }
+.card.front { background: var(--noir); box-shadow: 0 0 0 1px var(--line-2); display: flex; align-items: center; justify-content: center; }
+.card.back { background: var(--os); color: var(--noir); padding: 22px 24px; position: relative; margin: -60px 0 0 200px; box-shadow: -12px 16px 40px rgba(0, 0, 0, .55); }
+.c-name b { display: block; font: 400 17px/1.1 var(--display); letter-spacing: -.01em; }
+.c-name span { font: 400 8.5px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; color: #5b5853; }
+.c-info { position: absolute; left: 24px; bottom: 22px; font-size: 10px; line-height: 1.6; color: #2a2926; }
+.c-logo { position: absolute; right: 22px; bottom: 22px; }
+.mail { display: flex; flex-direction: column; gap: 14px; }
+.mail-bar { height: 26px; background: var(--graphite); display: flex; gap: 6px; align-items: center; padding: 0 12px; }
+.mail-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--cendre-2); }
+.mail-body { background: #f4f2ee; color: #222; padding: 22px 26px; margin-top: -14px; font: 13px/1.5 Arial, sans-serif; }
+.mail-body p { color: #222; max-width: none; }
+.sig { display: flex; gap: 14px; align-items: center; margin-top: 18px; padding-top: 14px; border-top: 1px solid #d9d6cf; }
+.sig-mark { width: 52px; height: 52px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px #d9d6cf; }
+.sig b { display: block; font-size: 13px; }
+.sig span { display: block; font-size: 11.5px; color: #555; }
+
+/* Écrans */
+.screens { display: grid; grid-template-columns: 1.55fr 1fr; gap: 34px; flex: 1; align-items: start; }
+.screens figure { display: flex; flex-direction: column; gap: 12px; }
+.screens figcaption { font-size: 12.5px; color: var(--os-2); }
+.browser { background: var(--graphite); box-shadow: 0 0 0 1px var(--line); }
+.b-bar { height: 26px; display: flex; gap: 6px; align-items: center; padding: 0 12px; }
+.b-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--cendre-2); }
+.b-bar span { margin-left: 16px; font-size: 10.5px; color: var(--cendre); }
+.browser img { width: 100%; height: auto; }
+.banner { position: relative; aspect-ratio: 16 / 9; background: var(--noir); overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.banner-fire { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 60%; object-fit: cover; object-position: center 90%; opacity: .9; }
+.safe { position: absolute; left: 19.8%; right: 19.8%; top: 35.3%; bottom: 35.3%; outline: 1px dashed rgba(231, 227, 218, .45); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; }
+.safe-lbl { position: absolute; top: -18px; left: 0; font: 400 8.5px/1 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--os-2); white-space: nowrap; }
+.banner-line { font: 200 20px/1 var(--display); letter-spacing: -.02em; }
+
+/* Fichiers */
+table.files { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+table.files td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--line); color: var(--os-2); vertical-align: top; }
+table.files code { color: var(--os); }
+
+/* Dos */
+.back-cover { padding: 0; }
+.back-fire { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 70%; object-fit: cover; object-position: center 90%; }
+.back-cover::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #0a0a0a 30%, rgba(10, 10, 10, .2) 100%); z-index: 1; }
+.back-inner { position: relative; z-index: 2; padding: 56px; display: flex; flex-direction: column; align-items: flex-start; gap: 26px; height: 100%; }
+.back-inner span { margin-top: auto; font: 400 10.5px/1 var(--display); letter-spacing: .26em; text-transform: uppercase; color: var(--os); }
+
+@media print {
+  @page { size: 12.5in 7.03125in; margin: 0; }
+  html, body { background: var(--noir); }
+  .deck { display: block; padding: 0; }
+  .sheet { width: 1200px; height: 675px; break-after: page; page-break-after: always; }
+  .page { transform: none; box-shadow: none; }
+}
+.cw { font: 400 10px/1 var(--display); letter-spacing: .28em; color: var(--os); }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="lbv-mark" fill-rule="evenodd" d="M251.62 306.5L308 306.73L311.86 307.5L316.91 310.5L320 313.88L322.16 318L323.13 322L323.01 327L305.05 428.5L304.02 432L302 435.59L298.78 439L295.64 441L292.5 442.19L288.5 442.86L286 442.79L282 442.04L279.52 441L275.5 438.16L262.5 425.05L248.5 408.94L233.5 388.96L228.5 381.47L226.47 377.5L225.5 373.03L225.5 369.81L234.5 319.08L235.47 316.5L237.33 313.5L241.5 309.45L245.5 307.38ZM353.55 307L357 306.63L419.5 306.68L423.5 307.33L426 308.5L429 311.09L431 313.87L432.22 317.5L432.07 324L415.7 413.5L415.68 415.5L416.5 419.4L418.5 422.95L421.71 426L426 428.02L432 428.11L443.21 423.5L453.03 420.5L463.5 418.44L471.5 417.57L488.5 417.33L501.41 418.5L512 420.48L519 422.41L527.5 425.46L534 428.45L541 432.41L546.91 436.5L552.96 441.5L559 447.6L566 456.61L572.08 467L577 478.64L581.09 493.5L583 506L583.65 521.5L583 536.36L580.07 555L575.03 573L568 590.17L564 598L558.06 608L548 621.92L542 628.95L534.13 637L520 649.02L504.91 659L491.24 666L475.48 672L459.5 676.07L444 678.19L431.5 678.61L424 678.17L414.5 676.01L406.5 673.02L396.5 668.04L376.82 656.5L374 655.36L371 655.29L367.35 656.5L363.46 659.5L360.5 663.51L355 674.36L352.32 677L350 678.17L346 678.65L297.5 678.65L292.23 678L288.5 676.04L286.5 674.2L284.5 671.46L283.43 669L283.05 664L302.5 547.28L304.31 539L306.4 535.5L310 532.45L312.5 531.33L316 530.69L329.5 532.44L345 535.44L357.69 538.5L368.71 542.5L379.93 548.5L388.9 555.5L393 559.65L397 564.63L401.13 572.5L402.24 577.5L402 584.24L401.01 587.5L390.29 611.5L390.5 616.4L391.5 618.25L394.41 621L398.5 622.17L400.38 622L403 621.01L444.5 597.43L447 596.36L451 596.29L454 597.45L455.33 598.5L490.6 631L494 633.03L497 633.29L499 633.04L501 632.12L503 630.42L504.98 627L505.23 624.5L495.44 576L495.4 572L496.39 569.5L497.99 567.5L500.79 565.5L542.4 542L545.04 539L545.94 536L545.8 533.5L545.04 531L544.08 529.5L541.83 527.5L539.39 526.5L490.5 521.06L487.5 520.14L485.5 518.76L483.44 516L482.5 512.79L473.1 466L471.08 462.5L468 460.4L465 459.87L461.5 460.37L459.5 461.47L457.5 463.57L442 497.69L440 501.17L437.63 504L434 507.03L427.96 510L424 511.11L417.89 512L409 512.04L400.5 511.09L390.5 509.04L383.5 507.04L362 497.02L340.5 486.08L324.76 477L320.5 473.52L318.5 470.38L317.5 467.38L317.48 461.5L342.5 319.69L343.5 315.34L346.5 310.61L351.07 307.5ZM595.46 429.5L675.5 429.28L677.93 429.5L681 430.43L684.49 432.5L688 436.24L690.04 440.5L712.45 528.5L714.5 532.16L718.64 536L723.47 538L727 538.3L730.5 538.05L733.64 537L736.84 535L740 531.48L791.5 438.77L794.38 434.5L797.97 431.5L803.18 429.5L806.5 429.26L889 429.26L892 429.41L895.5 430.4L900.22 433.5L902.05 435.5L904.05 439L905.15 445L904.97 447.5L904 451.1L901 455.96L850 526.62L746 670.83L742.31 675L739.37 677L736.94 678L732 678.64L679.5 678.65L673.82 678L669.73 676L667.5 674.13L665.5 671.76L663.5 667.7L583.5 449.94L582.78 444.5L583.35 440.5L584.5 437.67L586.5 434.73L588.87 432.5L592.21 430.5ZM258.31 534L268 533.7L272 534.45L276 536.42L279 538.93L282 542.93L283.14 545.5L284.12 550.5L283.01 559.5L265.01 661L264 666L263.04 668.5L261 671.83L257.83 675L254.61 677L251.5 678.13L246.5 678.65L201.5 678.65L189 678.23L183.52 676L180.5 673.5L177.5 669.63L176.32 667L175.37 662L176.43 652.5L193.4 556.5L194.42 553L196.5 549.31L199.08 546.5L201.68 544.5L206.5 542.4L218 539.39L233 536.46L249.5 534.43Z"/><path id="lbv-word" fill-rule="evenodd" d="M320.19 716L327.5 716.33L332 717.43L336.46 719.5L339.24 721.5L343.01 725.5L346 730.91L347.06 734L348.2 741.5L348.08 748.5L347 754.36L345 759.68L341 765.78L337.58 769L332.5 772.03L329 773.17L322.5 773.91L318 773.82L312.29 773L307.5 771.03L302.5 767.27L299.5 763.69L296.5 757.72L295.4 754L294.5 746.92L294.5 743.37L295.5 736.16L297.46 730.5L300.5 725.41L304.19 721.5L308.62 718.5L314.5 716.46ZM513.04 716L520.56 716.5L525.97 718.5L528.93 720.5L532 723.67L534 726.62L535.98 732L535.99 733.5L535 734L529.5 733.89L528.58 733L528 731.01L525.96 727.5L524 725.46L520.5 723.43L516.5 722.49L512 722.44L507.5 723.46L505.5 724.41L502.57 726.5L500.5 728.75L498.5 732.07L497.4 735L496.44 739.5L496.18 745L496.37 750.5L497.36 755L499.5 759.82L502.04 763L504.5 765.04L509.57 767L516 767.21L520 766.16L523.41 764L525.5 761.63L528 757.28L529.5 752.44L535.5 752.25L536.55 753L536.02 756.5L535.04 759.5L533 763.45L529.22 768L525.25 771L520.5 773.01L516 773.62L511.5 773.76L506 773.15L500.76 771L495.5 766.83L491.5 760.87L489.47 755L488.45 748L488.5 740.69L489.5 734.8L492.5 727.55L496.5 722.41L501.87 718.5L507.5 716.46ZM660.31 716L667.5 716.33L672 717.39L676.5 719.45L679.33 721.5L683 725.37L685 728.52L687.02 733.5L688.22 740.5L688.13 749L687.07 754.5L685 759.92L682 764.68L677.72 769L672.65 772L669.5 773.08L663 773.89L658 773.82L652.5 773.04L647.57 771L642.5 767.19L639.5 763.5L636.5 757.43L635.4 753.5L634.62 746L635.33 737.5L636.39 733.5L638.5 728.69L641.5 724.31L645.5 720.48L649 718.38L654.5 716.49ZM176.5 717.5L203.9 717.5L207.5 718.38L209.96 719.5L212.62 721.5L215.09 724.5L216.07 726.5L217 730.17L217.06 735.5L216 739.74L213 744.6L210 747.12L205 748.91L194.5 749.25L183.98 749.5L183.65 750L183.65 771.5L182.5 772.41L177 772.41L176.5 772.21L176.34 772ZM235.5 717.5L264 717.5L268.5 718.41L271 719.43L275.01 722.5L277 725.79L277.96 729.5L278 734.77L277.05 738.5L276 740.45L273.84 743L271.78 744.5L271.24 745.5L274.95 748.5L276.12 750.5L277.02 755L277.5 766.64L278.41 769.5L280 771.31L280.11 771.5L280.09 772L278.5 772.41L272 772.41L271.5 772.32L271 772.07L270.32 770.5L270.08 766L269.19 754.5L268 751.88L266.66 750.5L264.5 749.41L261.5 749.07L244 748.94L242.75 750L242.75 771.5L241.5 772.41L236 772.41L235.5 772.21L235.34 772ZM365.46 717.5L390.5 717.52L394.97 718.5L397.38 719.5L401.87 722.5L404 724.8L406 727.59L408.1 732L409.14 735.5L410.09 744.5L409.14 753L408.01 757L406 761.58L403.5 765.23L400.89 768L397.98 770L392 772.12L366 772.41L365.5 772.25L365.28 772L365.14 719ZM428.61 717.5L434.5 717.32L435.93 718L436.03 751.5L436.45 757L437.5 760.14L439.5 763.26L442.87 766L446 767.09L453 767.16L457 766.03L460 764.06L462 761.68L463.09 759.5L464.18 754.5L464.34 718L465 717.35L471.5 717.58L471.83 718L471.91 718.5L471.94 724L471.7 753L471 758.7L469 764.34L467 767.29L464.2 770L460.88 772L458.16 773L450.5 773.79L443 773.21L437.5 771.05L434.5 768.74L431.5 764.88L429.5 759.86L428.5 753.97L428.32 749.5L428.28 719ZM549.71 717.5L592.5 717.32L594 717.83L594.14 722.5L593.5 723.96L577 724.09L575.5 724.69L575.41 753.5L575.26 772L575 772.26L574.5 772.41L569 772.41L568.5 772.29L568.14 772L567.94 725L567.71 724.5L567.5 724.34L567 724.15L566.5 724.09L550 724.01L549.45 723.5L549.36 723L549.32 722.5L549.34 718.5ZM610.5 717.5L616.5 717.32L617 717.4L617.23 717.5L617.72 718.5L617.51 772L616.5 772.41L611 772.41L610.22 771.5ZM705.32 717.5L712.5 717.32L714 717.89L740.5 760.59L741 760.51L741.14 759.5L741.2 718L742 717.32L748 717.52L748.13 772L748 772.19L747.5 772.41L741 772.41L739.46 772L713 729.64L712.58 729.5L712.5 729.48L712.09 731L712.09 771.5L711.5 772.26L711 772.37L710.5 772.41L706 772.41L705.5 772.31L705.06 772L704.85 719ZM321.5 722.49L315.5 723.39L313 724.41L309.74 726.5L307.5 728.62L305.43 731.5L303.5 736.01L302.5 741.03L302.28 745.5L302.5 749.89L303.5 754.46L305.49 759L307.5 761.87L309.73 764L313.26 766L317 767.06L321 767.32L326 767.11L329.5 766.08L332.98 764L335 762L337 758.95L339 754.38L340.1 750L340.41 745.5L340 737.92L338.13 732.5L336 729.17L333.42 726.5L330.5 724.5L327.5 723.33ZM661.5 722.49L655.5 723.42L653 724.45L649.85 726.5L647.5 728.75L645.5 731.55L643.5 736.4L642.36 745L642.5 748.91L643.46 754L645.5 758.8L647.5 761.73L649.86 764L653.5 766.05L657 767.04L661.5 767.33L666 767.12L669.5 766.11L673 764.05L675 762.1L677.07 759L679.06 754.5L680.11 750.5L680.56 744.5L680 737.43L678 732.01L676 729.02L673.55 726.5L670.5 724.46L668 723.42ZM184.5 723.97L183.65 725L183.65 741.5L184.06 742.5L184.5 742.82L185 742.94L199.5 742.81L204 742L206.5 740.59L208 739.18L209 737.29L209.41 732.5L209 729.35L208 727.43L206.02 725.5L203.5 724.38L199.5 723.94ZM243.5 723.99L242.75 725L242.75 741.5L243.5 742.43L261.5 742.4L264.39 742L267.35 740.5L269 738.99L270 736.85L270.36 733L270 729.37L269 727.33L267.19 725.5L265 724.4L261.5 723.96ZM373.5 723.94L372.56 725L372.72 765.5L374 766.14L388.5 765.98L392.53 765L397 761.83L400.09 757L401.14 754L402.2 748L402 739.6L401.01 735L399.02 730.5L395.34 726.5L391 724.45L384.5 723.85Z"/></defs></svg>
+<main class="deck">
+<section class="sheet"><div class="page cover">
+  <img class="cover-img" src="img/nuit-rouge.jpg" alt="">
+  <div class="cover-top"><span>Charte graphique</span><span>Édition 01 · Septembre 2026</span></div>
+  <div class="cover-logo"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:250px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div>
+  <div class="cover-bottom"><p class="cover-line">Libreville a une <em>voix.</em></p><span>Akanda · Libreville · Gabon</span></div></div></section>
+<section class="sheet"><div class="page toc-page"><header><span>LBV Production</span><span>Charte graphique · 2026</span></header><h2 class="title">Sommaire</h2><div class="body"><ol class="toc"><li><span class="toc-n">01</span><span class="toc-t">Univers</span><span class="toc-p">03</span></li><li><span class="toc-n">02</span><span class="toc-t">Le logo</span><span class="toc-p">08</span></li><li><span class="toc-n">03</span><span class="toc-t">Couleur</span><span class="toc-p">18</span></li><li><span class="toc-n">04</span><span class="toc-t">Typographie</span><span class="toc-p">23</span></li><li><span class="toc-n">05</span><span class="toc-t">Image</span><span class="toc-p">28</span></li><li><span class="toc-n">06</span><span class="toc-t">Signes et mouvement</span><span class="toc-p">32</span></li><li><span class="toc-n">07</span><span class="toc-t">Voix</span><span class="toc-p">35</span></li><li><span class="toc-n">08</span><span class="toc-t">Applications</span><span class="toc-p">37</span></li><li><span class="toc-n">09</span><span class="toc-t">Fichiers</span><span class="toc-p">44</span></li></ol>
+  <div class="howto">
+    <div><span class="eyebrow">Pour qui</span><p>L’équipe du label, les artistes, les graphistes, photographes, imprimeurs et développeurs qui travaillent pour LBV Production.</p></div>
+    <div><span class="eyebrow">En cas de doute</span><p>Choisir le noir, l’os et le symbole. Retirer plutôt qu’ajouter. Un seul mot en braise.</p></div>
+    <div><span class="eyebrow">Validation</span><p>Toute création non prévue ici est montrée au label avant diffusion.</p></div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">02 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/scene-lbv-show.jpg" alt="" style="object-position:center 40%">
+  <div class="div-num">01</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 01</span><h2>Univers</h2><p>D’où vient la marque, ce qu’elle défend, l’aura qu’elle dégage.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">03 / 45</span></footer></div></section>
+<section class="sheet"><div class="page manifesto"><header><span><b>01</b> Univers</span><span>Charte graphique · 2026</span></header><h2 class="title">Manifeste</h2><div class="body">
+  <div class="mani">
+    <p class="mani-big">Libreville a une <em>voix.</em><br>On lui donne une scène.</p>
+    <div class="mani-cols">
+      <p>LBV Production est un label indépendant gabonais installé à Akanda, aux portes de Libreville. Il signe, produit et diffuse des artistes de la scène urbaine : rap, afrobeat, underground, mélodique, ambiances.</p>
+      <p>Sa mission est simple : donner une vraie visibilité et une vraie plateforme d’écoute à toutes les musiques du Gabon, sans distinction de genre, de style ou d’origine, et sans orientation politique.</p>
+      <p>La marque parle comme ses artistes : peu de mots, beaucoup de présence. Elle vit la nuit, sous les projecteurs, dans les voitures et les studios. Elle est sombre parce que la scène est sombre, et rouge parce que la scène brûle.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">04 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>01</b> Univers</span><span>Charte graphique · 2026</span></header><h2 class="title">Trois lettres, une ville</h2><div class="body">
+  <div class="iata">
+    <div class="iata-code">LBV</div>
+    <div class="iata-text">
+      <p class="lead">LBV est le code international de l’aéroport de Libreville. Le label porte le nom de sa ville comme on porte une étiquette de bagage : c’est d’ici qu’on part.</p>
+      <p>Cette origine fonde tout le système : la marque est urbaine, située, fière d’un lieu. Elle peut jouer avec les codes du voyage (billet, porte, destination) sans jamais devenir une compagnie aérienne.</p>
+      <div class="triad"><div><b>Talent</b><span>On signe des voix singulières, pas des profils.</span></div><div><b>Son</b><span>On produit exigeant, on distribue partout.</span></div><div><b>Scène</b><span>On fait exister la musique en vrai, au LBV Show.</span></div></div>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">05 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>01</b> Univers</span><span>Charte graphique · 2026</span></header><h2 class="title">Plateforme de marque</h2><div class="body">
+  <div class="platform">
+    <div class="pf"><span class="eyebrow">Mission</span><p>Faire entendre toutes les musiques du Gabon, au Gabon et au-delà.</p></div>
+    <div class="pf"><span class="eyebrow">Vision</span><p>Que « made in Libreville » devienne une référence de la musique urbaine africaine.</p></div>
+    <div class="pf"><span class="eyebrow">Promesse</span><p>Ça va sonner différent.</p></div>
+    <div class="pf"><span class="eyebrow">Positionnement</span><p>Le label indépendant qui traite chaque artiste gabonais comme une signature internationale.</p></div>
+  </div>
+  <div class="traits">
+    <span class="eyebrow">Personnalité</span>
+    <ul><li><b>Sombre</b>, jamais triste</li><li><b>Sélect</b>, jamais distant</li><li><b>Fier</b>, jamais arrogant</li><li><b>Brut</b>, jamais négligé</li><li><b>Local</b>, jamais petit</li></ul>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">06 / 45</span></footer></div></section>
+<section class="sheet"><div class="page mood-page"><header><span><b>01</b> Univers</span><span>Charte graphique · 2026</span></header><h2 class="title">L’aura : sombre, pas noir et blanc</h2><div class="body">
+  <div class="mood">
+    <figure class="m1"><img src="img/nuit-rouge.jpg" alt=""></figure>
+    <figure class="m2"><img src="img/neon-goat.jpg" alt=""></figure>
+    <figure class="m3"><img src="img/scene-lbv-show.jpg" alt=""></figure>
+    <figure class="m4"><img src="img/nuit-bleue.jpg" alt=""></figure>
+    <figure class="m5"><img src="img/neon-porsche.jpg" alt=""></figure>
+    <figure class="m6"><img src="img/live.jpg" alt=""></figure>
+  </div>
+  <div class="mood-side">
+    <p>L’aura LBV naît de la nuit : peu de lumière, mais une lumière qui a une couleur. Rouge des néons, orange des projecteurs, bleu d’une rue à deux heures du matin, peau éclairée de côté.</p>
+    <p>Le noir domine l’espace, la couleur vit dans l’image. On ne désature jamais par défaut : on assombrit.</p>
+    <ul class="keywords"><li>Nuit</li><li>Néon rouge</li><li>Chrome</li><li>Fumée</li><li>Scène</li><li>Béton</li></ul>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">07 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/plage.jpg" alt="" style="object-position:center 60%">
+  <div class="div-num">02</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 02</span><h2>Le logo</h2><p>Un symbole dense, un mot sobre. Des règles pour ne jamais l’affaiblir.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">08 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Le logo principal</h2><div class="body">
+  <div class="logo-hero"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:330px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div>
+  <div class="logo-hero-cap"><p>Le logo associe le symbole « lbv », dessiné en lettres pleines et inclinées, au mot PRODUCTION en capitales espacées. C’est la signature de toutes les prises de parole officielles : site, pochettes, affiches, documents.</p><p class="small">Version principale : os sur noir. Toujours reproduit à partir des fichiers vectoriels fournis, jamais redessiné ni recomposé.</p></div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">09 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Anatomie du symbole</h2><div class="body">
+  <div class="anat">
+    <svg class="anat-svg" viewBox="65.4 196.5 949.8 592.2" style="height:400px">
+      <use href="#lbv-mark" fill="#E7E3DA"/>
+      <g class="ann" stroke-width="1.4805000000000001">
+        <line x1="254.3" y1="346.5" x2="195.5" y2="256.5"/><circle cx="254.3" cy="346.5" r="7.402500000000001"/><text x="180.695" y="263.9025" text-anchor="end" font-size="20.727000000000004">Le trait détaché</text>
+        <line x1="229.75" y1="638.7" x2="185.4" y2="748.7"/><circle cx="229.75" cy="638.7" r="7.402500000000001"/><text x="170.595" y="756.1025000000001" text-anchor="end" font-size="20.727000000000004">Le fût coupé</text>
+        <line x1="466" y1="545" x2="520" y2="773.7"/><circle cx="466" cy="545" r="7.402500000000001"/><text x="534.805" y="781.1025000000001" text-anchor="start" font-size="20.727000000000004">L’étoile en réserve</text>
+        <line x1="774" y1="459.3" x2="815.2" y2="349.3"/><circle cx="774" cy="459.3" r="7.402500000000001"/><text x="830.005" y="356.7025" text-anchor="start" font-size="20.727000000000004">Le v en appui</text>
+      </g>
+    </svg>
+    <ul class="anat-list">
+      <li><b>Le l fendu</b><span>Un trait interrompu, comme une coupe dans le beat. Il se lit aussi comme un i et son point : la marque joue sur les deux lectures.</span></li>
+      <li><b>L’étoile en réserve</b><span>L’étoile n’est pas ajoutée, elle est creusée dans la panse du b. Le talent est déjà dans la lettre, le label le révèle.</span></li>
+      <li><b>Le v en appui</b><span>Pointe vers le sol, bras ouverts vers le haut : la voix qui monte.</span></li>
+      <li><b>L’inclinaison</b><span>Environ 10° vers la droite. Les lettres avancent, comme un départ.</span></li>
+    </ul>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">10 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Construction</h2><div class="body">
+  <div class="constr">
+    <svg viewBox="48 179.1 984.6 722.2" style="height:440px;width:599.9px" class="constr-svg">
+      <g class="grid" stroke-width="1.6412727272727272"><line x1="48.02000000000004" x2="1032.58" y1="306.5" y2="306.5"/><line x1="48.02000000000004" x2="1032.58" y1="678.7" y2="678.7"/><line x1="48.02000000000004" x2="1032.58" y1="716" y2="716"/><line x1="48.02000000000004" x2="1032.58" y1="773.9" y2="773.9"/><line y1="179.12000000000003" y2="901.28" x1="175.4" x2="175.4"/><line y1="179.12000000000003" y2="901.28" x1="748.1" x2="748.1"/><line y1="179.12000000000003" y2="901.28" x1="905.2" x2="905.2"/></g>
+      <g class="xsq" stroke-width="1.6412727272727272"><rect x="939.94" y="716" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="658.1" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="600.2" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="542.3000000000001" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="484.4000000000001" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="426.5000000000001" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="368.60000000000014" width="57.89999999999998" height="57.89999999999998"/><rect x="939.94" y="310.70000000000016" width="57.89999999999998" height="57.89999999999998"/></g>
+      <use href="#lbv-mark" fill="#E7E3DA"/><use href="#lbv-word" fill="#E7E3DA"/>
+      <g class="dims" stroke-width="1.6412727272727272">
+        <line class="dim" x1="123.29000000000002" y1="306.5" x2="123.29000000000002" y2="678.7"/><text class="dimt" x="79.86500000000004" y="502.4476363636364" font-size="27.901636363636364" text-anchor="middle">6,4 X</text>
+        <line class="dim" x1="123.29000000000002" y1="716" x2="123.29000000000002" y2="773.9"/><text class="dimt" x="87.39200000000002" y="754.7976363636365" font-size="27.901636363636364" text-anchor="middle">1 X</text>
+        <line class="dim" x1="175.4" y1="837.5899999999999" x2="748.1" y2="837.5899999999999"/><text class="dimt" x="461.75" y="824.4598181818182" font-size="27.901636363636364" text-anchor="middle">9,9 X</text>
+        <line class="dim" x1="175.4" y1="254.39000000000001" x2="905.2" y2="254.39000000000001"/><text class="dimt" x="540.3000000000001" y="241.2598181818182" font-size="27.901636363636364" text-anchor="middle">12,6 X</text>
+      </g>
+    </svg>
+    <div class="constr-side">
+      <p class="lead">Tout se mesure en X : la hauteur du mot PRODUCTION.</p>
+      <table class="kv">
+        <tr><td>Hauteur du symbole</td><td>6,4 X</td></tr>
+        <tr><td>Écart symbole / mot</td><td>0,64 X</td></tr>
+        <tr><td>Largeur du mot</td><td>9,9 X</td></tr>
+        <tr><td>Largeur totale</td><td>12,6 X</td></tr>
+        <tr><td>Hauteur totale</td><td>8,1 X</td></tr>
+      </table>
+      <p class="small">Le mot est aligné à gauche sur le fût du l et s’arrête avant le v : le symbole garde toujours la plus grande masse.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">11 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Zone de protection et tailles minimales</h2><div class="body">
+  <div class="two">
+    <div class="protect">
+      <svg viewBox="82.8 213.9 915.1 652.7" style="height:400px">
+        <rect class="pz" x="117.50000000000003" y="248.60000000000002" width="845.6" height="583.1999999999999" stroke-width="2.721599999999999" stroke-dasharray="11.663999999999998 9.719999999999999"/>
+        <rect class="xs" x="117.50000000000003" y="248.60000000000002" width="57.89999999999998" height="57.89999999999998"/><rect class="xs" x="905.2" y="773.9" width="57.89999999999998" height="57.89999999999998"/>
+        <text x="146.45000000000002" y="289.214" text-anchor="middle" font-size="31.103999999999996">X</text>
+        <use href="#lbv-mark" fill="#E7E3DA"/><use href="#lbv-word" fill="#E7E3DA"/>
+      </svg>
+    </div>
+    <div>
+      <h3>Zone de protection : 1 X</h3>
+      <p>Aucun texte, bord de page, pictogramme ou élément d’image contrasté ne pénètre dans cette zone. Sur une pochette ou un post, garder de préférence 2 X.</p>
+      <h3>Tailles minimales</h3>
+      <div class="mins">
+        <div><div class="min-demo"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:38px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Logo complet</b><span>30 mm de large · 120 px</span></div>
+        <div><div class="min-demo"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:24px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><b>Symbole seul</b><span>8 mm de haut · 24 px</span></div>
+      </div>
+      <p class="small">Sous 120 px de large, le mot PRODUCTION devient illisible : utiliser le symbole seul.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">12 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Versions de couleur</h2><div class="body">
+  <div class="grid4 versions">
+    <div class="ver"><div class="plate" style="background:#0A0A0A;border:1px solid rgba(231,227,218,.14)"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:120px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Principale</b><span>Os sur Noir Akanda. Par défaut, partout.</span></div>
+    <div class="ver"><div class="plate" style="background:#E7E3DA"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:120px;color:#0A0A0A;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Inversée</b><span>Noir sur Os. Papier, documents, fonds clairs.</span></div>
+    <div class="ver"><div class="plate" style="background:#0A0A0A;border:1px solid rgba(231,227,218,.14)"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:120px;color:#D8261E;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Signature braise</b><span>Braise sur noir. Événements, LBV Show, merch.</span></div>
+    <div class="ver"><div class="plate" style="background:#E7E3DA"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:120px;color:#7A0A0A;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Oxblood</b><span>Oxblood sur os. Papeterie, gaufrage, étiquettes.</span></div>
+  </div>
+  <p class="small wide">Le logo n’existe qu’en aplat d’une seule couleur. Aucune autre combinaison n’est autorisée. En impression une couleur, utiliser la version noire ou la version os en réserve.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">13 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Le symbole seul</h2><div class="body">
+  <div class="grid4 sym">
+    <div class="ver"><div class="plate tall" style="background:#161616"><div class="avatar"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:96px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><b>Avatar</b><span>Instagram, YouTube, TikTok. Symbole os sur fond noir, centré, 62 % du cercle.</span></div>
+    <div class="ver"><div class="plate tall" style="background:#161616"><div class="appicon"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:64px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><div class="fav32"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:22px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><div class="fav16"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:12px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><b>Icônes et favicon</b><span>512, 32 et 16 px. Sous 24 px, le symbole reste plein, sans contour.</span></div>
+    <div class="ver"><div class="plate tall" style="background:#0A0A0A"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:190px;color:#D8261E;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><b>Tampon</b><span>Au dos d’une pochette, sur un sticker, sur une manche.</span></div>
+    <div class="ver"><div class="plate tall" style="background:#E7E3DA"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:190px;color:#0A0A0A;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><b>Marquage</b><span>Gravure, gaufrage, broderie : toujours en une couleur.</span></div>
+  </div>
+  <p class="small wide">Le symbole seul remplace le logo complet dans les formats carrés et petits. Il ne remplace jamais le logo complet sur un document officiel.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">14 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Le logo sur une image</h2><div class="body">
+  <div class="grid3 onimg">
+    <figure class="ok"><div class="shot"><img src="img/scene-lbv-show.jpg" alt="" style="object-position:50% 30%"><div class="veil"></div><div class="shot-logo"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:62px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div></div><figcaption><b>Oui</b> Zone sombre et calme, voile noir en pied d’image.</figcaption></figure>
+    <figure class="ok"><div class="shot"><img src="img/carty.jpg" alt="" style="object-position:50% 45%;filter:contrast(1.08) saturate(.78) brightness(.72)"><div class="shot-logo tl"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:40px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption><b>Oui</b> Symbole en tampon, dans un coin sombre, marge de 2 X.</figcaption></figure>
+    <figure class="no"><div class="shot"><img src="img/neon-goat.jpg" alt=""><div class="shot-logo mid"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:62px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div></div><figcaption><b>Non</b> Sur une zone chargée ou lumineuse, le logo disparaît.</figcaption></figure>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">15 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Ce qu’on ne fait jamais</h2><div class="body">
+  <div class="grid4 donts">
+    <div class="ver no"><div class="plate" style="background:#161616"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#E7E3DA;transform:scaleX(1.45)" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Déformer</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#E7E3DA;transform:rotate(-14deg)" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Faire pivoter</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#2f6fe0;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Changer de couleur</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:transparent;stroke:#e7e3da;stroke-width:3px" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Détourer au trait</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#E7E3DA;filter:drop-shadow(0 0 14px #d8261e) drop-shadow(0 6px 4px #000)" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Ajouter lueur ou ombre</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><div style="display:flex;align-items:center;gap:14px"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:58px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><span style="font:400 15px/1 var(--display);letter-spacing:.3em;color:#E7E3DA">PRODUCTION</span></div></div><b>Recomposer le logo</b></div>
+    <div class="ver no"><div class="plate" style="background:#0A0A0A"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#7A0A0A;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><b>Oxblood sur noir</b></div>
+    <div class="ver no"><div class="plate" style="background:#161616"><div style="position:relative"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:84px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg><span style="position:absolute;left:42.5%;top:36%;width:15px;height:15px;background:#f2a03d;border-radius:50%"></span></div></div><b>Remplir l’étoile</b></div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">16 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>02</b> Le logo</span><span>Charte graphique · 2026</span></header><h2 class="title">Co-signature</h2><div class="body">
+  <div class="two">
+    <div class="plate cosign" style="background:#0A0A0A;border:1px solid rgba(231,227,218,.14)">
+      <svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:64px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><span class="x">×</span><span class="partner">ARTISTE<br><small>ou partenaire</small></span>
+    </div>
+    <ul class="rules">
+      <li><b>Le symbole, pas le logo complet</b><span>Dans un « LBV × … », le symbole suffit : il porte le nom.</span></li>
+      <li><b>Hauteurs optiques égales</b><span>Les deux marques pèsent le même poids visuel, séparées par un × en Stack Sans Headline 200.</span></li>
+      <li><b>Espace de 2 X</b><span>Entre chaque marque et le signe ×. Jamais de fusion, jamais de symbole commun.</span></li>
+      <li><b>Pochette d’artiste</b><span>Le nom de l’artiste domine, LBV signe en tampon discret. La pochette appartient d’abord à l’artiste.</span></li>
+    </ul>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">17 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/neon-porsche.jpg" alt="" style="object-position:center">
+  <div class="div-num">03</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 03</span><h2>Couleur</h2><p>Le noir domine. Le rouge brûle. L’image garde toutes ses couleurs.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">18 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>03</b> Couleur</span><span>Charte graphique · 2026</span></header><h2 class="title">Couleur dominante</h2><div class="body">
+  <div class="dominant">
+    <div class="dom-bar"><div style="flex:70;background:#0A0A0A"><span>70 %</span><b>Noir Akanda</b></div><div style="flex:20;background:#E7E3DA;color:#0A0A0A"><span>20 %</span><b>Os</b></div><div style="flex:7;background:#7A0A0A"><span>7 %</span></div><div style="flex:3;background:#D8261E"></div></div>
+    <div class="grid4 dom-notes">
+      <div><h3>Noir Akanda</h3><p>La couleur dominante. Fonds, pages, pochettes, vêtements. Un noir chaud et profond, jamais un gris.</p></div>
+      <div><h3>Os</h3><p>Le texte et le logo. Un blanc cassé, doux sur le noir, qui évite la brûlure du blanc pur.</p></div>
+      <div><h3>Oxblood</h3><p>La couleur de marque. Préchargeur, sélection, surfaces rouges profondes, papeterie.</p></div>
+      <div><h3>Braise</h3><p>L’accent. Un mot dans un titre, un anneau de progression, un point de vie. Jamais en aplat.</p></div>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">19 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>03</b> Couleur</span><span>Charte graphique · 2026</span></header><h2 class="title">Palette principale</h2><div class="body">
+  <div class="grid4">
+    <div class="swatch"><div class="chip" style="background:#0A0A0A;border:1px solid rgba(231,227,218,.16)"><span style="color:#E7E3DA">Noir Akanda</span></div>
+    <dl><dt>HEX</dt><dd>#0A0A0A</dd><dt>RVB</dt><dd>10 · 10 · 10</dd><dt>CMJN</dt><dd>0 · 0 · 0 · 96</dd></dl><p>Fonds et grandes surfaces.</p></div>
+    <div class="swatch"><div class="chip" style="background:#E7E3DA;"><span style="color:#0A0A0A">Os</span></div>
+    <dl><dt>HEX</dt><dd>#E7E3DA</dd><dt>RVB</dt><dd>231 · 227 · 218</dd><dt>CMJN</dt><dd>0 · 2 · 6 · 9</dd></dl><p>Texte, logo, filets.</p></div>
+    <div class="swatch"><div class="chip" style="background:#7A0A0A;"><span style="color:#E7E3DA">Oxblood</span></div>
+    <dl><dt>HEX</dt><dd>#7A0A0A</dd><dt>RVB</dt><dd>122 · 10 · 10</dd><dt>CMJN</dt><dd>0 · 92 · 92 · 52</dd></dl><p>Couleur de marque, surfaces rouges.</p></div>
+    <div class="swatch"><div class="chip" style="background:#D8261E;"><span style="color:#E7E3DA">Braise</span></div>
+    <dl><dt>HEX</dt><dd>#D8261E</dd><dt>RVB</dt><dd>216 · 38 · 30</dd><dt>CMJN</dt><dd>0 · 82 · 86 · 15</dd></dl><p>Accent : un mot, un signe.</p></div>
+  </div>
+  <p class="small wide">CMJN : conversion indicative, à valider sur épreuve chez l’imprimeur. Pour une impression en ton direct, faire choisir la référence Pantone la plus proche sur nuancier physique, en particulier pour l’oxblood.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">20 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>03</b> Couleur</span><span>Charte graphique · 2026</span></header><h2 class="title">Neutres et couleurs d’ambiance</h2><div class="body">
+  <div class="two top">
+    <div><span class="eyebrow">Neutres d’interface</span>
+      <div class="mini"><i style="background:#161616;border:1px solid rgba(231,227,218,.16)"></i><div><b>Charbon</b><code>#161616 · 22 · 22 · 22</code><span>Deuxième fond : cartes, sections alternées.</span></div></div>
+      <div class="mini"><i style="background:#1E1E1E;border:1px solid rgba(231,227,218,.16)"></i><div><b>Graphite</b><code>#1E1E1E · 30 · 30 · 30</code><span>Troisième niveau : champs, survols, séparations.</span></div></div>
+      <div class="mini"><i style="background:#CFCAC0;"></i><div><b>Os voilé</b><code>#CFCAC0 · 207 · 202 · 192</code><span>Texte courant sur noir.</span></div></div>
+      <div class="mini"><i style="background:#8C8A85;"></i><div><b>Cendre</b><code>#8C8A85 · 140 · 138 · 133</code><span>Légendes, métadonnées, labels.</span></div></div>
+    </div>
+    <div><span class="eyebrow">Ambiance, jamais pour le texte</span>
+      <div class="mini"><i style="background:#1C0505;border:1px solid rgba(231,227,218,.16)"></i><div><b>Sang séché</b><code>#1C0505 · 28 · 5 · 5</code><span>Fond de panneau chaud, remplace le noir pour une section « feu ».</span></div></div>
+      <div class="mini"><i style="background:#0E1626;border:1px solid rgba(231,227,218,.16)"></i><div><b>Nuit bleue</b><code>#0E1626 · 14 · 22 · 38</code><span>Uniquement dans les images et vidéos : la nuit froide qui répond au rouge.</span></div></div>
+      <div class="mini"><i style="background:#F2A03D;"></i><div><b>Flamme</b><code>#F2A03D · 242 · 160 · 61</code><span>Uniquement dans le feu, la lumière de scène, les braises.</span></div></div>
+      <p class="small">Ces couleurs existent déjà dans les photos et les pochettes du label. Elles ne deviennent jamais des aplats d’interface ni des couleurs de logo.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">21 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>03</b> Couleur</span><span>Charte graphique · 2026</span></header><h2 class="title">Contrastes et lisibilité</h2><div class="body">
+  <table class="contrast"><thead><tr><th>Exemple</th><th>Texte</th><th>Fond</th><th>Ratio</th><th>Usage</th></tr></thead><tbody>
+  <tr class=""><td><span class="sample" style="background:#0A0A0A;color:#E7E3DA">Aa</span></td><td>Os</td><td>Noir Akanda</td><td class="num">15,46 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#0A0A0A;color:#CFCAC0">Aa</span></td><td>Os voilé</td><td>Noir Akanda</td><td class="num">12,13 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#161616;color:#E7E3DA">Aa</span></td><td>Os</td><td>Charbon</td><td class="num">14,13 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#0A0A0A;color:#8C8A85">Aa</span></td><td>Cendre</td><td>Noir Akanda</td><td class="num">5,74 : 1</td><td>AA</td></tr><tr class=""><td><span class="sample" style="background:#0A0A0A;color:#D8261E">Aa</span></td><td>Braise</td><td>Noir Akanda</td><td class="num">3,97 : 1</td><td>AA grand texte</td></tr><tr class=""><td><span class="sample" style="background:#7A0A0A;color:#E7E3DA">Aa</span></td><td>Os</td><td>Oxblood</td><td class="num">8,74 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#1C0505;color:#E7E3DA">Aa</span></td><td>Os</td><td>Sang séché</td><td class="num">15,28 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#E7E3DA;color:#0A0A0A">Aa</span></td><td>Noir Akanda</td><td>Os</td><td class="num">15,46 : 1</td><td>AAA</td></tr><tr class=""><td><span class="sample" style="background:#E7E3DA;color:#7A0A0A">Aa</span></td><td>Oxblood</td><td>Os</td><td class="num">8,74 : 1</td><td>AAA</td></tr><tr class="fail"><td><span class="sample" style="background:#0A0A0A;color:#7A0A0A">Aa</span></td><td>Oxblood</td><td>Noir Akanda</td><td class="num">1,77 : 1</td><td>Décor seulement</td></tr>
+  </tbody></table>
+  <p class="small wide">Ratios WCAG 2.1. Texte courant : 4,5 : 1 minimum. Titres de plus de 24 px : 3 : 1 minimum. La braise sur noir est réservée aux titres et aux signes ; l’oxblood ne porte jamais de texte sur fond noir.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">22 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/neon-goat.jpg" alt="" style="object-position:center">
+  <div class="div-num">04</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 04</span><h2>Typographie</h2><p>Une grotesque tendue pour la voix, une condensée pour les chiffres.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">23 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>04</b> Typographie</span><span>Charte graphique · 2026</span></header><h2 class="title">Stack Sans Headline</h2><div class="body">
+  <div class="specimen">
+    <div class="aa">Aa</div>
+    <div>
+      <div class="weights"><span style="font-weight:200">Extra-light 200</span><span style="font-weight:300">Light 300</span><span style="font-weight:400">Regular 400</span><span style="font-weight:500">Medium 500</span><span style="font-weight:700">Bold 700</span></div>
+      <div class="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>àâçéèêëîïôùûü 0123456789 « » ! ? — ·</div>
+      <p>La voix de la marque. Titres, textes, navigation, mot PRODUCTION du site. Ses capitales tendues et son approche serrée donnent une présence de magazine sans jamais crier. Les graisses légères (200 et 300) portent les grands titres : plus c’est grand, plus c’est fin.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">24 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>04</b> Typographie</span><span>Charte graphique · 2026</span></header><h2 class="title">Bebas Neue</h2><div class="body">
+  <div class="specimen bebas">
+    <div class="big-num">06<span>·</span>20+<span>·</span>241</div>
+    <div class="two tight">
+      <div><div class="alphabet num-font">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789 + — : / .</div></div>
+      <div><p>Les chiffres et les repères : compteurs, dates, numéros de piste, durées, numéros de page. Une condensée qui se lit comme un tableau d’affichage.</p>
+      <p class="small">Jamais pour un texte de plus de trois mots. Jamais pour un titre de phrase : la phrase appartient à Stack Sans Headline.</p></div>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">25 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>04</b> Typographie</span><span>Charte graphique · 2026</span></header><h2 class="title">Hiérarchie</h2><div class="body">
+  <div class="hier">
+    <div class="sample-comp">
+      <span class="h-eyebrow">Nouveau single · Dac-M</span>
+      <div class="h-display">Ça va <em>sonner</em><br>différent.</div>
+      <div class="h-title">Allô, le clip officiel</div>
+      <p class="h-body">Damier noir et blanc, sourire en coin et refrain qui reste. Dac-M signe son titre le plus solaire, disponible sur toutes les plateformes.</p>
+      <div class="h-meta"><span class="h-num">03.05.26</span><span>Clip · 3 min 12</span></div>
+    </div>
+    <table class="scale">
+      <tr><td>Sur-titre</td><td>Stack Sans 400 · capitales · 11,5 px · approche +0,28 em · Cendre</td></tr>
+      <tr><td>Display</td><td>Stack Sans 200 · 64 à 180 px · interligne 0,96 · approche −0,03 em</td></tr>
+      <tr><td>Titre</td><td>Stack Sans 300 · 24 à 40 px · approche −0,02 em</td></tr>
+      <tr><td>Corps</td><td>Stack Sans 300 · 16 px · interligne 1,5 · 60 caractères par ligne · Os voilé</td></tr>
+      <tr><td>Chiffres</td><td>Bebas Neue 400 · approche +0,04 em · Os</td></tr>
+      <tr><td>Accent</td><td>Un seul mot en Braise par titre, même graisse</td></tr>
+    </table>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">26 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>04</b> Typographie</span><span>Charte graphique · 2026</span></header><h2 class="title">Règles de composition</h2><div class="body">
+  <div class="grid3 comp-rules">
+    <div><div class="demo-type"><span style="font-weight:200">Chaque titre est un <em>pas</em> de plus.</span></div><h3>Un mot brûle</h3><p>Un seul mot par titre passe en Braise : le verbe, le lieu, la promesse. Jamais deux.</p></div>
+    <div><div class="demo-type caps">TALENT · SON · SCÈNE</div><h3>Capitales courtes</h3><p>Les capitales sont réservées aux labels, à la navigation et aux titres de trois mots au plus, toujours espacées.</p></div>
+    <div><div class="demo-type"><span style="font-weight:300;letter-spacing:-.03em">Libreville a une voix.</span></div><h3>Serré et fin</h3><p>Grands titres en graisse légère, approche négative, alignés à gauche. Pas de cursive, pas de contour, pas de dégradé dans les lettres.</p></div>
+  </div>
+  <div class="two tight fonts-legal">
+    <div><h3>Polices de secours</h3><p class="small">Web : <code>"Stack Sans Headline", "Helvetica Neue", Arial, sans-serif</code> et <code>"Bebas Neue", Impact, sans-serif</code>. Bureautique : Arial pour le texte, Impact pour les chiffres.</p></div>
+    <div><h3>Licences</h3><p class="small">Les deux familles sont distribuées par Google Fonts sous licence SIL Open Font License 1.1 : usage commercial, impression et web autorisés sans redevance.</p></div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">27 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/dom.jpg" alt="" style="object-position:50% 30%">
+  <div class="div-num">05</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 05</span><h2>Image</h2><p>On assombrit, on ne décolore pas. Les visages d’abord.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">28 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>05</b> Image</span><span>Charte graphique · 2026</span></header><h2 class="title">Étalonnage LBV</h2><div class="body">
+  <div class="grid3 grade">
+    <figure><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%"></div><figcaption><b>Brut</b> La photo telle que livrée.</figcaption></figure>
+    <figure><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%;filter:contrast(1.08) saturate(.78) brightness(.86)"><div class="vign"></div></div><figcaption><b>LBV</b> Contraste + 8 %, saturation − 22 %, luminosité − 14 %, vignettage doux.</figcaption></figure>
+    <figure class="no"><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%;filter:grayscale(1) contrast(1.2)"></div><figcaption><b>Non</b> Le noir et blanc systématique éteint la scène.</figcaption></figure>
+  </div>
+  <p class="small wide">Les rouges et les oranges de la lumière restent vivants, la peau reste juste, les noirs descendent. En ligne, l’image reprend sa pleine couleur au survol.<br>Réglage web : <code>filter: contrast(1.08) saturate(.78) brightness(.86)</code>.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">29 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>05</b> Image</span><span>Charte graphique · 2026</span></header><h2 class="title">Portraits d’artistes</h2><div class="body">
+  <div class="artists"><figure><div class="sq"><img src="img/carty.jpg" alt="Carty" style="object-position:58% 42%;transform:scale(1.3);transform-origin:60% 45%"></div><figcaption><b>Carty</b><span>Rap · Afro-urbain</span></figcaption></figure><figure><div class="sq"><img src="img/dom.jpg" alt="D.O.M" style="object-position:50% 32%;transform:scale(1.3);transform-origin:50% 38%"></div><figcaption><b>D.O.M</b><span>Alternatif</span></figcaption></figure><figure><div class="sq"><img src="img/le-t.jpg" alt="Le T" style="object-position:48% 52%;transform:scale(1.6);transform-origin:45% 50%"></div><figcaption><b>Le T</b><span>Underground</span></figcaption></figure><figure><div class="sq"><img src="img/dac-m.jpg" alt="Dac-M" style="object-position:38% 6%;transform:scale(1.3);transform-origin:32% 16%"></div><figcaption><b>Dac-M</b><span>Afrobeat · Humour</span></figcaption></figure><figure><div class="sq"><img src="img/xquality.jpg" alt="Xquality" style="object-position:52% 18%;transform:scale(1.35);transform-origin:52% 22%"></div><figcaption><b>Xquality</b><span>Rap mélodique</span></figcaption></figure><figure><div class="sq"><img src="img/lunxy.jpg" alt="Lunxy" style="object-position:50% 12%;transform:scale(1.7);transform-origin:50% 18%"></div><figcaption><b>Lunxy</b><span>Ambiances</span></figcaption></figure></div>
+  <div class="grid3 art-rules"><p><b>Carré.</b> Le portrait d’artiste est toujours carré : il vit aussi bien sur le site que sur Instagram et Spotify.</p><p><b>Le visage d’abord.</b> Les yeux dans le tiers supérieur, le visage occupe au moins un tiers du cadre. On recadre, on ne déforme pas.</p><p><b>Lumière de côté.</b> Photos de nuit, de scène ou de studio, lumière dirigée. Pas de fond blanc studio, pas de sourire publicitaire.</p></div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">30 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>05</b> Image</span><span>Charte graphique · 2026</span></header><h2 class="title">Pochettes : la direction existante</h2><div class="body">
+  <div class="covers-wrap"><div class="covers">
+    <img src="img/cover-allo.jpg" alt="Allô, Dac-M"><img src="img/cover-10dih.jpg" alt="10 DIH"><img src="img/cover-money-dance.jpg" alt="Money Dance, Le T"><img src="img/cover-heroes.jpg" alt="Heroes and Villains"><img src="img/cover-wobebie.jpg" alt="Wobebie"><img src="img/cover-hotel.jpg" alt="Hotel">
+  </div>
+  <div class="covers-text">
+    <p>Les pochettes du label partagent déjà un langage : lettrage massif, rouge et noir, grain, photographie de nuit. La charte ne l’efface pas, elle le cadre.</p>
+    <ul class="checks"><li>Le titre et l’artiste dominent, le symbole LBV signe en tampon : 7 % de la largeur, marge de 5 %.</li><li>Une couleur vive au plus par pochette, le reste descend vers le noir.</li><li>Formats : 3000 × 3000 px, RVB, sans texte dans les 5 % de bord.</li></ul>
+  </div></div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">31 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/feu.jpg" alt="" style="object-position:center 80%">
+  <div class="div-num">06</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 06</span><h2>Signes et mouvement</h2><p>Le feu, le filet, la croix. Et une manière lente d’apparaître.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">32 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>06</b> Signes et mouvement</span><span>Charte graphique · 2026</span></header><h2 class="title">Signes graphiques</h2><div class="body">
+  <div class="signs">
+    <figure class="s-fire"><img src="img/feu.jpg" alt=""><figcaption><b>Le feu</b><span>Flammes réelles ou générées, montant du bas de l’image. Il sépare les chapitres forts : chiffres, annonces, LBV Show.</span></figcaption></figure>
+    <figure><div class="s-demo"><span class="line-demo"></span><span class="line-demo short"></span></div><figcaption><b>Le filet</b><span>1 px, Os à 12 %. Il structure sans enfermer : pas de cadres, pas de coins arrondis.</span></figcaption></figure>
+    <figure><div class="s-demo cross"><svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 1v18M1 10h18" stroke="#d8261e" stroke-width="1.2"/></svg><span class="cw">TALENT</span><svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 1v18M1 10h18" stroke="#d8261e" stroke-width="1.2"/></svg><span class="cw">SON</span><svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 1v18M1 10h18" stroke="#d8261e" stroke-width="1.2"/></svg><span class="cw">SCÈNE</span><svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 1v18M1 10h18" stroke="#d8261e" stroke-width="1.2"/></svg></div><figcaption><b>La croix</b><span>Repère fin entre les mots d’une ligne de base : TALENT + SON + SCÈNE. Elle tourne au défilement.</span></figcaption></figure>
+    <figure><div class="s-demo"><svg viewBox="0 0 100 100" width="86" height="86"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(231,227,218,.14)" stroke-width="2"/><circle cx="50" cy="50" r="40" fill="none" stroke="#d8261e" stroke-width="2" stroke-dasharray="251" stroke-dashoffset="88" transform="rotate(-90 50 50)"/><text x="50" y="58" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#e7e3da">03</text></svg></div><figcaption><b>L’anneau</b><span>Progression d’une série (artistes, pistes). Seul usage de la braise en trait.</span></figcaption></figure>
+    <figure><div class="s-demo grain"></div><figcaption><b>Le grain</b><span>Bruit fin à 4–6 % sur les grands aplats noirs, pour que le noir ait une matière.</span></figcaption></figure>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">33 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>06</b> Signes et mouvement</span><span>Charte graphique · 2026</span></header><h2 class="title">Mouvement</h2><div class="body">
+  <div class="motion">
+    <div class="curve">
+      <svg viewBox="-12 -12 264 264" width="300" height="300">
+        <rect x="0" y="0" width="240" height="240" fill="none" stroke="rgba(231,227,218,.12)"/>
+        <path d="M0 120H240M120 0V240" stroke="rgba(231,227,218,.06)"/>
+        <path d="M0 240C52.8 240 86.4 0 240 0" fill="none" stroke="#d8261e" stroke-width="2.5"/>
+        <path d="M0 240L52.8 240M240 0L86.4 0" stroke="rgba(231,227,218,.35)" stroke-width="1" stroke-dasharray="3 3"/>
+        <circle cx="52.8" cy="240" r="4" fill="#e7e3da"/><circle cx="86.4" cy="0" r="4" fill="#e7e3da"/>
+      </svg>
+      <code>cubic-bezier(.22, 1, .36, 1)</code>
+      <p class="small">Départ franc, arrivée très longue : les choses arrivent vite et se posent lentement.</p>
+    </div>
+    <div>
+      <table class="kv motion-table">
+        <tr><td>Texte qui apparaît</td><td>Les mots montent de leur ligne, 1,2 à 1,4 s, décalage de 0,04 s</td></tr>
+        <tr><td>Image qui apparaît</td><td>Ouverture par masque de bas en haut, 1,2 s</td></tr>
+        <tr><td>Survol d’image</td><td>La couleur revient, zoom de 3 %, 1 s</td></tr>
+        <tr><td>Défilement</td><td>Défilement doux, interpolation 0,075</td></tr>
+        <tr><td>Logo en volume</td><td>Chrome rouge profond, rotation lente qui suit le pointeur</td></tr>
+      </table>
+      <h3>Jamais</h3>
+      <p>Flou d’apparition, rebond, clignotement, rotation gratuite, texte qui tape lettre à lettre, animation qui rejoue à chaque passage.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">34 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/live.jpg" alt="" style="object-position:center 35%">
+  <div class="div-num">07</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 07</span><h2>Voix</h2><p>Peu de mots. Beaucoup de présence.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">35 / 45</span></footer></div></section>
+<section class="sheet"><div class="page voice-page"><header><span><b>07</b> Voix</span><span>Charte graphique · 2026</span></header><h2 class="title">Ton et écriture</h2><div class="body">
+  <div class="grid4 voice">
+    <div><h3>Direct</h3><p>Une idée par phrase. Le sujet, le verbe, la date. On coupe tout ce qui explique trop.</p></div>
+    <div><h3>Fier</h3><p>On dit Libreville, Akanda, le Gabon. On nomme les artistes en premier.</p></div>
+    <div><h3>Sobre</h3><p>Pas de superlatif, pas de « incroyable », un point d’exclamation par mois.</p></div>
+    <div><h3>Situé</h3><p>Tutoiement sur les réseaux, vouvoiement dans les échanges professionnels et les contrats.</p></div>
+  </div>
+  <div class="voice-ex">
+    <div><span class="eyebrow">Réseaux · annonce</span><q>Allô. Le nouveau single de Dac-M est disponible partout. Le clip sort vendredi.</q></div>
+    <div><span class="eyebrow">Affiche · événement</span><q>LBV Show. Six artistes, une scène, une nuit à Libreville.</q></div>
+    <div><span class="eyebrow">Site · accroche</span><q>Chaque grand titre commence par une rencontre.</q></div>
+    <div class="bad"><span class="eyebrow">À éviter</span><q>🔥🔥 Le MEILLEUR label du Gabon vous présente son incroyable nouveau son !!! 🔥🔥</q></div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">36 / 45</span></footer></div></section>
+<section class="sheet"><div class="page divider">
+  <img class="div-img" src="img/scene-lbv-show.jpg" alt="" style="object-position:center 60%">
+  <div class="div-num">08</div>
+  <div class="div-txt"><span class="eyebrow">Chapitre 08</span><h2>Applications</h2><p>Le système en situation : réseaux, pochettes, scène, papier, écran.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">37 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">Réseaux sociaux</h2><div class="body">
+  <div class="social">
+    <figure><div class="ig post"><img src="img/dac-m.jpg" alt="" style="object-position:38% 10%;filter:contrast(1.08) saturate(.78) brightness(.8)"><div class="post-veil"></div><div class="post-mark"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:22px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><div class="post-txt"><span class="eyebrow">Nouveau single</span><b>Allô</b><span class="post-art">DAC-M</span></div><span class="post-num">03.05</span></div><figcaption>Post 1080 × 1080</figcaption></figure>
+    <figure><div class="ig story"><img src="img/feu.jpg" alt="" class="story-fire"><div class="story-top"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:34px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div><div class="story-mid"><span class="eyebrow">Libreville</span><b>LBV<br>SHOW</b><span class="post-num big">2026</span></div><div class="story-names">Carty · D.O.M · Le T<br>Dac-M · Xquality · Lunxy</div></div><figcaption>Story 1080 × 1920</figcaption></figure>
+    <figure><div class="ig post quote"><span class="eyebrow">LBV Production</span><b>Libreville a une <em>voix.</em></b><div class="post-mark br"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:22px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption>Citation 1080 × 1080</figcaption></figure>
+    <figure class="avatars"><div class="av"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:70px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><div class="profile"><b>lbv_production</b><span>Label indépendant · Libreville, Gabon</span><span class="cendre">Talent · Son · Scène</span></div><figcaption>Profil</figcaption></figure>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">38 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">Pochettes de single</h2><div class="body">
+  <div class="grid3 sleeves">
+    <figure><div class="sleeve"><img src="img/carty.jpg" alt="" style="object-position:58% 40%;filter:contrast(1.1) saturate(.8) brightness(.8)"><div class="sl-title">CARTY</div><div class="sl-sub">Nouvelle ère</div><div class="sl-mark"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:26px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption>Portrait, titre en capitales</figcaption></figure>
+    <figure><div class="sleeve red"><div class="sl-big">Money<br><em>Dance</em></div><div class="sl-sub dark">Le T</div><div class="sl-mark"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:26px;color:#0A0A0A;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption>Aplat Oxblood, un mot en os</figcaption></figure>
+    <figure><div class="sleeve"><img src="img/lunxy.jpg" alt="" style="object-position:50% 20%;filter:contrast(1.1) brightness(.75)"><div class="sl-fire"></div><div class="sl-title low">LUNXY</div><div class="sl-sub low">Nuit 01</div><div class="sl-mark"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:26px;color:#D8261E;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption>Photo de scène, tampon braise</figcaption></figure>
+  </div>
+  <p class="small wide">Gabarits de principe : titres et visuels fictifs composés à partir des photos du label. Chaque artiste garde la liberté de sa pochette dans ce cadre.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">39 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">LBV Show : affiche et billet</h2><div class="body">
+  <div class="show">
+    <div class="poster"><img src="img/scene-lbv-show.jpg" alt="" style="object-position:50% 40%;filter:contrast(1.1) saturate(.85) brightness(.62)"><img src="img/feu.jpg" alt="" class="poster-fire"><div class="poster-top"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:34px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg><span class="post-num">2026</span></div><div class="poster-title">LBV<br>SHOW</div><div class="poster-names">Carty + D.O.M + Le T + Dac-M + Xquality + Lunxy</div><div class="poster-foot"><span>Libreville</span><span>Date et lieu à annoncer</span></div></div>
+    <div class="ticket">
+      <div class="t-main">
+        <div class="t-head"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:22px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><span>Carte d’embarquement</span></div>
+        <div class="t-route"><div><span>Départ</span><b>LBV</b><i>Libreville</i></div><svg viewBox="0 0 60 12" width="60"><path d="M0 6h56M50 1l6 5-6 5" fill="none" stroke="#d8261e" stroke-width="1.4"/></svg><div><span>Arrivée</span><b>SCÈNE</b><i>LBV Show</i></div></div>
+        <div class="t-meta"><div><span>Vol</span><b>LBV 241</b></div><div><span>Porte</span><b>B</b></div><div><span>Place</span><b>Fosse</b></div><div><span>Embarquement</span><b>20:00</b></div></div>
+      </div>
+      <div class="t-stub"><span>LBV 241</span><b>FOSSE</b><div class="barcode"></div></div>
+    </div>
+    <p class="small show-note">Le billet reprend le code d’aéroport de Libreville et l’indicatif du Gabon (241). Le jeu sur le voyage reste une idée d’événement, pas l’identité quotidienne.</p>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">40 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">Merch</h2><div class="body">
+  <div class="merch">
+    <figure><div class="tee"><svg viewBox="0 0 300 320" class="tee-shape"><path d="M96 18c14 18 94 18 108 0l74 34-26 66-30-13v200H76V105l-30 13-26-66z" fill="#101010" stroke="rgba(231,227,218,.18)"/><path d="M96 18c14 26 94 26 108 0" fill="none" stroke="rgba(231,227,218,.22)"/></svg><div class="tee-print "><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:26px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div></div><figcaption><b>T-shirt, face</b><span>Symbole os brodé, cœur, 7 cm.</span></figcaption></figure>
+    <figure><div class="tee"><svg viewBox="0 0 300 320" class="tee-shape"><path d="M96 18c14 18 94 18 108 0l74 34-26 66-30-13v200H76V105l-30 13-26-66z" fill="#101010" stroke="rgba(231,227,218,.18)"/><path d="M96 18c14 6 94 6 108 0" fill="none" stroke="rgba(231,227,218,.22)"/></svg><div class="tee-print back"><span class="tee-line">LIBREVILLE A UNE <em>VOIX.</em></span><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:46px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><span class="tee-small">TALENT + SON + SCÈNE</span></div></div><figcaption><b>T-shirt, dos</b><span>Sérigraphie os et braise, 28 cm de large.</span></figcaption></figure>
+    <figure><div class="label-woven"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:20px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><span>LBV PRODUCTION · AKANDA</span></div><div class="sticker"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="width:78px;color:#0A0A0A;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><figcaption><b>Étiquette et sticker</b><span>Étiquette tissée noire, sticker braise découpé à la forme.</span></figcaption></figure>
+  </div>
+  <p class="small wide">Supports : coton lourd noir délavé, sérigraphie à l’eau, pas d’impression numérique brillante. Le logo complet n’apparaît pas sur le vêtement : le symbole suffit.</p></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">41 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">Papeterie</h2><div class="body">
+  <div class="paper">
+    <div class="cards">
+      <div class="card front"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:72px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div>
+      <div class="card back"><div class="c-name"><b>Prénom Nom</b><span>Direction artistique</span></div><div class="c-info">contact@lbvproduction.com<br>+241 077 04 75 64<br>Cité Magnolia, Villa 163, Akanda</div><div class="c-logo"><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:30px;color:#0A0A0A;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg></div></div>
+      <p class="small">Carte 85 × 55 mm. Recto noir, symbole os en sérigraphie. Verso papier os, texte noir, logo oxblood en option gaufrée.</p>
+    </div>
+    <div class="mail">
+      <div class="mail-bar"><i></i><i></i><i></i></div>
+      <div class="mail-body">
+        <p>Bonjour,<br><br>Merci pour votre retour. Vous trouverez le dossier de presse en pièce jointe.<br><br>Bien à vous,</p>
+        <div class="sig"><div class="sig-mark"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:26px;color:#0A0A0A;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg></div><div><b>Prénom Nom</b><span>LBV Production · Direction artistique</span><span>+241 077 04 75 64 · lbvproduction.com</span></div></div>
+      </div>
+      <p class="small">Signature e-mail : symbole en image de 52 px (affiché à 26), texte en police système, aucune bannière.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">42 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>08</b> Applications</span><span>Charte graphique · 2026</span></header><h2 class="title">Écrans : site et YouTube</h2><div class="body">
+  <div class="screens">
+    <figure class="site"><div class="browser"><div class="b-bar"><i></i><i></i><i></i><span>lbvproduction.com</span></div><img src="img/site-hero.jpg" alt="Accueil du site LBV Production"></div><figcaption><b>Site</b> Noir, portrait assombri, logo en volume chrome rouge, grand titre en os.</figcaption></figure>
+    <figure class="yt"><div class="banner"><img src="img/feu.jpg" alt="" class="banner-fire"><div class="safe"><span class="safe-lbl">Zone visible sur tous les écrans · 1546 × 423</span><svg class="lg" viewBox="175.4 306.5 729.8 467.4" style="height:58px;color:#E7E3DA;" role="img" aria-label="LBV Production"><use href="#lbv-mark"/><use href="#lbv-word"/></svg><span class="banner-line">Libreville a une <em>voix.</em></span></div></div><figcaption><b>Bannière YouTube</b> 2560 × 1440 px. Tout le contenu dans la zone centrale.</figcaption></figure>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">43 / 45</span></footer></div></section>
+<section class="sheet"><div class="page "><header><span><b>09</b> Fichiers</span><span>Charte graphique · 2026</span></header><h2 class="title">Fichiers livrés et contacts</h2><div class="body">
+  <div class="two top">
+    <table class="files">
+      <tr><td><code>lbv-logo-os.svg</code></td><td>Logo principal, fonds sombres</td></tr>
+      <tr><td><code>lbv-logo-noir.svg</code></td><td>Logo inversé, fonds clairs</td></tr>
+      <tr><td><code>lbv-logo-braise.svg</code></td><td>Signature événementielle</td></tr>
+      <tr><td><code>lbv-logo-oxblood.svg</code></td><td>Papeterie, gaufrage</td></tr>
+      <tr><td><code>lbv-symbole-os.svg</code> · <code>-noir</code> · <code>-braise</code></td><td>Symbole seul</td></tr>
+      <tr><td><code>lbv-avatar-noir.svg</code></td><td>Avatar carré des réseaux</td></tr>
+      <tr><td><code>lbv-geometry.json</code></td><td>Tracés et mesures du logo</td></tr>
+    </table>
+    <div>
+      <p>Les fichiers vectoriels se trouvent dans le dossier <code>brand/</code> du projet. Ils sont tracés à partir du logo officiel en haute définition. Pour un PNG, exporter depuis le SVG à la taille voulue, jamais agrandir un PNG existant.</p>
+      <h3>Contact de la marque</h3>
+      <p>LBV Production<br>Cité Magnolia, Villa 163, Akanda, Libreville, Gabon<br>contact@lbvproduction.com · +241 077 04 75 64<br>Instagram @lbv_production · YouTube @LBVProduction-241</p>
+      <p class="small">Toute application non prévue dans ce document est soumise à la validation du label avant diffusion.</p>
+    </div>
+  </div></div><footer><span>LBV Production · Charte graphique</span><span class="pnum">44 / 45</span></footer></div></section>
+<section class="sheet"><div class="page back-cover">
+  <img class="back-fire" src="img/feu.jpg" alt="">
+  <div class="back-inner"><svg class="lg" viewBox="175.4 306.5 729.8 372.2" style="height:120px;color:#E7E3DA;" role="img" aria-label="LBV"><use href="#lbv-mark"/></svg><p class="cover-line">Ça va sonner <em>différent.</em></p><span>© LBV Production 2026 · Charte graphique, édition 01</span></div></div></section>
+</main>
+<script>
+(function () {
+  var fit = function () { var w = Math.min(1200, document.documentElement.clientWidth - 32); document.documentElement.style.setProperty('--k', (w / 1200).toFixed(4)); };
+  fit(); window.addEventListener('resize', fit);
+  window.addEventListener('beforeprint', function () { document.documentElement.style.setProperty('--k', '1'); });
+  window.addEventListener('afterprint', fit);
+})();
+</script>
+</body>
+</html>
