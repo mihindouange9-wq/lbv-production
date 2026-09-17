@@ -6,3 +6,5 @@ research/*.html
 research/supabase-key.txt
 charte/*.pdf
 tools/tmp/
+research/
+source/

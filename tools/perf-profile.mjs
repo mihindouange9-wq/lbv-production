@@ -1,7 +1,7 @@
 /* Profil processeur du premier défilement : quelles fonctions coûtent le plus.
    node tools/perf-profile.mjs [largeur] [hauteur] */
 import { spawn } from 'node:child_process';
-const [W = '1440', H = '900'] = process.argv.slice(2);
+const [W = '1440', H = '900', THROTTLE = '1'] = process.argv.slice(2);
 const port = 9333 + Math.floor(Math.random() * 500);
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', '--hide-scrollbars', '--allow-file-access-from-files', '--enable-gpu-rasterization', '--autoplay-policy=no-user-gesture-required', '--no-first-run', `--remote-debugging-port=${port}`, `--user-data-dir=C:/Users/mihin/AppData/Local/Temp/chrome-cdp-${port}`, `--window-size=${W},${H}`, 'about:blank'], { stdio: 'ignore' });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -12,7 +12,8 @@ ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && pending.has(d.
 const send = (method, params = {}) => new Promise((res) => { const i = ++id; pending.set(i, res); ws.send(JSON.stringify({ id: i, method, params })); });
 const ev = async (expression) => (await send('Runtime.evaluate', { expression, awaitPromise: true, returnByValue: true })).result?.result?.value;
 await send('Page.enable'); await send('Profiler.enable');
-await send('Emulation.setDeviceMetricsOverride', { width: +W, height: +H, deviceScaleFactor: 1, mobile: false });
+await send('Emulation.setDeviceMetricsOverride', { width: +W, height: +H, deviceScaleFactor: +THROTTLE > 1 ? 2 : 1, mobile: +THROTTLE > 1 });
+await send('Emulation.setCPUThrottlingRate', { rate: +THROTTLE });
 await send('Page.navigate', { url: 'file:///C:/Users/mihin/Documents/geek/lbv-production/index.html' });
 await sleep(13000);
 await ev('document.body.click(); true'); await sleep(2500);
@@ -20,7 +21,7 @@ await ev('window.scrollTo(0, 0); true'); await sleep(800);
 
 await send('Profiler.setSamplingInterval', { interval: 200 });
 await send('Profiler.start');
-await ev(`new Promise((done) => { const wheel = setInterval(() => window.dispatchEvent(new WheelEvent('wheel', { deltaY: 140, bubbles: true, cancelable: true })), 50); setTimeout(() => { clearInterval(wheel); done(1); }, 12000); })`);
+await ev(`new Promise((done) => { const wheel = setInterval(() => window.scrollBy(0, 200), 50); setTimeout(() => { clearInterval(wheel); done(1); }, 12000); })`);
 const { result } = await send('Profiler.stop');
 const prof = result.profile;
 const byId = new Map(prof.nodes.map((n) => [n.id, n]));

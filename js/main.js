@@ -1,6 +1,7 @@
-/* LBV Production — moteur d'animation.
-   Porté depuis le site de référence (meermohsin.me) : mêmes séquences, mêmes durées, mêmes courbes.
-   GSAP 3.13 (ScrollTrigger, SplitText, Flip), Lenis, three.js r128, webgl-fluid. */
+/* LBV Production — moteur d'animation du site.
+   Dépendances : GSAP 3.13 (ScrollTrigger, SplitText, Flip), Lenis, three.js r128, webgl-fluid.
+   Principes de la charte : courbe expo.out (.22, 1, .36, 1), révélations jouées une seule fois,
+   ni flou, ni rebond, ni clignotement. Tout ce qui est coûteux est désactivé sur téléphone. */
 (function () {
   'use strict';
   const K = window.gsap;
@@ -31,8 +32,8 @@
   K.ticker.add((t) => lenis.raf(t * 1000));
 
   /* ---------- Préchargeur : plan rouge dissous par bruit (shader) + compteur ---------- */
-  const preloader = $('.site-pre-loader');
-  const counter = $('.number-count');
+  const preloader = $('.loader');
+  const counter = $('.loader-counter');
   const loaderCanvas = $('#loader-canvas');
   if (!playLoader) {
     if (preloader) preloader.remove();
@@ -106,8 +107,8 @@
     const n = { value: 0 };
     K.to(n, { value: 100, duration: 3.5, ease: 'power2.inOut',
       onUpdate() { counter.textContent = Math.floor(n.value).toString().padStart(3, '0'); },
-      onComplete() { const tl = K.timeline(); tl.to(counter, { opacity: 0, duration: 1.45, ease: 'power3.out' }).to('.site-pre-loader', { duration: 2.85 }).to('.site-pre-loader', { autoAlpha: 0, duration: 0.5 }); } });
-    K.fromTo('.sound-follow', { opacity: 0 }, { opacity: 0.85, duration: 1.4, ease: 'expo.out', delay: 0.6 });
+      onComplete() { const tl = K.timeline(); tl.to(counter, { opacity: 0, duration: 1.45, ease: 'power3.out' }).to('.loader', { duration: 2.85 }).to('.loader', { autoAlpha: 0, duration: 0.5 }); } });
+    K.fromTo('.loader-hint', { opacity: 0 }, { opacity: 0.85, duration: 1.4, ease: 'expo.out', delay: 0.6 });
   }
 
   /* ---------- Lecture progressive (téléphone) : court par défaut, « Lire la suite » ---------- */
@@ -125,8 +126,8 @@
   armAllReadMore();
   /* ---------- Séquence d'entrée du hero ---------- */
   // Rail du hero : monte à l'entrée puis défile en boucle (tous appareils), accélère et s'incline au scroll
-  K.to('.hero-section-home .scrolling-text .rail h4', { y: 0, delay: D, duration: 2 });
-  const heroRail = $('.hero-section-home .scrolling-text .rail');
+  K.to('.hero-section-home .marquee .rail .rail-item', { y: 0, delay: D, duration: 2 });
+  const heroRail = $('.hero-section-home .marquee .rail');
   if (heroRail) {
     const heroMarquee = K.to(heroRail, { xPercent: -50, duration: 22, ease: 'none', repeat: -1, delay: D + 0.6 });
     let hv = 0;
@@ -134,19 +135,19 @@
     const heroSkew = K.quickTo(heroRail, 'skewX', { duration: 0.6, ease: 'power3' });
     K.ticker.add(() => { const boost = Math.min(Math.abs(hv) / 10, 4); heroMarquee.timeScale(K.utils.interpolate(heroMarquee.timeScale(), 1 + boost, 0.08)); heroSkew(Math.max(-10, Math.min(10, -hv / 5))); });
   }
-  const introLines = new Split('.para-introduce-hero', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  const introLines = new Split('.hero-intro', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.set(introLines.lines, { yPercent: 100, opacity: 0 });
   K.to(introLines.lines, { yPercent: 0, opacity: 1, stagger: 0.04, duration: 1.6, ease: 'expo.out', delay: D });
-  const expLines = new Split('.expertise-text', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  const expLines = new Split('.hero-tags', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.set(expLines.lines, { yPercent: 100, opacity: 0 });
   K.to(expLines.lines, { yPercent: 0, opacity: 1, stagger: 0.05, duration: 1.6, ease: 'expo.out', delay: D });
-  K.to('.face-image', { y: 0, duration: 3.8, filter: 'brightness(0.72) saturate(0.82) contrast(1.14)', scale: 1, ease: 'power2.out', delay: isReload ? 0.1 : D + 0.5 });
+  K.to('.hero-portrait-img', { y: 0, duration: 3.8, filter: 'brightness(0.72) saturate(0.82) contrast(1.14)', scale: 1, ease: 'power2.out', delay: isReload ? 0.1 : D + 0.5 });
   K.to('.hero-section-home', { backgroundImage: 'linear-gradient(250deg, #240707 0%, #0a0a0a 100%)', duration: 3, delay: D });
   K.to('.menu-2-bar', { opacity: 1, delay: D, pointerEvents: 'auto', duration: 1.5, ease: 'power3.out' });
-  K.to('.logo-3d', { opacity: 1, delay: D });
+  K.to('.brand-link', { opacity: 1, delay: D });
   K.to('.cta-connect', { opacity: 1, delay: isReload ? 0.1 : D + 0.5 });
-  K.to('.plus-rotate', { rotate: 0, duration: 1, scale: 1, ease: 'power3.out', delay: isReload ? 0.1 : D + 0.5 });
-  const ledger = new Split('.Name-plus', { type: 'chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  K.to('.ledger-cross', { rotate: 0, duration: 1, scale: 1, ease: 'power3.out', delay: isReload ? 0.1 : D + 0.5 });
+  const ledger = new Split('.ledger-label', { type: 'chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.set(ledger.chars, { yPercent: 100, opacity: 0 });
   K.to(ledger.chars, { yPercent: 0, opacity: 1, stagger: 0.03, duration: 0.8, ease: 'power3.out', delay: D });
   const navChars = new Split('.active-animate', { type: 'chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
@@ -162,7 +163,7 @@
 
   /* ---------- Croix de la barre du bas : rotation au défilement ---------- */
   let lastY = window.scrollY, rot = 0;
-  const pluses = $$('.plus-rotate .plus-svg');
+  const pluses = $$('.ledger-cross .plus-svg');
   window.addEventListener('scroll', () => { const y = window.scrollY; rot += (y - lastY) * 0.3; pluses.forEach((p) => { p.style.transform = `rotate(${rot}deg)`; }); lastY = y; }, { passive: true });
 
   /* ---------- Bouton WhatsApp : magnétique, se cache à la descente ---------- */
@@ -179,11 +180,11 @@
     window.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; cursor.style.opacity = '1'; });
     window.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
     window.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
-    document.addEventListener('mouseover', (e) => { cursor.querySelector('span').style.transform = e.target.closest('a, button, .step, .card-1, .cta-footer, .menu-2-bar, .sound-wave, .cta-connect, input, textarea, [role="button"]') ? 'scale(2.2)' : 'scale(1)'; });
+    document.addEventListener('mouseover', (e) => { cursor.querySelector('span').style.transform = e.target.closest('a, button, .artist-card, .news-card, .cta-footer, .menu-2-bar, .sound-wave, .cta-connect, input, textarea, [role="button"]') ? 'scale(2.2)' : 'scale(1)'; });
   }
 
   /* ---------- Logo 3D ---------- */
-  $('.logo-3d').addEventListener('click', (e) => { e.preventDefault(); lenis.scrollTo(0); });
+  $('.brand-link').addEventListener('click', (e) => { e.preventDefault(); lenis.scrollTo(0); });
 
   /* ---------- Musique et onde ---------- */
   const music = $('#bgMusic');
@@ -207,7 +208,7 @@
   const menuTl = K.timeline({ paused: true });
   menuTl.to('.line-1', { xPercent: 0, y: 4.5, rotation: 45, background: '#000', duration: 0.35, ease: 'power3.inOut' }, 0)
     .to('.line-2', { xPercent: 0, y: -4, rotation: -45, background: '#000', duration: 0.35, ease: 'power3.inOut' }, 0)
-    .to('.logo-3d', { filter: 'brightness(0)', duration: 0.35 }, 0)
+    .to('.brand-link', { filter: 'brightness(0)', duration: 0.35 }, 0)
     .from('.line-mask', { yPercent: 100, opacity: 0, stagger: 0.03, duration: 1.2, ease: 'expo.out' }, 0);
   let menuOpen = false;
   const openMenu = () => { lenis.stop(); K.fromTo('.bar-bgs', { scaleX: 0, transformOrigin: 'right center' }, { scaleX: 1, duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => menuTl.play(0) }); K.set('.navigation-menu', { visibility: 'visible', pointerEvents: 'auto' }); K.set('.menu-2-bar', { mixBlendMode: 'normal' }); menuOpen = true; };
@@ -215,8 +216,8 @@
   $('.menu-2-bar').addEventListener('click', () => (menuOpen ? closeMenu() : openMenu()));
   $$('.menu-navigate-scroll a').forEach((a) => a.addEventListener('click', (e) => {
     e.preventDefault();
-    K.to('.plus-rotates', { scale: 0, rotation: 0, duration: 0.3, ease: 'power3.out' });
-    K.to(a.querySelector('.plus-rotates'), { scale: 1, rotation: 90, duration: 0.8, ease: 'expo.out' });
+    K.to('.menu-cross', { scale: 0, rotation: 0, duration: 0.3, ease: 'power3.out' });
+    K.to(a.querySelector('.menu-cross'), { scale: 1, rotation: 90, duration: 0.8, ease: 'expo.out' });
     closeMenu();
     const target = $(a.getAttribute('href'));
     if (target) K.delayedCall(0.9, () => lenis.scrollTo(target, { offset: 0, duration: 1.6 }));
@@ -248,47 +249,47 @@
   if (window.LBVFire && !reduce) window.LBVFire('.fire-canvas');
 
   /* ---------- Services : titre déplacé (Flip), lettres, pin, lignes SVG, mots, chute ---------- */
-  const heading = $('.services-heading');
-  const scrollDown = $('.scroll-downn');
+  const heading = $('.label-heading');
+  const scrollDown = $('.label-center');
   if (isMobile()) {
     // Téléphone : un bloc court et lisible, aucun épinglage, aucun titre déplacé
-    K.fromTo('.services-project .uiux', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.pictures-services', start: 'top 85%', once: true } });
-    K.fromTo('.services-project .expertise-set, .services-project .content-section-fall', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.expertise-wrapper', start: 'top 85%', once: true } });
+    K.fromTo('.label-section .label-thumb', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.label-thumbs', start: 'top 85%', once: true } });
+    K.fromTo('.label-section .label-list, .label-section .label-panel-text', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.label-lists', start: 'top 85%', once: true } });
   } else {
   const flipState = window.Flip.getState(heading);
   scrollDown.appendChild(heading);
-  window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.services-project', start: 'top 60%', end: 'center 50%', scrub: 1 } });
-  const breaks = $('.services-heading .breaks');
-  breaks.innerHTML = breaks.textContent.split('').map((c) => `<span class="services-char">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+  window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.label-section', start: 'top 60%', end: 'center 50%', scrub: 1 } });
+  const breaks = $('.label-heading .breaks');
+  breaks.innerHTML = breaks.textContent.split('').map((c) => `<span class="label-char">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
   K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1 } })
-    .to('.services-char', { fontSize: '16rem', stagger: 0.1, ease: 'none' })
+    .to('.label-char', { fontSize: '16rem', stagger: 0.1, ease: 'none' })
     .to('.breaks', { transform: 'translateX(0%)', ease: 'none' }, '0');
   const charify = (sel) => $$(sel).forEach((el) => { const t = el.textContent; el.innerHTML = ''; t.split('').forEach((c) => { const s = document.createElement('span'); s.textContent = c === ' ' ? ' ' : c; el.appendChild(s); }); });
   charify('.word1'); charify('.points');
   K.set('.word1 span, .points span', { y: '120%' });
-  const strokes = $$('.svg-strokee svg *');
+  const strokes = $$('.label-lines svg *');
   strokes.forEach((el) => { if (typeof el.getTotalLength === 'function') { const len = el.getTotalLength(); K.set(el, { strokeDasharray: len, strokeDashoffset: len }); } });
-  const fallHead = new Split('.heading-fall', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  const fallPara = new Split('.fall-para', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  const fallHead = new Split('.label-panel-title', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  const fallPara = new Split('.label-panel-para', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   [...fallHead.lines, ...fallPara.lines].forEach((l) => { l.innerHTML = `<span>${l.innerHTML}</span>`; });
-  const svcTl = K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+  const svcTl = K.timeline({ scrollTrigger: { trigger: '.label-section', start: 'top top', end: '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
   svcTl.to(strokes, { strokeDashoffset: 0, duration: 3, stagger: 0.11 }, '0');
-  svcTl.to('.services-char', { y: '-130%', delay: 0.5, stagger: 0.1 });
-  svcTl.to('.services-change-1 .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
+  svcTl.to('.label-char', { y: '-130%', delay: 0.5, stagger: 0.1 });
+  svcTl.to('.label-words .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
   svcTl.to('.set-1 .points span', { y: '0%', stagger: 0.04, duration: 0.6 }, '<');
-  svcTl.to('.services-change-1 .word1:nth-child(1) span', { y: '-120%', stagger: 0.02, duration: 1 }, '+=0.2');
+  svcTl.to('.label-words .word1:nth-child(1) span', { y: '-120%', stagger: 0.02, duration: 1 }, '+=0.2');
   svcTl.to('.set-1 .points span', { y: '-120%', stagger: 0.02, duration: 1 }, '<');
-  svcTl.to('.services-change-1 .word1:nth-child(2) span', { y: '0%', stagger: 0.03, ease: 'power4.out', duration: 0.6 });
+  svcTl.to('.label-words .word1:nth-child(2) span', { y: '0%', stagger: 0.03, ease: 'power4.out', duration: 0.6 });
   svcTl.to('.set-2 .points span', { y: '0%', stagger: 0.04, ease: 'power4.out', duration: 0.6 }, '<');
-  svcTl.to('.another-fall', { y: '0%', stagger: 0.04, duration: 2 });
-  svcTl.to('.another-fall', { scale: 1, width: '100vw', height: '100vh', stagger: 0.04, duration: 0.6 });
+  svcTl.to('.label-panel', { y: '0%', stagger: 0.04, duration: 2 });
+  svcTl.to('.label-panel', { scale: 1, width: '100vw', height: '100vh', stagger: 0.04, duration: 0.6 });
   svcTl.to('.paper-tear', { scale: 1, stagger: 0.04, duration: 0.6 });
-  svcTl.to('.fall-para .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
-  svcTl.to('.heading-fall .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
-  K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '700% bottom', scrub: 1.2, invalidateOnRefresh: true } })
-    .to('.uiux', { clipPath: 'inset(0% 0% 0% 0%)', stagger: 0.08, ease: 'power3.out' }, 0)
-    .fromTo('.uiux img', { yPercent: 40 }, { yPercent: -40, stagger: 0.08, ease: 'none' }, 0);
-  const pics = $('.pictures-services');
+  svcTl.to('.label-panel-para .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
+  svcTl.to('.label-panel-title .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
+  K.timeline({ scrollTrigger: { trigger: '.label-section', start: 'top top', end: '700% bottom', scrub: 1.2, invalidateOnRefresh: true } })
+    .to('.label-thumb', { clipPath: 'inset(0% 0% 0% 0%)', stagger: 0.08, ease: 'power3.out' }, 0)
+    .fromTo('.label-thumb img', { yPercent: 40 }, { yPercent: -40, stagger: 0.08, ease: 'none' }, 0);
+  const pics = $('.label-thumbs');
   if (window.innerWidth > 768) {
     let cx = window.innerWidth / 2, cy = window.innerHeight / 2, tx = cx, ty = cy;
     window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
@@ -298,50 +299,72 @@
 
   /* ---------- Artistes : pile épinglée, fond, texte, cercle, sidebar ---------- */
   const ARTISTS = window.LBV.artists;
-  const steps = K.utils.toArray('.step'), total = steps.length;
-  const bgImg = $('.steps-overlay-bg-change img');
-  const textBox = $('.text-chnage-on-steps'), textH1 = textBox.querySelector('h1'), textP = textBox.querySelector('p');
-  const circle = $('.circle-steps circle'), circleNum = $('.circle-steps h1');
-  const R = 35, CIRC = 2 * Math.PI * R;
-  K.set(circle, { strokeDasharray: CIRC, strokeDashoffset: CIRC });
-  const posFor = (rel) => rel === 0 ? { top: '25%', scale: 1, opacity: 1, pointerEvents: 'auto' }
-    : rel === -1 ? { top: '-10%', scale: 0.3, opacity: 0.4, pointerEvents: 'none' }
-    : rel <= -2 ? { top: '-25%', scale: 0, opacity: 0, pointerEvents: 'none' }
-    : rel === 1 ? { top: '60%', scale: 0.3, opacity: 0.4, pointerEvents: 'none' }
-    : { top: '80%', scale: 0.1, opacity: 0.1, pointerEvents: 'none' };
-  steps.forEach((s, i) => K.set(s, { ...posFor(i), zIndex: total - i }));
-  let inSteps = false, lastBg = -1, lastText = -1, textTl;
-  const setBg = (i) => { if (i === lastBg) return; lastBg = i; const img = steps[i]?.querySelector('img'); if (!img) return; K.to(bgImg, { opacity: 0, duration: 0.25, overwrite: 'auto', onComplete: () => { bgImg.src = img.src; if (inSteps) K.to(bgImg, { opacity: 1, duration: 0.6, overwrite: 'auto' }); } }); };
-  const setText = (i) => {
-    if (i === lastText) return; lastText = i; const a = ARTISTS[i]; if (!a) return;
-    textTl && textTl.kill(); textH1.innerHTML = ''; textP.innerHTML = '';
-    a.name.split(' ').forEach((w) => { const s = document.createElement('span'); s.className = 'word'; s.textContent = w; textH1.appendChild(s); });
-    a.short.split(' ').forEach((w) => { const s = document.createElement('span'); s.className = 'word'; s.textContent = w; textP.appendChild(s); });
-    const hw = textH1.querySelectorAll('.word'), pw = textP.querySelectorAll('.word');
-    K.set([...hw, ...pw], { y: 40, opacity: 0 });
-    textTl = K.timeline().to(hw, { y: 0, opacity: 1, stagger: 0.035, duration: 0.45, ease: 'power2.out' }).to(pw, { y: 0, opacity: 1, stagger: 0.018, duration: 0.35, ease: 'power2.out' }, '-=0.2');
-  };
-  const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * 100 + '%', scrub: 0.6, pin: true,
-    onEnter() { inSteps = true; K.to('.steps-overlay-bg-change', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
-    onEnterBack() { inSteps = true; K.to('.steps-overlay-bg-change', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
-    onLeave() { inSteps = false; K.to('.steps-overlay-bg-change', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
-    onLeaveBack() { inSteps = false; K.to('.steps-overlay-bg-change', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
-    onUpdate(self) {
-      const p = Math.min(self.progress * total, total - 1), idx = Math.floor(p), frac = p - idx;
-      steps.forEach((s, i) => K.to(s, { ...posFor(i - idx), duration: 0.9, ease: 'expo.out', overwrite: true }));
-      setBg(idx); setText(idx);
-      circle.style.strokeDashoffset = CIRC * (1 - frac); circleNum.innerText = String(idx + 1).padStart(2, '0');
-    } } });
-  for (let r = 0; r < total; r++) steps.forEach((s, i) => stepsTl.to(s, { ...posFor(i - r), ease: 'none', duration: 1 }, r));
-  bgImg.src = steps[0].querySelector('img').src;
-  // « VOIR » qui suit la souris sur les vignettes
-  const follow = $('.circle-follow-view');
-  const moveFollow = (e) => { follow.style.transform = `translate(${e.clientX - follow.offsetWidth / 2}px, ${e.clientY - follow.offsetHeight / 2}px)`; };
-  if (fine) { window.addEventListener('mousemove', moveFollow); steps.forEach((s) => { s.addEventListener('mouseenter', () => K.to(follow, { opacity: 1, duration: 0.4 })); s.addEventListener('mouseleave', () => K.to(follow, { opacity: 0, duration: 0.6 })); }); }
+  const steps = K.utils.toArray('.artist-card'), total = steps.length;
+  if (isMobile()) {
+    // Téléphone : une grille de six vignettes carrées, nom et style sous chaque photo, aucun épinglage
+    steps.forEach((s, i) => {
+      const a = ARTISTS[i];
+      if (!a) return;
+      // la photo va dans un cadre carré qui la rogne : le zoom de cadrage ne déborde pas sur le nom
+      const img = s.querySelector('img');
+      if (img && !img.parentElement.classList.contains('artist-thumb')) {
+        const media = document.createElement('div');
+        media.className = 'artist-thumb';
+        s.insertBefore(media, img);
+        media.appendChild(img);
+      }
+      const cap = document.createElement('div');
+      cap.className = 'artist-name';
+      cap.innerHTML = '<b>' + a.name + '</b><span>' + a.tags.slice(0, 2).join(' · ') + '</span>';
+      s.appendChild(cap);
+    });
+    K.fromTo(steps, { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.07, scrollTrigger: { trigger: '.container', start: 'top 85%', once: true } });
+  } else {
+    const bgImg = $('.artists-backdrop img');
+    const textBox = $('.artists-legend'), textH1 = textBox.querySelector('h2'), textP = textBox.querySelector('p');
+    const circle = $('.progress-ring circle'), circleNum = $('.progress-ring .progress-value');
+    const R = 35, CIRC = 2 * Math.PI * R;
+    K.set(circle, { strokeDasharray: CIRC, strokeDashoffset: CIRC });
+    const posFor = (rel) => rel === 0 ? { top: '25%', scale: 1, opacity: 1, pointerEvents: 'auto' }
+      : rel === -1 ? { top: '-10%', scale: 0.3, opacity: 0.4, pointerEvents: 'none' }
+      : rel <= -2 ? { top: '-25%', scale: 0, opacity: 0, pointerEvents: 'none' }
+      : rel === 1 ? { top: '60%', scale: 0.3, opacity: 0.4, pointerEvents: 'none' }
+      : { top: '80%', scale: 0.1, opacity: 0.1, pointerEvents: 'none' };
+    steps.forEach((s, i) => K.set(s, { ...posFor(i), zIndex: total - i }));
+    let inSteps = false, lastBg = -1, lastText = -1, textTl;
+    const setBg = (i) => { if (i === lastBg) return; lastBg = i; const img = steps[i]?.querySelector('img'); if (!img) return; K.to(bgImg, { opacity: 0, duration: 0.25, overwrite: 'auto', onComplete: () => { bgImg.src = img.src; if (inSteps) K.to(bgImg, { opacity: 1, duration: 0.6, overwrite: 'auto' }); } }); };
+    const setText = (i) => {
+      if (i === lastText) return; lastText = i; const a = ARTISTS[i]; if (!a) return;
+      textTl && textTl.kill(); textH1.innerHTML = ''; textP.innerHTML = '';
+      a.name.split(' ').forEach((w) => { const s = document.createElement('span'); s.className = 'word'; s.textContent = w; textH1.appendChild(s); });
+      a.short.split(' ').forEach((w) => { const s = document.createElement('span'); s.className = 'word'; s.textContent = w; textP.appendChild(s); });
+      const hw = textH1.querySelectorAll('.word'), pw = textP.querySelectorAll('.word');
+      K.set([...hw, ...pw], { y: 40, opacity: 0 });
+      textTl = K.timeline().to(hw, { y: 0, opacity: 1, stagger: 0.035, duration: 0.45, ease: 'power2.out' }).to(pw, { y: 0, opacity: 1, stagger: 0.018, duration: 0.35, ease: 'power2.out' }, '-=0.2');
+    };
+    const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * 100 + '%', scrub: 0.6, pin: true,
+      onEnter() { inSteps = true; K.to('.artists-backdrop', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
+      onEnterBack() { inSteps = true; K.to('.artists-backdrop', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
+      onLeave() { inSteps = false; K.to('.artists-backdrop', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
+      onLeaveBack() { inSteps = false; K.to('.artists-backdrop', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
+      onUpdate(self) {
+        const p = Math.min(self.progress * total, total - 1), idx = Math.floor(p), frac = p - idx;
+        steps.forEach((s, i) => K.to(s, { ...posFor(i - idx), duration: 0.9, ease: 'expo.out', overwrite: true }));
+        setBg(idx); setText(idx);
+        circle.style.strokeDashoffset = CIRC * (1 - frac); circleNum.innerText = String(idx + 1).padStart(2, '0');
+      } } });
+    for (let r = 0; r < total; r++) steps.forEach((s, i) => stepsTl.to(s, { ...posFor(i - r), ease: 'none', duration: 1 }, r));
+    bgImg.src = steps[0].querySelector('img').src;
+    // « VOIR » qui suit la souris sur les vignettes
+    const follow = $('.cursor-view');
+    const moveFollow = (e) => { follow.style.transform = `translate(${e.clientX - follow.offsetWidth / 2}px, ${e.clientY - follow.offsetHeight / 2}px)`; };
+    if (fine) { window.addEventListener('mousemove', moveFollow); steps.forEach((s) => { s.addEventListener('mouseenter', () => K.to(follow, { opacity: 1, duration: 0.4 })); s.addEventListener('mouseleave', () => K.to(follow, { opacity: 0, duration: 0.6 })); }); }
+  }
+
   // Sidebar artiste
-  const sidebar = $('.case-study-side-bar');
+  const sidebar = $('.artist-panel');
   const sbClose = $('.close-sidebar', sidebar);
-  const sbHero = $('.image-hero-side', sidebar), sbBg = $('.image-bg-hero img', sidebar), sbH1 = $('.sidebar-h1'), sbDate = $('.sidebar-date'), sbP = $('.sidebar-p'), sbTags = $('.project-tags'), sbGallery = $('.gallery-grid'), sbRoles = $('.role-list');
+  const sbHero = $('.image-hero-side', sidebar), sbBg = $('.image-bg-hero img', sidebar), sbH1 = $('.artist-panel-title'), sbDate = $('.artist-panel-meta'), sbP = $('.artist-panel-bio'), sbTags = $('.project-tags'), sbGallery = $('.gallery-grid'), sbRoles = $('.role-list');
   let sidebarOpen = false;
   if (fine) { window.addEventListener('mousemove', (e) => { sbClose.style.transform = `translate(${e.clientX - 30}px, ${e.clientY - 30}px)`; }); sidebar.addEventListener('mouseenter', () => { sbClose.style.opacity = 1; }); sidebar.addEventListener('mouseleave', () => { sbClose.style.opacity = 0; }); }
   else { sbClose.style.opacity = 1; sbClose.style.transform = 'translate(calc(100vw - 76px), 16px)'; }
@@ -368,42 +391,42 @@
   };
   steps.forEach((s, i) => s.addEventListener('click', () => openArtist(i)));
   sbClose.addEventListener('click', closeArtist);
-  window.addEventListener('wheel', (e) => { if (sidebarOpen && !e.target.closest('.case-study-side-bar')) e.preventDefault(); }, { passive: false, capture: true });
+  window.addEventListener('wheel', (e) => { if (sidebarOpen && !e.target.closest('.artist-panel')) e.preventDefault(); }, { passive: false, capture: true });
 
   /* ---------- Méthode ---------- */
-  new Split('.heading-of-step-work h1', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  new Split('.para-for-stepss', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  $$('.box-step-main h1, .box-step-main p').forEach((el) => new Split(el, { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' }));
-  K.set('.heading-of-step-work .word', { opacity: 0, y: 80 });
-  K.set('.para-for-stepss .word', { opacity: 0, y: 40 });
-  K.set('.box-step-main h1 .word', { opacity: 0, y: 60 });
-  K.set('.box-step-main p .word', { opacity: 0, y: 30 });
-  K.to('.step-of-work > img', { yPercent: -20, scale: 1, ease: 'none', scrollTrigger: { trigger: '.step-of-work', start: 'top bottom', end: 'bottom top', scrub: true } });
-  K.to('.heading-of-step-work .word', { opacity: 1, y: 0, stagger: 0.04, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.heading-of-step-work', start: 'top 75%', once: true } });
-  K.to('.para-for-stepss .word', { opacity: 1, y: 0, stagger: 0.012, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.para-for-stepss', start: 'top 80%', once: true } });
-  $$('.box-step-main').forEach((box) => {
+  new Split('.method-heading h2', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  new Split('.method-intro', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
+  $$('.method-step h3, .method-step p').forEach((el) => new Split(el, { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' }));
+  K.set('.method-heading .word', { opacity: 0, y: 80 });
+  K.set('.method-intro .word', { opacity: 0, y: 40 });
+  K.set('.method-step h3 .word', { opacity: 0, y: 60 });
+  K.set('.method-step p .word', { opacity: 0, y: 30 });
+  K.to('.method-section > img', { yPercent: -20, scale: 1, ease: 'none', scrollTrigger: { trigger: '.method-section', start: 'top bottom', end: 'bottom top', scrub: true } });
+  K.to('.method-heading .word', { opacity: 1, y: 0, stagger: 0.04, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.method-heading', start: 'top 75%', once: true } });
+  K.to('.method-intro .word', { opacity: 1, y: 0, stagger: 0.012, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.method-intro', start: 'top 80%', once: true } });
+  $$('.method-step').forEach((box) => {
     K.timeline({ scrollTrigger: { trigger: box, start: 'top 80%', once: true } })
       .from(box, { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out' })
-      .to(box.querySelectorAll('h1 .word'), { opacity: 1, y: 0, stagger: 0.05, duration: 0.8, ease: 'expo.out' }, '-=0.8')
+      .to(box.querySelectorAll('h3 .word'), { opacity: 1, y: 0, stagger: 0.05, duration: 0.8, ease: 'expo.out' }, '-=0.8')
       .to(box.querySelectorAll('p .word'), { opacity: 1, y: 0, stagger: 0.012, duration: 0.7, ease: 'expo.out' }, '-=0.6');
   });
 
   /* ---------- Sorties et actualités : cartes, titres ---------- */
   $$('.blog-section').forEach((sec) => {
-    if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.card-1:nth-child(2)'), { y: 0 }, '0');
+    if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
     new Split(sec.querySelector('.blog-heading'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     new Split(sec.querySelector('.blog-para'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     K.set(sec.querySelectorAll('.blog-heading .word, .blog-para .word'), { yPercent: 120, opacity: 0 });
     K.timeline({ scrollTrigger: { trigger: sec, start: 'top 60%', once: true } })
       .to(sec.querySelectorAll('.blog-heading .word'), { yPercent: 0, opacity: 1, duration: 1.4, stagger: 0.05, ease: 'expo.out' }, 0)
       .to(sec.querySelectorAll('.blog-para .word'), { yPercent: 0, opacity: 1, duration: 1, stagger: 0.015, ease: 'expo.out' }, 0.3);
-    if (isMobile()) K.utils.toArray('.card-1', sec).forEach((c, i) => K.from(c, { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out', delay: i * 0.1, scrollTrigger: { trigger: c, start: 'top 90%' } }));
+    if (isMobile()) K.utils.toArray('.news-card', sec).forEach((c, i) => K.from(c, { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out', delay: i * 0.1, scrollTrigger: { trigger: c, start: 'top 90%' } }));
   });
 
   /* ---------- Modale actualité ---------- */
   const BLOGS = window.LBV.blogs;
   const modal = $('.modal-blogs');
-  const mH1 = $('.content-blogs h1'), mDate = $('.Date-blog'), mP = $('.content-blogs p'), mBy = $('.by-who'), mImg = $('.modal-blogs .image-blog img');
+  const mH1 = $('.news-modal-text h2'), mDate = $('.news-modal-date'), mP = $('.news-modal-text p'), mBy = $('.news-modal-link'), mImg = $('.modal-blogs .news-image img');
   const mClose = $('.close-sidebar-blog');
   let modalBusy = false;
   let followClose = () => {};
@@ -429,7 +452,7 @@
       .to(mImg, { clipPath: 'inset(100% 0 0 0)', duration: 0.6, ease: 'power4.in' })
       .to(modal, { clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0, duration: 1, ease: 'power4.inOut' }, '-=0.3');
   };
-  $$('.card-1[data-blog]').forEach((c) => c.addEventListener('click', () => openBlog(+c.dataset.blog)));
+  $$('.news-card[data-blog]').forEach((c) => c.addEventListener('click', () => openBlog(+c.dataset.blog)));
   mClose.addEventListener('click', closeBlog);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeBlog(); closeContact(); closeArtist(); if (menuOpen) closeMenu(); } });
 
@@ -464,7 +487,7 @@
   /* ---------- Fluide plein écran (encre rouge) ---------- */
   if (window.WebGLFluid && !reduce && fine) {
     try {
-      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', SIM_RESOLUTION: 48, DYE_RESOLUTION: 384, DENSITY_DISSIPATION: 4.2, VELOCITY_DISSIPATION: 3.2, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.0, SPLAT_RADIUS: 0.03, SPLAT_FORCE: 1300, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
+      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', SIM_RESOLUTION: 32, DYE_RESOLUTION: 256, DENSITY_DISSIPATION: 4.2, VELOCITY_DISSIPATION: 3.2, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.0, SPLAT_RADIUS: 0.03, SPLAT_FORCE: 1300, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
       const fluidCanvas = $('#fluid2');
       fluidCanvas.style.pointerEvents = 'none';
       // Le paquet écoute le canvas : on lui relaie les mouvements de la page.
@@ -473,9 +496,9 @@
   } else { const c = $('#fluid2'); if (c) c.remove(); }
 
   /* ---------- Pied de page : rail qui monte puis défile en boucle, vitesse liée au scroll, colonnes en cascade ---------- */
-  const footRail = $('.footer-hit .scrolling-text .rail');
+  const footRail = $('.footer-hit .marquee .rail');
   if (footRail) {
-    const rows = footRail.querySelectorAll('h4');
+    const rows = footRail.querySelectorAll('.rail-item');
     K.set(rows, { yPercent: 100, opacity: 0 });
     ST.create({ trigger: '.footer-hit', start: 'top 70%', once: true,
       onEnter: () => K.to(rows, { yPercent: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: 0.08, overwrite: true }) });
@@ -485,7 +508,7 @@
     const skew = K.quickTo(footRail, 'skewX', { duration: 0.6, ease: 'power3' });
     K.ticker.add(() => { const boost = Math.min(Math.abs(vel) / 10, 4); marquee.timeScale(K.utils.interpolate(marquee.timeScale(), 1 + boost, 0.08)); skew(Math.max(-10, Math.min(10, -vel / 5))); });
     // Le rail se décale légèrement avec le défilement (parallaxe)
-    K.fromTo('.footer-hit .scrolling-text', { yPercent: 18 }, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.footer-hit', start: 'top bottom', end: 'bottom bottom', scrub: 1 } });
+    K.fromTo('.footer-hit .marquee', { yPercent: 18 }, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.footer-hit', start: 'top bottom', end: 'bottom bottom', scrub: 1 } });
   }
   const footCols = $('.footer-infos > div');
   if (footCols.length) {
@@ -497,7 +520,7 @@
   document.querySelectorAll('[role="button"]').forEach((el) => el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } }));
 
   /* ---------- Logo LBV en 3D (calque fixe du haut de page) ---------- */
-  if (window.LBVLogo3D && !reduce && !isMobile()) window.LBVLogo3D({ container: '.roman-statue-viewer', src: 'images/lbv-logo-new.png', cropBottom: 0.74, delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: isMobile() ? '.facts-figure-container' : '.box-section-ups' });
+  if (window.LBVLogo3D && !reduce && !isMobile()) window.LBVLogo3D({ container: '.logo-stage', delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: isMobile() ? '.facts-figure-container' : '.box-section-ups' });
 
   };
   // Polices : on attend au plus 2,5 s (Google Fonts), puis on démarre quoi qu’il arrive

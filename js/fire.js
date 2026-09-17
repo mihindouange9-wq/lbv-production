@@ -8,8 +8,15 @@
 window.LBVFire = function (selector) {
   const T = window.THREE;
   if (!T) return;
+  // Qualité selon l'appareil : le coût du shader est proportionnel au nombre d'octaves,
+  // au nombre d'échantillons de lueur, à la surface rendue et à la cadence.
+  const small = window.innerWidth <= 900 || !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const OCTAVES = small ? 4 : 5;
+  const SCALE = small ? 0.4 : 0.55;      // pixels rendus par pixel CSS
+  const FPS = small ? 24 : 30;
   const frag = `
     precision highp float;
+    #define OCTAVES ${OCTAVES}
     varying vec2 vUv;
     uniform float uTime; uniform vec2 uRes; uniform float uFlip; uniform float uSeed;
 
@@ -23,7 +30,7 @@ window.LBVFire = function (selector) {
     // bruit fractal : 7 octaves, rotation entre les octaves pour casser les alignements
     float fbm(vec2 p) {
       float v = 0.0, a = 0.5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
-      for (int i = 0; i < 7; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
+      for (int i = 0; i < OCTAVES; i++) { v += a * noise(p); p = m * p; a *= 0.5; }
       return v;
     }
     // Densité de flamme en un point : la matière monte, se tord, s'amincit vers le haut
@@ -68,12 +75,11 @@ window.LBVFire = function (selector) {
       heat = pow(heat, 1.35);
       vec3 col = blackbody(heat) * body;
       // lueur : la lumière déborde des langues (échantillons voisins, plus larges vers le haut)
+      // deux échantillons suffisent : la lueur est diffuse, l'œil ne voit pas la différence
       float glow = 0.0; float r = 0.035 + 0.05 * uv.y;
-      glow += smoothstep(0.0, 0.5, flame(p + vec2(r, 0.0), t));
-      glow += smoothstep(0.0, 0.5, flame(p - vec2(r, 0.0), t));
-      glow += smoothstep(0.0, 0.5, flame(p + vec2(0.0, r * 1.4), t));
-      glow += smoothstep(0.0, 0.5, flame(p - vec2(0.0, r * 1.4), t));
-      glow = glow * 0.25 * (1.0 - body);
+      glow += smoothstep(0.0, 0.5, flame(p + vec2(r, r * 0.7), t));
+      glow += smoothstep(0.0, 0.5, flame(p - vec2(r, r * 0.7), t));
+      glow = glow * 0.5 * (1.0 - body);
       col += vec3(0.62, 0.14, 0.02) * glow * 0.55 * (1.0 - uv.y * 0.6);
       // fumée : au-dessus des langues, une matière sombre et froide se dilue
       float smoke = smoothstep(-0.25, 0.05, d) * (1.0 - body) * smoothstep(0.35, 1.0, uv.y);
@@ -99,8 +105,7 @@ window.LBVFire = function (selector) {
     const scene = new T.Scene();
     const cam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     scene.add(new T.Mesh(new T.PlaneGeometry(2, 2), new T.ShaderMaterial({ uniforms, transparent: true, depthWrite: false, depthTest: false, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }', fragmentShader: frag })));
-    // Résolution : 0,8 px par pixel CSS sur ordinateur, 0,55 sur écran étroit (le bruit à 7 octaves est coûteux)
-    const scale = window.innerWidth <= 800 ? 0.55 : 0.8;
+    const scale = SCALE;
     const resize = () => { const r = canvas.getBoundingClientRect(); const w = Math.max(2, Math.round(r.width * scale)), h = Math.max(2, Math.round(r.height * scale)); rend.setSize(w, h, false); uniforms.uRes.value.set(w, h); };
     resize();
     window.addEventListener('resize', resize);
@@ -110,8 +115,17 @@ window.LBVFire = function (selector) {
     // Faite ici, elle tombe pendant le préchargeur ; sinon elle tombait au premier passage devant les flammes.
     rend.compile(scene, cam);
     rend.render(scene, cam);
-    const loop = () => { if (!visible) return; uniforms.uTime.value = clock.getElapsedTime(); rend.render(scene, cam); raf = requestAnimationFrame(loop); };
-    new IntersectionObserver((en) => { const v = en[0].isIntersecting; if (v && !visible) { visible = true; loop(); } else if (!v) { visible = false; cancelAnimationFrame(raf); } }, { threshold: 0.01 }).observe(canvas);
+    // Cadence limitée : au-delà de 30 images par seconde, le feu ne gagne rien et vole du temps au défilement
+    const interval = 1000 / FPS; let lastDraw = 0;
+    const loop = (now) => {
+      if (!visible) return;
+      raf = requestAnimationFrame(loop);
+      if (now - lastDraw < interval) return;
+      lastDraw = now;
+      uniforms.uTime.value = clock.getElapsedTime();
+      rend.render(scene, cam);
+    };
+    new IntersectionObserver((en) => { const v = en[0].isIntersecting; if (v && !visible) { visible = true; loop(performance.now()); } else if (!v) { visible = false; cancelAnimationFrame(raf); } }, { threshold: 0.01 }).observe(canvas);
     document.addEventListener('visibilitychange', () => { if (document.hidden) { visible = false; cancelAnimationFrame(raf); } });
   });
 };

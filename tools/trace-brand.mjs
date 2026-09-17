@@ -6,7 +6,7 @@
 import { spawn } from 'node:child_process';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
-const SRC = 'images/hero-slide-1-image-1773436640771.png';
+const SRC = 'source/hero-slide-1-image-1773436640771.png';
 const b64 = (await readFile(SRC)).toString('base64');
 
 const pageScript = `

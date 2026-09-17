@@ -1,7 +1,7 @@
-/* Logo LBV en 3D — remplace la statue GLB de la référence.
-   Contours vectorisés hors ligne (tools/trace-logo.mjs → js/logo-shape.js), lissés, extrudés avec biseau,
-   matériau physique laqué avec reflets d'un studio virtuel, étoile en métal clair.
-   Mouvements identiques à la référence : entrée par les côtés, culbute, souris, rotation et fuite au défilement. */
+/* Symbole LBV en volume, calque fixe au-dessus de l'accueil (ordinateur seulement).
+   Contours vectorisés hors ligne (tools/trace-brand.mjs → tools/brand-to-3d.mjs → js/logo-shape.js),
+   lissés, extrudés avec un biseau fin ; matériau laqué rouge profond, reflets d'un studio virtuel.
+   Mouvements : entrée par les côtés, suivi du pointeur, rotation et fuite au défilement. */
 window.LBVLogo3D = function (opts) {
   const T = window.THREE, K = window.gsap;
   const holder = document.querySelector(opts.container);
@@ -18,8 +18,8 @@ window.LBVLogo3D = function (opts) {
   const s = size / Math.max(SH.w, SH.h);
   const toV = (p) => new T.Vector2((p[0] - SH.w / 2) * s, -(p[1] - SH.h / 2) * s);
   const outers = [...SH.outers].sort((a, b) => area(b) - area(a));
-  const shapeOf = (o) => { const sh = new T.Shape(chaikin(o, 2).map(toV)); SH.holes.filter((hl) => inside(hl[0], o)).forEach((hl) => sh.holes.push(new T.Path(chaikin(hl, 2).map(toV)))); return sh; };
-  const extrude = (shapes) => { const g = new T.ExtrudeGeometry(shapes, { depth, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.055, bevelOffset: 0, bevelSegments: 5, curveSegments: 6 }); g.computeVertexNormals(); return g; };
+  const shapeOf = (o) => { const sh = new T.Shape(chaikin(o, 1).map(toV)); SH.holes.filter((hl) => inside(hl[0], o)).forEach((hl) => sh.holes.push(new T.Path(chaikin(hl, 1).map(toV)))); return sh; };
+  const extrude = (shapes) => { const g = new T.ExtrudeGeometry(shapes, { depth, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.055, bevelOffset: 0, bevelSegments: 3, curveSegments: 4 }); g.computeVertexNormals(); return g; };
   // Lettres (3 plus grandes formes) et étoile (les autres)
   const letters = outers, star = [];
   const gLetters = extrude(letters.map(shapeOf));
@@ -33,7 +33,7 @@ window.LBVLogo3D = function (opts) {
   cam.position.set(0, 0, mobile ? 20 : 14);
   const rend = new T.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   rend.setSize(holder.clientWidth, holder.clientHeight);
-  rend.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+  rend.setPixelRatio(1);
   rend.outputEncoding = T.sRGBEncoding;
   rend.toneMapping = T.ACESFilmicToneMapping;
   rend.toneMappingExposure = 1.0;
@@ -64,7 +64,7 @@ window.LBVLogo3D = function (opts) {
   // Ombre volumique : une copie sombre légèrement en retrait donne de la profondeur sans doublon visible
   const B = makeLogo(matBack); B.scale.set(1.015, 1.015, 0.7); B.position.z = -0.32;
 
-  // Lumières : clé chaude, contre-jour rouge, remplissages rouges (comme la référence, calibrés en mode physique)
+  // Lumières : clé chaude, contre-jour rouge, remplissages rouges (calibrés en mode physique)
   const key = new T.DirectionalLight('#ffe9d6', 1.7); key.position.set(3, 5, 6); scene.add(key);
   const rim = new T.DirectionalLight('#ff2a2a', 4); rim.position.set(-4, 2, -6); scene.add(rim);
   const p1 = new T.PointLight('#ff1f1f', 60, 20, 2); p1.position.set(3, 2, 4); scene.add(p1);
@@ -75,7 +75,7 @@ window.LBVLogo3D = function (opts) {
 
   const group = new T.Group(); scene.add(group);
   const inner = new T.Group(); group.add(inner);
-  // Entrée par les côtés (référence) : A vient de la gauche, B de la droite et se cale dos à dos derrière A
+  // Entrée par les côtés : A vient de la gauche, B de la droite et se cale dos à dos derrière A
   A.position.set(-25, 0, 0); B.position.set(25, 0, -0.32);
   inner.add(A, B);
   group.position.y = mobile ? 0.3 : 1.3; group.position.z = -2.5;
