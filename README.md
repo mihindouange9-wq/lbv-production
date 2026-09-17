@@ -21,6 +21,17 @@ lbv-production/
 
 Déploiement : `node tools/export-netlify.mjs` produit `../lbv-production-netlify/` à glisser-déposer sur Netlify. Le formulaire de contact est prêt pour Netlify Forms (`data-netlify`) ; hors Netlify, il ouvre le client mail.
 
+## Direction « dark et select » (17 septembre 2026)
+
+Sur demande du client (site trop chargé sur téléphone, rendu à débarrasser de ses tics de site généré, ambiance sombre et premium façon Rick Owens) :
+
+- Palette : noir profond `#0a0a0a`, os `#e7e3da`, charbon ; un seul accent oxblood `#7a0a0a` (préchargeur, sélection), jamais en aplat. Plus de sections rouge vif, plus de cursive Ruthie : capitales grotesques en Stack Sans Headline, Bebas Neue pour les grands chiffres.
+- Photos en monochrome, couleur au survol. Coins nets, filets fins, aucune lueur, aucun dégradé animé, aucun anneau qui tourne, aucun flou sur les apparitions.
+- Téléphone : textes courts par défaut avec « Lire la suite » (classe `readmore`, bouton posé par `js/main.js`), section Le Label statique (titre, phrase, quatre visuels, deux listes), calque 3D désactivé, hauteurs réduites.
+- Fluidité : Lenis `lerp 0.075`, `lagSmoothing(0)`, scrubs plus longs (1 à 1,2), courbes `expo.out`, révélations jouées une fois.
+- Feu (`js/fire.js`) : densité en bruit fractal à sept octaves doublement déformé, couleur par température (noir → rouge → orange → jaune → blanc), lueur, fumée, braises, distorsion de chaleur, grain.
+- Logo 3D : chrome rouge profond, reflets d'un studio monochrome.
+
 ## Animations reproduites (référence → LBV)
 
 | Référence | Reproduction |

@@ -46,18 +46,18 @@ window.LBVLogo3D = function (opts) {
   const panel = (w, h, color, intensity, x, y, z, rx, ry) => { const m = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color(color).multiplyScalar(intensity), side: T.DoubleSide })); m.position.set(x, y, z); m.rotation.set(rx, ry, 0); studio.add(m); };
   panel(6, 2, '#fff2e6', 6, 0, 5, 0, Math.PI / 2, 0);        // plafond chaud
   panel(2, 6, '#ffffff', 4, -6, 1, 0, 0, Math.PI / 2);        // côté gauche blanc
-  panel(2, 6, '#ff3b3b', 5, 6, 1, 0, 0, -Math.PI / 2);        // côté droit rouge
-  panel(8, 3, '#ff1a1a', 3, 0, 0, -6, 0, 0);                  // fond rouge
-  panel(3, 1, '#ffffff', 8, 2, 3, 5, -0.4, Math.PI);         // reflet clé
-  panel(10, 0.5, '#ffffff', 9, 0, -3.5, 0, Math.PI / 2, 0);   // bande claire au sol
-  panel(0.6, 6, '#ffd9d9', 7, 4.5, 1, 3, 0, -Math.PI / 4);    // fine bande pour les reflets sur les arêtes
+  panel(2, 6, '#e9e4da', 3, 6, 1, 0, 0, -Math.PI / 2);        // côté droit os
+  panel(8, 3, '#3a3a3a', 2, 0, 0, -6, 0, 0);                  // fond gris sombre
+  panel(3, 1, '#ffffff', 4, 2, 3, 5, -0.4, Math.PI);         // reflet clé
+  panel(10, 0.5, '#ffffff', 5, 0, -3.5, 0, Math.PI / 2, 0);   // bande claire au sol
+  panel(0.6, 6, '#ffffff', 6, 4.5, 1, 3, 0, -Math.PI / 4);    // fine bande pour les reflets sur les arêtes
   panel(0.6, 6, '#ffffff', 7, -4.5, 1, 3, 0, Math.PI / 4);
   const pmrem = new T.PMREMGenerator(rend); pmrem.compileEquirectangularShader();
   const envMap = pmrem.fromScene(studio, 0.04).texture;
 
-  const matLetters = new T.MeshPhysicalMaterial({ color: '#a80000', metalness: 1, roughness: 0.11, clearcoat: 0.3, clearcoatRoughness: 0.1, envMap, envMapIntensity: 2.4, emissive: '#160000', emissiveIntensity: 0.25 });
-  const matStar = new T.MeshPhysicalMaterial({ color: '#f5f5f5', metalness: 0.95, roughness: 0.18, clearcoat: 0.6, envMap, envMapIntensity: 2, emissive: '#331111', emissiveIntensity: 0.2 });
-  const matBack = new T.MeshPhysicalMaterial({ color: '#3a0000', metalness: 1, roughness: 0.35, envMap, envMapIntensity: 0.8, emissive: '#100000', emissiveIntensity: 0.3 });
+  const matLetters = new T.MeshPhysicalMaterial({ color: '#3c0505', metalness: 1, roughness: 0.22, clearcoat: 0.25, clearcoatRoughness: 0.15, envMap, envMapIntensity: 0.9, emissive: '#0a0000', emissiveIntensity: 0.2 });
+  const matStar = new T.MeshPhysicalMaterial({ color: '#f5f5f5', metalness: 0.95, roughness: 0.18, clearcoat: 0.6, envMap, envMapIntensity: 2, emissive: '#1a1a1a', emissiveIntensity: 0.2 });
+  const matBack = new T.MeshPhysicalMaterial({ color: '#260202', metalness: 1, roughness: 0.35, envMap, envMapIntensity: 0.8, emissive: '#100000', emissiveIntensity: 0.3 });
 
   const makeLogo = (mat) => { const g = new T.Group(); g.add(new T.Mesh(gLetters, mat)); if (gStar) g.add(new T.Mesh(gStar, matStar)); return g; };
   const A = makeLogo(matLetters);

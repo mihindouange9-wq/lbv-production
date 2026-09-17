@@ -7,7 +7,8 @@
   const ST = window.ScrollTrigger;
   const Split = window.SplitText;
   K.registerPlugin(ST, Split, window.Flip);
-  K.ticker.lagSmoothing(1000, 16);
+  K.ticker.lagSmoothing(0);
+  ST.config({ ignoreMobileResize: true });
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isMobile = () => window.innerWidth <= 800;
@@ -25,7 +26,7 @@
   if (isReload) { window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50); }
 
   /* ---------- Lenis ---------- */
-  const lenis = new window.Lenis({ lerp: 0.09, smoothWheel: true });
+  const lenis = new window.Lenis({ lerp: 0.075, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
   lenis.on('scroll', ST.update);
   K.ticker.add((t) => lenis.raf(t * 1000));
 
@@ -43,7 +44,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(isMobile() ? 1 : Math.min(window.devicePixelRatio, 1.25));
     renderer.setClearColor(0, 0);
-    const uniforms = { uTransition: { value: 0 }, uResolution: { value: new T.Vector2(window.innerWidth, window.innerHeight) }, uTime: { value: 0 }, uBorderColor: { value: new T.Color('#990000') } };
+    const uniforms = { uTransition: { value: 0 }, uResolution: { value: new T.Vector2(window.innerWidth, window.innerHeight) }, uTime: { value: 0 }, uBorderColor: { value: new T.Color('#7a0a0a') } };
     const mat = new T.ShaderMaterial({
       uniforms, transparent: true, depthWrite: false, depthTest: false,
       vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position, 1.0); }',
@@ -73,9 +74,9 @@
           float rawStrength = reveal + noise - threshold;
           float strength = clamp(rawStrength, 0.0, 2.0);
           float edge = 1.0 - abs(rawStrength); edge = pow(clamp(edge, 0.0, 1.0), 8.0); edge *= min(uTransition, 1.0);
-          vec3 deepMidnightColor = vec3(0.25, 0.02, 0.02); vec3 richGlowingColor = uBorderColor * 1.5;
+          vec3 deepMidnightColor = vec3(0.16, 0.02, 0.02); vec3 richGlowingColor = uBorderColor * 1.5;
           vec3 edgeColor = mix(deepMidnightColor, richGlowingColor, sin(uTime * 1.5) * 0.5 + 0.5);
-          vec3 baseRed = vec3(0.6, 0.0, 0.0);
+          vec3 baseRed = vec3(0.46, 0.04, 0.04);
           vec3 planeColor = mix(baseRed, edgeColor * 6.5, edge);
           float finalAlpha = max(strength, edge);
           planeColor += sin(gl_FragCoord.y * 2.5) * 0.02;
@@ -109,7 +110,19 @@
     K.fromTo('.sound-follow', { opacity: 0 }, { opacity: 1, duration: 4, ease: 'power1.inOut', repeat: -1, yoyo: true });
   }
 
+  /* ---------- Lecture progressive (téléphone) : court par défaut, « Lire la suite » ---------- */
+  const armReadMore = (el) => {
+    let btn = el.nextElementSibling && el.nextElementSibling.classList.contains('readmore-btn') ? el.nextElementSibling : null;
+    if (!btn) { btn = document.createElement('button'); btn.type = 'button'; btn.className = 'readmore-btn'; el.insertAdjacentElement('afterend', btn); btn.addEventListener('click', () => { const open = el.classList.toggle('is-open'); btn.classList.toggle('is-open', open); btn.textContent = open ? 'Réduire' : 'Lire la suite'; ST.refresh(); }); }
+    const clipped = window.innerWidth <= 800 && el.scrollHeight > el.clientHeight + 2;
+    btn.style.display = clipped || el.classList.contains('is-open') ? '' : 'none';
+    btn.textContent = el.classList.contains('is-open') ? 'Réduire' : 'Lire la suite';
+  };
+  const armAllReadMore = () => $$('.readmore').forEach(armReadMore);
+  window.addEventListener('resize', () => setTimeout(armAllReadMore, 250));
+
   const init = () => {
+  armAllReadMore();
   /* ---------- Séquence d'entrée du hero ---------- */
   // Rail du hero : monte à l'entrée puis défile en boucle (tous appareils), accélère et s'incline au scroll
   K.to('.hero-section-home .scrolling-text .rail h4', { y: 0, delay: D, duration: 2 });
@@ -122,13 +135,13 @@
     K.ticker.add(() => { const boost = Math.min(Math.abs(hv) / 10, 4); heroMarquee.timeScale(K.utils.interpolate(heroMarquee.timeScale(), 1 + boost, 0.08)); heroSkew(Math.max(-10, Math.min(10, -hv / 5))); });
   }
   const introLines = new Split('.para-introduce-hero', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  K.set(introLines.lines, { yPercent: 100, opacity: 0, filter: 'blur(4px)' });
-  K.to(introLines.lines, { yPercent: 0, opacity: 1, stagger: 0.01, duration: 1.5, ease: 'power3.out', delay: D, filter: 'blur(0px)' });
+  K.set(introLines.lines, { yPercent: 100, opacity: 0 });
+  K.to(introLines.lines, { yPercent: 0, opacity: 1, stagger: 0.04, duration: 1.6, ease: 'expo.out', delay: D });
   const expLines = new Split('.expertise-text', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  K.set(expLines.lines, { yPercent: 100, opacity: 0, filter: 'blur(4px)' });
-  K.to(expLines.lines, { yPercent: 0, opacity: 1, stagger: 0.03, duration: 1.5, ease: 'power3.out', delay: D, filter: 'blur(0px)' });
-  K.to('.face-image', { y: 0, duration: 3.5, filter: 'brightness(1)', scale: 1, delay: isReload ? 0.1 : D + 0.5 });
-  K.to('.hero-section-home', { backgroundImage: 'linear-gradient(250deg, rgba(214, 4, 7, 1) 0%, rgba(0, 0, 0, 1) 100%)', duration: 3, delay: D });
+  K.set(expLines.lines, { yPercent: 100, opacity: 0 });
+  K.to(expLines.lines, { yPercent: 0, opacity: 1, stagger: 0.05, duration: 1.6, ease: 'expo.out', delay: D });
+  K.to('.face-image', { y: 0, duration: 3.8, filter: 'brightness(0.92) grayscale(1) contrast(1.1)', scale: 1, ease: 'power2.out', delay: isReload ? 0.1 : D + 0.5 });
+  K.to('.hero-section-home', { backgroundImage: 'linear-gradient(250deg, #1a0606 0%, #0a0a0a 100%)', duration: 3, delay: D });
   K.to('.menu-2-bar', { opacity: 1, delay: D, pointerEvents: 'auto', duration: 1.5, ease: 'power3.out' });
   K.to('.logo-3d', { opacity: 1, delay: D });
   K.to('.cta-connect', { opacity: 1, delay: isReload ? 0.1 : D + 0.5 });
@@ -218,21 +231,21 @@
   const cine = $('.cinematic-title');
   if (cine) {
     cine.innerHTML = cine.innerHTML.replace(/(<[^>]+>)|([^<s]+)/g, (m, tag, word) => tag || ('<span class="title-word">' + [...word].map((ch) => `<span class="title-letter">${ch}</span>`).join('') + '</span>'));
-    K.from($$('.title-letter', cine), { opacity: 0, scale: 0.5, transformOrigin: '50% 100%', duration: 1.2, stagger: { each: 0.05, from: 'random' }, ease: 'power3.out', scrollTrigger: { trigger: cine, start: 'top 50%', end: '85% 35%' } });
+    K.from($('.title-letter', cine), { opacity: 0, yPercent: 40, duration: 1.4, stagger: { each: 0.035, from: 'start' }, ease: 'expo.out', scrollTrigger: { trigger: cine, start: 'top 60%', once: true } });
   }
   const cineText = new Split('.cinematic-text', { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  K.set(cineText.words, { opacity: 0, y: 50, filter: 'blur(2px)', transformOrigin: '50% 100%' });
-  K.to(cineText.words, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 3, ease: 'power4.out', stagger: { each: 0.05, from: 'random' }, scrollTrigger: { trigger: '.cinematic-text', start: 'top 85%', once: true } });
+  K.set(cineText.words, { opacity: 0, y: 24 });
+  K.to(cineText.words, { opacity: 1, y: 0, duration: 1.6, ease: 'expo.out', stagger: { each: 0.02, from: 'start' }, scrollTrigger: { trigger: '.cinematic-text', start: 'top 85%', once: true } });
 
   /* ---------- Chiffres ---------- */
   $$('.facts-box').forEach((box) => {
     const num = new Split(box.querySelector('.numbers-facts'), { type: 'chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     const para = new Split(box.querySelector('.para-facts'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-    K.set(num.chars, { opacity: 0, y: 50, filter: 'blur(4px)' });
-    K.set(para.words, { opacity: 0, y: 20, filter: 'blur(4px)' });
-    K.timeline({ scrollTrigger: { trigger: box, start: 'top center', end: 'bottom bottom', once: true } })
-      .to(num.chars, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.4, ease: 'expo.out', stagger: { each: 0.04, from: 'random' } })
-      .to(para.words, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power4.out', stagger: { each: 0.05, from: 'random' } }, '-=0.8');
+    K.set(num.chars, { opacity: 0, y: 40 });
+    K.set(para.words, { opacity: 0, y: 16 });
+    K.timeline({ scrollTrigger: { trigger: box, start: 'top 70%', once: true } })
+      .to(num.chars, { opacity: 1, y: 0, duration: 1.4, ease: 'expo.out', stagger: 0.06 })
+      .to(para.words, { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.02 }, '-=0.9');
   });
 
   /* ---------- Feu : flammes en shader (js/fire.js) ---------- */
@@ -241,13 +254,18 @@
   /* ---------- Services : titre déplacé (Flip), lettres, pin, lignes SVG, mots, chute ---------- */
   const heading = $('.services-heading');
   const scrollDown = $('.scroll-downn');
+  if (isMobile()) {
+    // Téléphone : un bloc court et lisible, aucun épinglage, aucun titre déplacé
+    K.fromTo('.services-project .uiux', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.pictures-services', start: 'top 85%', once: true } });
+    K.fromTo('.services-project .expertise-set, .services-project .content-section-fall', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.expertise-wrapper', start: 'top 85%', once: true } });
+  } else {
   const flipState = window.Flip.getState(heading);
   scrollDown.appendChild(heading);
-  window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.services-project', start: 'top 60%', end: 'center 50%', scrub: true } });
+  window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.services-project', start: 'top 60%', end: 'center 50%', scrub: 1 } });
   const breaks = $('.services-heading .breaks');
   breaks.innerHTML = breaks.textContent.split('').map((c) => `<span class="services-char">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-  K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: true } })
-    .to('.services-char', { fontSize: isMobile() ? '5rem' : '19rem', stagger: 0.1, ease: 'none' })
+  K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1 } })
+    .to('.services-char', { fontSize: '16rem', stagger: 0.1, ease: 'none' })
     .to('.breaks', { transform: 'translateX(0%)', ease: 'none' }, '0');
   const charify = (sel) => $$(sel).forEach((el) => { const t = el.textContent; el.innerHTML = ''; t.split('').forEach((c) => { const s = document.createElement('span'); s.textContent = c === ' ' ? ' ' : c; el.appendChild(s); }); });
   charify('.word1'); charify('.points');
@@ -257,7 +275,7 @@
   const fallHead = new Split('.heading-fall', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   const fallPara = new Split('.fall-para', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   [...fallHead.lines, ...fallPara.lines].forEach((l) => { l.innerHTML = `<span>${l.innerHTML}</span>`; });
-  const svcTl = K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '+=690%', scrub: 0.7, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+  const svcTl = K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
   svcTl.to(strokes, { strokeDashoffset: 0, duration: 3, stagger: 0.11 }, '0');
   svcTl.to('.services-char', { y: '-130%', delay: 0.5, stagger: 0.1 });
   svcTl.to('.services-change-1 .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
@@ -271,15 +289,16 @@
   svcTl.to('.paper-tear', { scale: 1, stagger: 0.04, duration: 0.6 });
   svcTl.to('.fall-para .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
   svcTl.to('.heading-fall .line span', { y: '0%', stagger: 0.04, duration: 0.6 }, '18');
-  K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '700% bottom', scrub: 1, invalidateOnRefresh: true } })
+  K.timeline({ scrollTrigger: { trigger: '.services-project', start: 'top top', end: '700% bottom', scrub: 1.2, invalidateOnRefresh: true } })
     .to('.uiux', { clipPath: 'inset(0% 0% 0% 0%)', stagger: 0.08, ease: 'power3.out' }, 0)
     .fromTo('.uiux img', { yPercent: 40 }, { yPercent: -40, stagger: 0.08, ease: 'none' }, 0);
   const pics = $('.pictures-services');
   if (window.innerWidth > 768) {
     let cx = window.innerWidth / 2, cy = window.innerHeight / 2, tx = cx, ty = cy;
     window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
-    K.ticker.add(() => { cx += (tx - cx) * 0.12; cy += (ty - cy) * 0.12; K.set(pics, { x: cx - window.innerWidth / 2, y: cy - window.innerHeight / 2, rotationX: K.utils.mapRange(0, window.innerHeight, 25, -25, cy), rotationY: K.utils.mapRange(0, window.innerWidth, -45, 45, cx), transformPerspective: 1200, transformOrigin: 'center center', force3D: true }); });
+    K.ticker.add(() => { cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06; K.set(pics, { x: (cx - window.innerWidth / 2) * 0.6, y: (cy - window.innerHeight / 2) * 0.6, rotationX: K.utils.mapRange(0, window.innerHeight, 14, -14, cy), rotationY: K.utils.mapRange(0, window.innerWidth, -24, 24, cx), transformPerspective: 1400, transformOrigin: 'center center', force3D: true }); });
   }
+  } // fin du bloc ordinateur du Label
 
   /* ---------- Artistes : pile épinglée, fond, texte, cercle, sidebar ---------- */
   const ARTISTS = window.LBV.artists;
@@ -306,14 +325,14 @@
     K.set([...hw, ...pw], { y: 40, opacity: 0 });
     textTl = K.timeline().to(hw, { y: 0, opacity: 1, stagger: 0.035, duration: 0.45, ease: 'power2.out' }).to(pw, { y: 0, opacity: 1, stagger: 0.018, duration: 0.35, ease: 'power2.out' }, '-=0.2');
   };
-  const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * 100 + '%', scrub: 0.15, pin: true,
+  const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * 100 + '%', scrub: 0.6, pin: true,
     onEnter() { inSteps = true; K.to('.steps-overlay-bg-change', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
     onEnterBack() { inSteps = true; K.to('.steps-overlay-bg-change', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
     onLeave() { inSteps = false; K.to('.steps-overlay-bg-change', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
     onLeaveBack() { inSteps = false; K.to('.steps-overlay-bg-change', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
     onUpdate(self) {
       const p = Math.min(self.progress * total, total - 1), idx = Math.floor(p), frac = p - idx;
-      steps.forEach((s, i) => K.to(s, { ...posFor(i - idx), duration: 0.6, ease: 'power3.out', overwrite: true }));
+      steps.forEach((s, i) => K.to(s, { ...posFor(i - idx), duration: 0.9, ease: 'expo.out', overwrite: true }));
       setBg(idx); setText(idx);
       circle.style.strokeDashoffset = CIRC * (1 - frac); circleNum.innerText = String(idx + 1).padStart(2, '0');
     } } });
@@ -336,7 +355,8 @@
     sbClose.style.pointerEvents = 'auto';
     sbGallery.innerHTML = a.gallery.map((g) => `<div class="gallery-item"><img src="${g}" alt=""></div>`).join('');
     sbRoles.innerHTML = a.links.map(([l, h]) => `<li><a href="${h}" target="_blank" rel="noopener">${l}</a></li>`).join('');
-    sbHero.innerHTML = `<img src="${a.img}" alt="${a.name}">`; sbBg.src = a.img; sbDate.textContent = 'Artiste LBV Production · ' + a.tags[0]; sbH1.textContent = a.name; sbP.textContent = a.bio;
+    sbHero.innerHTML = `<img src="${a.img}" alt="${a.name}">`; sbBg.src = a.img; sbDate.textContent = 'Artiste LBV Production · ' + a.tags[0]; sbH1.textContent = a.name;
+    sbP.textContent = a.bio; sbP.classList.add('readmore'); sbP.classList.remove('is-open'); armReadMore(sbP);
     sbTags.innerHTML = a.tags.map((t) => `<span>${t}</span>`).join('');
     K.to(sidebar, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.7, ease: 'power4.inOut', onStart: () => { sidebar.style.pointerEvents = 'all'; } });
     K.to('.container', { opacity: 0.3, duration: 1.7, ease: 'power4.inOut' });
@@ -363,24 +383,24 @@
   K.set('.box-step-main h1 .word', { opacity: 0, y: 60 });
   K.set('.box-step-main p .word', { opacity: 0, y: 30 });
   K.to('.step-of-work > img', { yPercent: -20, scale: 1, ease: 'none', scrollTrigger: { trigger: '.step-of-work', start: 'top bottom', end: 'bottom top', scrub: true } });
-  K.to('.heading-of-step-work .word', { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.05, duration: 0.8, ease: 'power4.out', scrollTrigger: { trigger: '.heading-of-step-work', start: 'top 75%', toggleActions: 'play none none reverse' } });
-  K.to('.para-for-stepss .word', { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.015, duration: 0.7, ease: 'power3.out', scrollTrigger: { trigger: '.para-for-stepss', start: 'top 80%', toggleActions: 'play none none reverse' } });
+  K.to('.heading-of-step-work .word', { opacity: 1, y: 0, stagger: 0.04, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.heading-of-step-work', start: 'top 75%', once: true } });
+  K.to('.para-for-stepss .word', { opacity: 1, y: 0, stagger: 0.012, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: '.para-for-stepss', start: 'top 80%', once: true } });
   $$('.box-step-main').forEach((box) => {
-    K.timeline({ scrollTrigger: { trigger: box, start: 'top 80%', toggleActions: 'play none none reverse' } })
-      .from(box, { y: 120, opacity: 0, duration: 0.8, ease: 'power4.out' })
-      .to(box.querySelectorAll('h1 .word'), { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.05, duration: 0.5, ease: 'power4.out' }, '-=0.4')
-      .to(box.querySelectorAll('p .word'), { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.015, duration: 0.4, ease: 'power3.out' }, '-=0.35');
+    K.timeline({ scrollTrigger: { trigger: box, start: 'top 80%', once: true } })
+      .from(box, { y: 60, opacity: 0, duration: 1.2, ease: 'expo.out' })
+      .to(box.querySelectorAll('h1 .word'), { opacity: 1, y: 0, stagger: 0.05, duration: 0.8, ease: 'expo.out' }, '-=0.8')
+      .to(box.querySelectorAll('p .word'), { opacity: 1, y: 0, stagger: 0.012, duration: 0.7, ease: 'expo.out' }, '-=0.6');
   });
 
   /* ---------- Sorties et actualités : cartes, titres ---------- */
   $$('.blog-section').forEach((sec) => {
-    K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: true } }).to(sec.querySelector('.card-1:nth-child(2)'), { y: 0 }, '0');
+    if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.card-1:nth-child(2)'), { y: 0 }, '0');
     new Split(sec.querySelector('.blog-heading'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     new Split(sec.querySelector('.blog-para'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-    K.set(sec.querySelectorAll('.blog-heading .word, .blog-para .word'), { yPercent: 120, opacity: 0, filter: 'blur(5px)' });
-    K.timeline({ scrollTrigger: { trigger: sec, start: 'top 45%', once: true } })
-      .to(sec.querySelectorAll('.blog-heading .word'), { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1.2, stagger: 0.05, ease: 'expo.out' }, 0)
-      .to(sec.querySelectorAll('.blog-para .word'), { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 0.8, stagger: 0.025, ease: 'power4.out' }, 0.3);
+    K.set(sec.querySelectorAll('.blog-heading .word, .blog-para .word'), { yPercent: 120, opacity: 0 });
+    K.timeline({ scrollTrigger: { trigger: sec, start: 'top 60%', once: true } })
+      .to(sec.querySelectorAll('.blog-heading .word'), { yPercent: 0, opacity: 1, duration: 1.4, stagger: 0.05, ease: 'expo.out' }, 0)
+      .to(sec.querySelectorAll('.blog-para .word'), { yPercent: 0, opacity: 1, duration: 1, stagger: 0.015, ease: 'expo.out' }, 0.3);
     if (isMobile()) K.utils.toArray('.card-1', sec).forEach((c, i) => K.from(c, { opacity: 0, y: 40, duration: 0.8, ease: 'power2.out', delay: i * 0.1, scrollTrigger: { trigger: c, start: 'top 90%' } }));
   });
 
@@ -419,7 +439,7 @@
 
   /* ---------- Appel + modale contact ---------- */
   const ctaSplit = new Split('.cta-title', { type: 'lines,chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
-  K.from(ctaSplit.chars, { y: 150, opacity: 0, rotateX: -90, scale: 0.7, duration: 0.8, filter: 'blur(4px)', color: '#990000', stagger: 0.01, ease: 'expo.out', scrollTrigger: { trigger: '.before-footer-cta', start: 'top 75%', end: 'bottom center' } });
+  K.from(ctaSplit.chars, { yPercent: 110, opacity: 0, duration: 1.4, stagger: 0.012, ease: 'expo.out', scrollTrigger: { trigger: '.before-footer-cta', start: 'top 70%', once: true } });
   const contactModal = $('.modal-contact-us');
   let contactOpen = false;
   const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
@@ -448,7 +468,7 @@
   /* ---------- Fluide plein écran (encre rouge) ---------- */
   if (window.WebGLFluid && !reduce && fine) {
     try {
-      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', SIM_RESOLUTION: 48, DYE_RESOLUTION: 384, DENSITY_DISSIPATION: 5.5, VELOCITY_DISSIPATION: 3.8, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.2, SPLAT_RADIUS: 0.035, SPLAT_FORCE: 1700, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
+      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', SIM_RESOLUTION: 48, DYE_RESOLUTION: 384, DENSITY_DISSIPATION: 4.2, VELOCITY_DISSIPATION: 3.2, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.0, SPLAT_RADIUS: 0.03, SPLAT_FORCE: 1300, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
       const fluidCanvas = $('#fluid2');
       fluidCanvas.style.pointerEvents = 'none';
       // Le paquet écoute le canvas : on lui relaie les mouvements de la page.
@@ -482,7 +502,7 @@
   document.querySelectorAll('[role="button"]').forEach((el) => el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } }));
 
   /* ---------- Logo LBV en 3D (calque fixe du haut de page) ---------- */
-  if (window.LBVLogo3D && !reduce) window.LBVLogo3D({ container: '.roman-statue-viewer', src: 'images/lbv-logo-new.png', cropBottom: 0.74, delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: '.box-section-ups' });
+  if (window.LBVLogo3D && !reduce && !isMobile()) window.LBVLogo3D({ container: '.roman-statue-viewer', src: 'images/lbv-logo-new.png', cropBottom: 0.74, delay: isReload ? 0 : (playLoader ? 5 : 0.5), leaveTrigger: isMobile() ? '.facts-figure-container' : '.box-section-ups' });
 
   };
   // Polices : on attend au plus 2,5 s (Google Fonts), puis on démarre quoi qu’il arrive
