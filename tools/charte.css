@@ -468,3 +468,25 @@ table.files code { color: var(--os); }
 .image-page .g-img { height: 138px; }
 .image-page .artists figcaption { margin-top: 4px; }
 .image-page .small { font-size: 11.5px; }
+
+/* Planches ajustées : garde au-dessus du pied de page */
+.type-donts .plate { height: 148px; }
+.type-donts .ver b { font-size: 12.5px; margin-top: 8px; }
+.type-donts { row-gap: 10px; }
+.fonts-legal { padding-top: 12px; }
+.fonts-legal .small { font-size: 11.5px; }
+.constr-side .mins { margin: 8px 0 4px; }
+.constr-side .min-demo { height: 40px; margin-bottom: 6px; }
+
+.constr-side table.kv td { padding: 6px 0; }
+.constr-side p.small { font-size: 11.5px; }
+.constr-side .mins span { font-family: var(--display); font-size: 11px; letter-spacing: .02em; line-height: 1.35; }
+.type-donts .plate { height: 118px; }
+.type-donts .ver b { font-size: 12px; margin-top: 6px; }
+.type-donts .plate span, .type-donts .plate p { font-size: 32px !important; }
+.type-donts .plate p { font-size: 11.5px !important; }
+
+.type-donts { flex: none; align-content: start; }
+
+.type-donts .ver.no .plate { height: 116px; }
+.grid4.type-donts { flex: none; align-content: start; }

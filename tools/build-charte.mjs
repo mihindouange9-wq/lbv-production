@@ -117,14 +117,14 @@ page({ ch: 'logo', title: 'Le logo principal', body: `
 {
   const pad = 2.2 * X, box = [LB[0] - pad, LB[1] - pad, LB[2] + pad, LB[3] + pad];
   const W = box[2] - box[0], H = box[3] - box[1];
-  const s = 440 / H;
+  const s = 372 / H;
   const hl = (y, lbl) => `<line x1="${box[0]}" x2="${box[2]}" y1="${y}" y2="${y}"/>` + (lbl ? `<text x="${box[0] + 6 / s}" y="${y - 6 / s}" font-size="${12 / s}">${lbl}</text>` : '');
   const vl = (x) => `<line y1="${box[1]}" y2="${box[3]}" x1="${x}" x2="${x}"/>`;
   const dim = (x1, y1, x2, y2, lbl, dx = 0, dy = 0) => `<line class="dim" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/><text class="dimt" x="${(x1 + x2) / 2 + dx}" y="${(y1 + y2) / 2 + dy}" font-size="${17 / s}" text-anchor="middle">${lbl}</text>`;
   const squares = Array.from({ length: 8 }, (_, i) => `<rect x="${LB[2] + 0.6 * X}" y="${LB[3] - (i + 1) * X}" width="${X}" height="${X}"/>`).join('');
   page({ ch: 'logo', title: 'Construction', body: `
   <div class="constr">
-    <svg viewBox="${vb(box)}" style="height:440px;width:${r1(W * s)}px" class="constr-svg">
+    <svg viewBox="${vb(box)}" style="height:372px;width:${r1(W * s)}px" class="constr-svg">
       <g class="grid" stroke-width="${1 / s}">${hl(MB[1])}${hl(MB[3])}${hl(WB[1])}${hl(WB[3])}${vl(LB[0])}${vl(WB[2])}${vl(LB[2])}</g>
       <g class="xsq" stroke-width="${1 / s}">${squares}</g>
       <use href="#lbv-mark" fill="${C.os}"/><use href="#lbv-word" fill="${C.os}"/>
@@ -143,36 +143,18 @@ page({ ch: 'logo', title: 'Le logo principal', body: `
         <tr><td>Largeur du mot</td><td>${fr((WB[2] - WB[0]) / X)} X</td></tr>
         <tr><td>Largeur totale</td><td>${fr((LB[2] - LB[0]) / X)} X</td></tr>
         <tr><td>Hauteur totale</td><td>${fr((LB[3] - LB[1]) / X)} X</td></tr>
+        <tr><td>Zone de protection</td><td>1 X</td></tr>
       </table>
-      <p class="small">Le mot est aligné à gauche sur le fût du l et s’arrête avant le v : le symbole garde toujours la plus grande masse.</p>
+      <p class="small">Le mot est aligné à gauche sur le fût du l et s’arrête avant le v : le symbole garde toujours la plus grande masse. Aucun texte, bord de page ni élément contrasté n’entre dans la zone de protection de 1 X (2 X sur une pochette ou un post).</p>
+      <div class="mins">
+        <div><div class="min-demo">${lockup(34)}</div><b>Logo complet</b><span>30 mm de large · 120 px</span></div>
+        <div><div class="min-demo">${mark(22)}</div><b>Symbole seul</b><span>8 mm de haut · 24 px — en dessous de 120 px de large, il remplace le logo</span></div>
+      </div>
+
     </div>
   </div>` });
 }
 
-{
-  const pad = X, s = 300 / (LB[3] - LB[1] + 2 * pad);
-  page({ ch: 'logo', title: 'Zone de protection et tailles minimales', body: `
-  <div class="two">
-    <div class="protect">
-      <svg viewBox="${vb(LB, 1.6 * X)}" style="height:400px">
-        <rect class="pz" x="${LB[0] - pad}" y="${LB[1] - pad}" width="${LB[2] - LB[0] + 2 * pad}" height="${LB[3] - LB[1] + 2 * pad}" stroke-width="${1.4 / s}" stroke-dasharray="${6 / s} ${5 / s}"/>
-        <rect class="xs" x="${LB[0] - pad}" y="${LB[1] - pad}" width="${X}" height="${X}"/><rect class="xs" x="${LB[2]}" y="${LB[3]}" width="${X}" height="${X}"/>
-        <text x="${LB[0] - pad + X / 2}" y="${LB[1] - pad + X / 2 + 6 / s}" text-anchor="middle" font-size="${16 / s}">X</text>
-        <use href="#lbv-mark" fill="${C.os}"/><use href="#lbv-word" fill="${C.os}"/>
-      </svg>
-    </div>
-    <div>
-      <h3>Zone de protection : 1 X</h3>
-      <p>Aucun texte, bord de page, pictogramme ou élément d’image contrasté ne pénètre dans cette zone. Sur une pochette ou un post, garder de préférence 2 X.</p>
-      <h3>Tailles minimales</h3>
-      <div class="mins">
-        <div><div class="min-demo">${lockup(38)}</div><b>Logo complet</b><span>30 mm de large · 120 px</span></div>
-        <div><div class="min-demo">${mark(24)}</div><b>Symbole seul</b><span>8 mm de haut · 24 px</span></div>
-      </div>
-      <p class="small">Sous 120 px de large, le mot PRODUCTION devient illisible : utiliser le symbole seul.</p>
-    </div>
-  </div>` });
-}
 
 page({ ch: 'logo', title: 'Versions de couleur', body: `
   <div class="grid4 versions">
@@ -290,6 +272,22 @@ page({ ch: 'typo', title: 'Hiérarchie et règles', body: `
     <p><b>Un mot brûle.</b> Un seul mot par titre passe en braise : le verbe, le lieu, la promesse. Jamais deux.</p>
     <p><b>Capitales courtes.</b> Réservées aux libellés, à la navigation et aux titres de trois mots au plus, toujours espacées.</p>
     <p><b>Serré et fin.</b> Grands titres en graisse légère, approche négative, alignés à gauche. Ni cursive, ni contour, ni dégradé dans les lettres.</p>
+  </div>` });
+
+page({ ch: 'typo', title: 'Ce qu’on ne fait jamais en typographie', body: `
+  <div class="grid4 donts type-donts">
+    <div class="ver no"><div class="plate"><span style="font-family:'Brush Script MT',cursive;font-size:44px">Libreville</span></div><b>Cursive ou script</b></div>
+    <div class="ver no"><div class="plate"><span style="font-size:44px;font-weight:300;-webkit-text-stroke:1px #e7e3da;color:transparent">Libreville</span></div><b>Lettres en contour</b></div>
+    <div class="ver no"><div class="plate"><span style="font-size:44px;font-weight:300;background:linear-gradient(90deg,#d8261e,#f2a03d);-webkit-background-clip:text;color:transparent">Libreville</span></div><b>Dégradé dans le texte</b></div>
+    <div class="ver no"><div class="plate"><span style="font-size:44px;font-weight:300;text-shadow:0 3px 10px rgba(216,38,30,.9)">Libreville</span></div><b>Ombre ou lueur</b></div>
+    <div class="ver no"><div class="plate"><p style="font-size:13px;line-height:1.5;text-transform:uppercase;max-width:22ch;color:var(--os-2)">Le label signe, produit et diffuse des artistes de la scène urbaine gabonaise.</p></div><b>Paragraphe en capitales</b></div>
+    <div class="ver no"><div class="plate"><p style="font-size:13px;line-height:1.7;letter-spacing:.22em;max-width:22ch;color:var(--os-2)">Le label signe, produit et diffuse des artistes de la scène urbaine.</p></div><b>Approche large sur du texte courant</b></div>
+    <div class="ver no"><div class="plate"><span style="font-size:38px;font-weight:300">Chaque <em>titre</em> est un <em>pas</em></span></div><b>Deux mots en braise</b></div>
+    <div class="ver no"><div class="plate"><span style="font-size:38px;font-weight:700;letter-spacing:.04em">Libreville</span></div><b>Graisse lourde sur un grand titre</b></div>
+  </div>
+  <div class="two tight fonts-legal">
+    <div><h3>Polices de secours</h3><p class="small">Web : <code>"Stack Sans Headline", "Helvetica Neue", Arial, sans-serif</code> et <code>"Bebas Neue", Impact, sans-serif</code>. Bureautique et courrier : Arial pour le texte, Impact pour les chiffres. Jamais de police à empattements, jamais de condensée pour le texte courant.</p></div>
+    <div><h3>Licences</h3><p class="small">Stack Sans Headline et Bebas Neue sont distribuées par Google Fonts sous licence SIL Open Font License 1.1 : usage commercial, impression et web autorisés sans redevance, y compris pour un prestataire travaillant pour le label.</p></div>
   </div>` });
 
 /* ================= 05 IMAGE ================= */
