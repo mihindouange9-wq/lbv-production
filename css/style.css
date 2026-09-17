@@ -29,8 +29,9 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 .fonts, .fancy, .fonts-c, .fonts-change { font-family: var(--light-font); font-weight: inherit; text-transform: none; letter-spacing: inherit; color: var(--ember); }
 .os-word { color: var(--bone); }
 
-/* Grain : bruit fin à 5 % sur les aplats noirs (charte, signes graphiques) */
-body::after { content: ""; position: fixed; inset: 0; z-index: 99990; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .91 0 0 0 0 .89 0 0 0 0 .85 1.6 0 0 0 -.62'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* Pas de calque de grain sur le site : mesuré à environ 9 images par seconde de perte au défilement.
+   Le grain de la charte vit dans les photos (grain d'origine) et dans le feu (grain du shader). */
+
 .brand-mark { display: block; width: 100%; height: auto; fill: currentColor; }
 .hidden-field { display: none; }
 ::selection { background: var(--ox); color: var(--bone); }
@@ -174,7 +175,7 @@ nav ul li:hover .plus-for-hover .plus-svg { transform: rotate(90deg) scale(1); }
 
 /* ---------- Chiffres : noir, feu au-dessus et en dessous ---------- */
 .facts-figure-container { min-height: 220vh; overflow: hidden; width: 100vw; display: flex; background-color: var(--bg); position: relative; justify-content: end; flex-direction: column; align-items: center; z-index: 140; }
-.facts-box { display: flex; align-items: baseline; transform: translateY(50%); pointer-events: none; user-select: none; height: 34vh; width: 94vw; position: relative; border-bottom: 1px solid var(--line); justify-content: space-between; color: var(--bone); }
+.facts-box { display: flex; align-items: baseline; pointer-events: none; user-select: none; height: 34vh; width: 94vw; position: relative; border-bottom: 1px solid var(--line); justify-content: space-between; color: var(--bone); }
 .facts-box h1 { font-size: clamp(6rem, 12vw, 12rem); font-weight: 400; font-family: var(--bebas); line-height: 1; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
 .facts-box p { font-size: clamp(1rem, 1.4vw, 1.35rem); width: 30%; font-weight: 300; color: var(--bone-2); line-height: 1.4; }
 .numbers-facts .char, .para-facts .word { display: inline-block; opacity: 0; will-change: transform, opacity; }

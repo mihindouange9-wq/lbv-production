@@ -26,7 +26,7 @@
   if (isReload) { window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50); }
 
   /* ---------- Lenis ---------- */
-  const lenis = new window.Lenis({ lerp: 0.075, smoothWheel: true, wheelMultiplier: 0.9, touchMultiplier: 1.4 });
+  const lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
   lenis.on('scroll', ST.update);
   K.ticker.add((t) => lenis.raf(t * 1000));
 

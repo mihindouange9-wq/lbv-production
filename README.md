@@ -88,3 +88,9 @@ Fichiers de marque livrés dans `brand/` : logo os, noir, braise, oxblood ; symb
 - Palette réduite aux couleurs de la charte (jetons dans `css/style.css`), préchargeur en oxblood exact, grain à 6 %.
 - Typographie : phrases longues en casse normale, graisses légères, un seul mot en braise par titre, même graisse que le titre.
 - Mouvement : plus de rebond, de flou d'apparition, de clignotement ni de rotation continue ; révélation du pied de page jouée une fois.
+
+### Performance du défilement
+
+`node tools/perf-scroll.mjs [largeur] [hauteur]` mesure les images par seconde pendant un défilement simulé (première passe et passe chaude) ; `node tools/perf-profile.mjs` donne le profil processeur de la première passe.
+
+Ce qui a été corrigé le 17 septembre 2026 : le shader du feu se compilait au moment où la section entrait à l'écran et bloquait le fil principal environ 1,9 s (image la plus longue mesurée : 1 900 ms). La compilation est faite au chargement dans `js/fire.js` (`rend.compile` + une première image), pendant le préchargeur : la première passe de défilement passe d'environ 21 à 47 images par seconde et la pire image à 100 ms. Le calque de grain plein écran a été retiré (un calque fixe force le repaint de tout l'écran à chaque image).

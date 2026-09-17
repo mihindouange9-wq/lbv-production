@@ -106,6 +106,10 @@ window.LBVFire = function (selector) {
     window.addEventListener('resize', resize);
     const clock = new T.Clock();
     let visible = false, raf = 0;
+    // Compilation immédiate : le programme est lourd (bruit à 7 octaves, lueur, fumée) et la compilation bloque le fil principal.
+    // Faite ici, elle tombe pendant le préchargeur ; sinon elle tombait au premier passage devant les flammes.
+    rend.compile(scene, cam);
+    rend.render(scene, cam);
     const loop = () => { if (!visible) return; uniforms.uTime.value = clock.getElapsedTime(); rend.render(scene, cam); raf = requestAnimationFrame(loop); };
     new IntersectionObserver((en) => { const v = en[0].isIntersecting; if (v && !visible) { visible = true; loop(); } else if (!v) { visible = false; cancelAnimationFrame(raf); } }, { threshold: 0.01 }).observe(canvas);
     document.addEventListener('visibilitychange', () => { if (document.hidden) { visible = false; cancelAnimationFrame(raf); } });
