@@ -1,7 +1,7 @@
 /* Vérifie que les panneaux superposés (fiche artiste, actualité, contact) défilent bien et se referment.
    node tools/check-panels.mjs [largeur] [hauteur] [mobile] */
 import { spawn } from 'node:child_process';
-const [W = '1440', H = '900', MOBILE = ''] = process.argv.slice(2);
+const [W = '1440', H = '900', MOBILE = '', URL = 'file:///C:/Users/mihin/Documents/geek/lbv-production/index.html'] = process.argv.slice(2);
 const port = 9333 + Math.floor(Math.random() * 500);
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', '--hide-scrollbars', '--allow-file-access-from-files', '--enable-gpu-rasterization', '--autoplay-policy=no-user-gesture-required', '--no-first-run', `--remote-debugging-port=${port}`, `--user-data-dir=C:/Users/mihin/AppData/Local/Temp/chrome-cdp-${port}`, `--window-size=${W},${H}`, 'about:blank'], { stdio: 'ignore' });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -14,7 +14,8 @@ const ev = async (e) => (await send('Runtime.evaluate', { expression: e, awaitPr
 await send('Page.enable'); await send('Runtime.enable');
 await send('Emulation.setDeviceMetricsOverride', { width: +W, height: +H, deviceScaleFactor: 1, mobile: !!MOBILE, screenWidth: +W, screenHeight: +H });
 if (MOBILE) await send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
-await send('Page.navigate', { url: 'file:///C:/Users/mihin/Documents/geek/lbv-production/index.html' });
+await send('Network.enable'); await send('Network.setCacheDisabled', { cacheDisabled: true });
+await send('Page.navigate', { url: URL });
 await sleep(13000); await ev('document.body.click(); true'); await sleep(2000);
 
 const test = async (label, openExpr, panelSel) => {
@@ -31,7 +32,12 @@ const test = async (label, openExpr, panelSel) => {
     const forced = await ev(`document.querySelector('${panelSel}').scrollTop`);
     console.log(label.padEnd(22), 'molette :', after > before ? 'ok' : 'SANS EFFET', '· défilement possible :', forced > 0 ? 'oui (' + forced + ' px)' : 'non (contenu court ?)');
   } else console.log(label.padEnd(22), 'molette : ok (' + Math.round(after) + ' px)');
-  await ev(`document.querySelector('.close-sidebar, .close-sidebar-blog, .close-sidebar-contact') && true`);
+  const avantClavier = await ev(`document.querySelector(${JSON.stringify(panelSel)}).scrollTop`);
+  await send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'PageDown', windowsVirtualKeyCode: 34, code: 'PageDown' });
+  await send('Input.dispatchKeyEvent', { type: 'keyUp', key: 'PageDown', windowsVirtualKeyCode: 34, code: 'PageDown' });
+  await sleep(500);
+  const apresClavier = await ev(`document.querySelector(${JSON.stringify(panelSel)}).scrollTop`);
+  if (apresClavier !== avantClavier) console.log(label.padEnd(22), 'clavier : ok (' + Math.round(apresClavier - avantClavier) + ' px)');
 };
 
 const touchScroll = async (panelSel) => {

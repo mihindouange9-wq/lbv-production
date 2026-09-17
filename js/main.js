@@ -368,9 +368,30 @@
   let sidebarOpen = false;
   if (fine) { window.addEventListener('mousemove', (e) => { sbClose.style.transform = `translate(${e.clientX - 30}px, ${e.clientY - 30}px)`; }); sidebar.addEventListener('mouseenter', () => { sbClose.style.opacity = 1; }); sidebar.addEventListener('mouseleave', () => { sbClose.style.opacity = 0; }); }
   else { sbClose.style.opacity = 1; sbClose.style.transform = 'translate(calc(100vw - 76px), 16px)'; }
+  /* ---------- Défilement des panneaux superposés ----------
+     Le défilement doux écoute la fenêtre entière : tant qu'un panneau est ouvert, il faut lui retirer
+     la molette, le doigt et le clavier, sinon le panneau reste figé. On déplace nous-mêmes son contenu. */
+  const panelScroll = (el) => {
+    let touchY = 0;
+    const onWheel = (e) => { el.scrollTop += e.deltaY; e.preventDefault(); e.stopPropagation(); };
+    const onTouchStart = (e) => { touchY = e.touches[0].clientY; };
+    const onTouchMove = (e) => { const y = e.touches[0].clientY; el.scrollTop += touchY - y; touchY = y; e.preventDefault(); e.stopPropagation(); };
+    const onKey = (e) => {
+      const pas = { ArrowDown: 80, ArrowUp: -80, PageDown: el.clientHeight * 0.9, PageUp: -el.clientHeight * 0.9, Home: -el.scrollHeight, End: el.scrollHeight, ' ': el.clientHeight * 0.9 }[e.key];
+      if (pas === undefined || e.target.closest('input, textarea')) return;
+      el.scrollTop += pas; e.preventDefault();
+    };
+    return {
+      on() { el.addEventListener('wheel', onWheel, { passive: false, capture: true }); el.addEventListener('touchstart', onTouchStart, { passive: true }); el.addEventListener('touchmove', onTouchMove, { passive: false, capture: true }); window.addEventListener('keydown', onKey); },
+      off() { el.removeEventListener('wheel', onWheel, { capture: true }); el.removeEventListener('touchstart', onTouchStart); el.removeEventListener('touchmove', onTouchMove, { capture: true }); window.removeEventListener('keydown', onKey); },
+    };
+  };
+  const sidebarScroll = panelScroll(sidebar);
+
   const openArtist = (i) => {
     const a = ARTISTS[i]; if (!a || sidebarOpen) return;
     sidebarOpen = true; lenis.stop(); sidebar.scrollTop = 0; document.body.classList.add('sidebar-open');
+    sidebarScroll.on();
     sbClose.style.pointerEvents = 'auto';
     sbGallery.innerHTML = a.gallery.map((g) => `<div class="gallery-item"><img src="${g}" alt=""></div>`).join('');
     sbRoles.innerHTML = a.links.map(([l, h]) => `<li><a href="${h}" target="_blank" rel="noopener">${l}</a></li>`).join('');
@@ -385,7 +406,7 @@
     K.fromTo([sbDate, sbH1, sbP], { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, delay: 0.8, stagger: 0.12, ease: 'power3.out' });
   };
   const closeArtist = () => {
-    if (!sidebarOpen) return; sidebarOpen = false; lenis.start(); document.body.classList.remove('sidebar-open');
+    if (!sidebarOpen) return; sidebarOpen = false; sidebarScroll.off(); lenis.start(); document.body.classList.remove('sidebar-open');
     K.to(sidebar, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.5, ease: 'power4.inOut', onComplete: () => { sidebar.style.pointerEvents = 'none'; ST.refresh(true); } });
     K.to('.container', { opacity: 1, duration: 1.7, ease: 'power4.inOut' });
   };
@@ -426,6 +447,7 @@
   /* ---------- Modale actualité ---------- */
   const BLOGS = window.LBV.blogs;
   const modal = $('.modal-blogs');
+  const blogScroll = panelScroll(modal);
   const mH1 = $('.news-modal-text h2'), mDate = $('.news-modal-date'), mP = $('.news-modal-text p'), mBy = $('.news-modal-link'), mImg = $('.modal-blogs .news-image img');
   const mClose = $('.close-sidebar-blog');
   let modalBusy = false;
@@ -435,7 +457,7 @@
   const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
   const hideClose = () => { K.to(mClose, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' }); window.removeEventListener('mousemove', followClose); };
   const openBlog = (i) => {
-    if (modalBusy) return; modalBusy = true; lenis.stop();
+    if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on();
     const b = BLOGS[i]; mH1.textContent = b.title; mDate.textContent = b.date; mP.textContent = b.desc; mBy.textContent = b.author + ' · Voir sur YouTube'; mBy.href = b.link; mImg.src = b.img;
     K.killTweensOf(modal); K.killTweensOf(mImg);
     K.set(modal, { pointerEvents: 'all', clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0 });
@@ -447,7 +469,7 @@
     showClose();
   };
   const closeBlog = () => {
-    if (modalBusy || +getComputedStyle(modal).opacity === 0) return; modalBusy = true; hideClose(); lenis.start();
+    if (modalBusy || +getComputedStyle(modal).opacity === 0) return; modalBusy = true; blogScroll.off(); hideClose(); lenis.start();
     K.timeline({ onComplete: () => { K.set(modal, { pointerEvents: 'none', opacity: 0, clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7 }); K.set(mImg, { clipPath: 'inset(100% 0 0 0)' }); modalBusy = false; } })
       .to(mImg, { clipPath: 'inset(100% 0 0 0)', duration: 0.6, ease: 'power4.in' })
       .to(modal, { clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0, duration: 1, ease: 'power4.inOut' }, '-=0.3');
@@ -460,9 +482,10 @@
   const ctaSplit = new Split('.cta-title', { type: 'lines,chars', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.from(ctaSplit.chars, { yPercent: 110, opacity: 0, duration: 1.4, stagger: 0.012, ease: 'expo.out', scrollTrigger: { trigger: '.before-footer-cta', start: 'top 70%', once: true } });
   const contactModal = $('.modal-contact-us');
+  const contactScroll = panelScroll(contactModal);
   let contactOpen = false;
-  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
-  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; lenis.start(); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); cb && cb(); } }); };
+  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); contactScroll.on(); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
+  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; contactScroll.off(); lenis.start(); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); cb && cb(); } }); };
   $('#contactopen').addEventListener('click', openContact);
   $('.close-sidebar-contact').addEventListener('click', () => closeContact());
   const form = $('.modal-contact-us form');
