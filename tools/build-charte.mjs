@@ -40,9 +40,9 @@ const page = ({ ch, title, body, cls = '', bare = false }) => pages.push({ ch, t
 
 /* 1 — Couverture */
 page({ cls: 'cover', bare: true, body: `
-  <img class="cover-img" src="img/nuit-rouge.jpg" alt="">
+  <div class="cover-field" aria-hidden="true"></div>
   <div class="cover-top"><span>Charte graphique</span><span>Édition 01 · Septembre 2026</span></div>
-  <div class="cover-logo">${lockup(250)}</div>
+  <div class="cover-logo">${lockup(230)}</div>
   <div class="cover-bottom"><p class="cover-line">Libreville a une <em>voix.</em></p><span>Akanda · Libreville · Gabon</span></div>` });
 
 /* 2 — Sommaire (rempli à la fin) */
