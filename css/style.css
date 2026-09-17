@@ -485,3 +485,19 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
 
 /* La modale actualité reste lisible même si le texte est long */
 .modal-blogs .news-modal-text { overflow-y: auto; }
+
+/* ---------- Téléphone et tablette : lisibilité des libellés et confort tactile ---------- */
+@media (max-width: 1024px) {
+  /* Libellés remontés à 12,5 px : en dessous, la lecture devient pénible sur petit écran */
+  :root { --label: .78rem; }
+  .hero-tags { font-size: .75rem; }
+  /* Zones tactiles : au moins 44 px de haut pour les liens et les boutons */
+  .readmore-btn { min-height: 44px; padding: .5rem 0; margin-top: .4rem; }
+  .footer-infos a, .releases-more a, .role-list li a { display: inline-block; padding: .55rem 0; }
+  .footer-infos p { line-height: 1.5; }
+  .brand-link { padding: .4rem .2rem; }
+  .menu-navigate-scroll a { padding: .35rem 0; }
+  .menu-socials a, .bottom-contact-ctas a { display: inline-block; min-width: 44px; padding: .55rem .2rem; }
+  .link-x { display: inline-flex; justify-content: center; min-width: 44px; }
+  .sound-wave { height: auto; padding: 12px 0; }
+}
