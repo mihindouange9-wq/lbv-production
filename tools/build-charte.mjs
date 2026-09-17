@@ -37,10 +37,6 @@ const CH = {
 };
 const pages = [];
 const page = ({ ch, title, body, cls = '', bare = false }) => pages.push({ ch, title, body, cls, bare });
-const divider = (ch, line, img, pos = 'center') => page({ ch, cls: 'divider', bare: true, body: `
-  <img class="div-img" src="img/${img}" alt="" style="object-position:${pos}">
-  <div class="div-num">${CH[ch][0]}</div>
-  <div class="div-txt"><span class="eyebrow">Chapitre ${CH[ch][0]}</span><h2>${CH[ch][1]}</h2><p>${line}</p></div>` });
 
 /* 1 — Couverture */
 page({ cls: 'cover', bare: true, body: `
@@ -58,38 +54,20 @@ page({ cls: 'toc-page', title: 'Sommaire', body: `%%TOC%%
   </div>` });
 
 /* ================= 01 UNIVERS ================= */
-divider('univers', 'D’où vient la marque, ce qu’elle défend, l’aura qu’elle dégage.', 'scene-lbv-show.jpg', 'center 40%');
-
 page({ ch: 'univers', title: 'Manifeste', cls: 'manifesto', body: `
   <div class="mani">
     <p class="mani-big">Libreville a une <em>voix.</em><br>On lui donne une scène.</p>
     <div class="mani-cols">
       <p>LBV Production est un label indépendant gabonais installé à Akanda, aux portes de Libreville. Il signe, produit et diffuse des artistes de la scène urbaine : rap, afrobeat, underground, mélodique, ambiances.</p>
       <p>Sa mission est simple : donner une vraie visibilité et une vraie plateforme d’écoute à toutes les musiques du Gabon, sans distinction de genre, de style ou d’origine, et sans orientation politique.</p>
-      <p>La marque parle comme ses artistes : peu de mots, beaucoup de présence. Elle vit la nuit, sous les projecteurs, dans les voitures et les studios. Elle est sombre parce que la scène est sombre, et rouge parce que la scène brûle.</p>
+      <p>LBV est aussi le code de l’aéroport de Libreville : le label porte le nom de sa ville comme une étiquette de bagage. La marque parle comme ses artistes, peu de mots et beaucoup de présence. Elle est sombre parce que la scène est sombre, et rouge parce que la scène brûle.</p>
     </div>
-  </div>` });
-
-page({ ch: 'univers', title: 'Trois lettres, une ville', body: `
-  <div class="iata">
-    <div class="iata-code">LBV</div>
-    <div class="iata-text">
-      <p class="lead">LBV est le code international de l’aéroport de Libreville. Le label porte le nom de sa ville comme on porte une étiquette de bagage : c’est d’ici qu’on part.</p>
-      <p>Cette origine fonde tout le système : la marque est urbaine, située, fière d’un lieu. Elle peut jouer avec les codes du voyage (billet, porte, destination) sans jamais devenir une compagnie aérienne.</p>
-      <div class="triad"><div><b>Talent</b><span>On signe des voix singulières, pas des profils.</span></div><div><b>Son</b><span>On produit exigeant, on distribue partout.</span></div><div><b>Scène</b><span>On fait exister la musique en vrai, au LBV Show.</span></div></div>
+    <div class="pillars">
+      <div><span class="eyebrow">Mission</span><p>Faire entendre toutes les musiques du Gabon, au Gabon et au-delà.</p></div>
+      <div><span class="eyebrow">Promesse</span><p>Ça va sonner différent.</p></div>
+      <div><span class="eyebrow">Positionnement</span><p>Le label indépendant qui traite chaque artiste gabonais comme une signature internationale.</p></div>
+      <div><span class="eyebrow">Les trois piliers</span><p>Talent · Son · Scène</p></div>
     </div>
-  </div>` });
-
-page({ ch: 'univers', title: 'Plateforme de marque', body: `
-  <div class="platform">
-    <div class="pf"><span class="eyebrow">Mission</span><p>Faire entendre toutes les musiques du Gabon, au Gabon et au-delà.</p></div>
-    <div class="pf"><span class="eyebrow">Vision</span><p>Que « made in Libreville » devienne une référence de la musique urbaine africaine.</p></div>
-    <div class="pf"><span class="eyebrow">Promesse</span><p>Ça va sonner différent.</p></div>
-    <div class="pf"><span class="eyebrow">Positionnement</span><p>Le label indépendant qui traite chaque artiste gabonais comme une signature internationale.</p></div>
-  </div>
-  <div class="traits">
-    <span class="eyebrow">Personnalité</span>
-    <ul><li><b>Sombre</b>, jamais triste</li><li><b>Sélect</b>, jamais distant</li><li><b>Fier</b>, jamais arrogant</li><li><b>Brut</b>, jamais négligé</li><li><b>Local</b>, jamais petit</li></ul>
   </div>` });
 
 page({ ch: 'univers', title: 'L’aura : sombre, pas noir et blanc', cls: 'mood-page', body: `
@@ -108,8 +86,6 @@ page({ ch: 'univers', title: 'L’aura : sombre, pas noir et blanc', cls: 'mood-
   </div>` });
 
 /* ================= 02 LOGO ================= */
-divider('logo', 'Un symbole dense, un mot sobre. Des règles pour ne jamais l’affaiblir.', 'plage.jpg', 'center 60%');
-
 page({ ch: 'logo', title: 'Le logo principal', body: `
   <div class="logo-hero">${lockup(330)}</div>
   <div class="logo-hero-cap"><p>Le logo associe le symbole « lbv », dessiné en lettres pleines et inclinées, au mot PRODUCTION en capitales espacées. C’est la signature de toutes les prises de parole officielles : site, pochettes, affiches, documents.</p><p class="small">Version principale : os sur noir. Toujours reproduit à partir des fichiers vectoriels fournis, jamais redessiné ni recomposé.</p></div>` });
@@ -238,37 +214,12 @@ page({ ch: 'logo', title: 'Le logo sur une image', body: `
   </div>` });
 }
 
-page({ ch: 'logo', title: 'Co-signature', body: `
-  <div class="two">
-    <div class="plate cosign" style="background:${C.noir};border:1px solid rgba(231,227,218,.14)">
-      ${mark(64)}<span class="x">×</span><span class="partner">ARTISTE<br><small>ou partenaire</small></span>
-    </div>
-    <ul class="rules">
-      <li><b>Le symbole, pas le logo complet</b><span>Dans un « LBV × … », le symbole suffit : il porte le nom.</span></li>
-      <li><b>Hauteurs optiques égales</b><span>Les deux marques pèsent le même poids visuel, séparées par un × en Stack Sans Headline 200.</span></li>
-      <li><b>Espace de 2 X</b><span>Entre chaque marque et le signe ×. Jamais de fusion, jamais de symbole commun.</span></li>
-      <li><b>Pochette d’artiste</b><span>Le nom de l’artiste domine, LBV signe en tampon discret. La pochette appartient d’abord à l’artiste.</span></li>
-    </ul>
-  </div>` });
-
 /* ================= 03 COULEUR ================= */
-divider('couleur', 'Le noir domine. Le rouge brûle. L’image garde toutes ses couleurs.', 'neon-porsche.jpg', 'center');
-
-page({ ch: 'couleur', title: 'Couleur dominante', body: `
-  <div class="dominant">
-    <div class="dom-bar"><div style="flex:70;background:${C.noir}"><span>70 %</span><b>Noir Akanda</b></div><div style="flex:20;background:${C.os};color:${C.noir}"><span>20 %</span><b>Os</b></div><div style="flex:7;background:${C.ox}"><span>7 %</span></div><div style="flex:3;background:${C.braise}"></div></div>
-    <div class="grid4 dom-notes">
-      <div><h3>Noir Akanda</h3><p>La couleur dominante. Fonds, pages, pochettes, vêtements. Un noir chaud et profond, jamais un gris.</p></div>
-      <div><h3>Os</h3><p>Le texte et le logo. Un blanc cassé, doux sur le noir, qui évite la brûlure du blanc pur.</p></div>
-      <div><h3>Oxblood</h3><p>La couleur de marque. Préchargeur, sélection, surfaces rouges profondes, papeterie.</p></div>
-      <div><h3>Braise</h3><p>L’accent. Un mot dans un titre, un anneau de progression, un point de vie. Jamais en aplat.</p></div>
-    </div>
-  </div>` });
-
 {
   const sw = (key, name, role, dark = true) => `<div class="swatch"><div class="chip" style="background:${C[key]};${key === 'noir' ? 'border:1px solid rgba(231,227,218,.16)' : ''}"><span style="color:${dark ? C.os : C.noir}">${name}</span></div>
     <dl><dt>HEX</dt><dd>${C[key]}</dd><dt>RVB</dt><dd>${rgbStr(C[key])}</dd><dt>CMJN</dt><dd>${cmjn(C[key])}</dd></dl><p>${role}</p></div>`;
   page({ ch: 'couleur', title: 'Palette principale', body: `
+  <div class="dom-bar"><div style="background:${C.noir}"><span>70 %</span><b>Noir Akanda</b></div><div style="background:${C.os};color:${C.noir}"><span>20 %</span><b>Os</b></div><div style="background:${C.ox}"><span>7 %</span><b>Oxblood</b></div><div style="background:${C.braise}"><span>3 %</span><b>Braise</b></div></div>
   <div class="grid4">
     ${sw('noir', 'Noir Akanda', 'Fonds et grandes surfaces.')}
     ${sw('os', 'Os', 'Texte, logo, filets.', false)}
@@ -303,29 +254,21 @@ page({ ch: 'couleur', title: 'Couleur dominante', body: `
 }
 
 /* ================= 04 TYPOGRAPHIE ================= */
-divider('typo', 'Une grotesque tendue pour la voix, une condensée pour les chiffres.', 'neon-goat.jpg', 'center');
-
-page({ ch: 'typo', title: 'Stack Sans Headline', body: `
+page({ ch: 'typo', title: 'Les deux caractères', body: `
   <div class="specimen">
     <div class="aa">Aa</div>
     <div>
       <div class="weights"><span style="font-weight:200">Extra-light 200</span><span style="font-weight:300">Light 300</span><span style="font-weight:400">Regular 400</span><span style="font-weight:500">Medium 500</span><span style="font-weight:700">Bold 700</span></div>
       <div class="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>àâçéèêëîïôùûü 0123456789 « » ! ? — ·</div>
-      <p>La voix de la marque. Titres, textes, navigation, mot PRODUCTION du site. Ses capitales tendues et son approche serrée donnent une présence de magazine sans jamais crier. Les graisses légères (200 et 300) portent les grands titres : plus c’est grand, plus c’est fin.</p>
+      <p><b>Stack Sans Headline</b> porte la voix : titres, textes, navigation, mot PRODUCTION du logo. Capitales tendues, approche serrée ; plus le titre est grand, plus la graisse est fine (200 et 300).</p>
     </div>
-  </div>` });
-
-page({ ch: 'typo', title: 'Bebas Neue', body: `
-  <div class="specimen bebas">
+  </div>
+  <div class="bebas-strip">
     <div class="big-num">06<span>·</span>20+<span>·</span>241</div>
-    <div class="two tight">
-      <div><div class="alphabet num-font">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789 + — : / .</div></div>
-      <div><p>Les chiffres et les repères : compteurs, dates, numéros de piste, durées, numéros de page. Une condensée qui se lit comme un tableau d’affichage.</p>
-      <p class="small">Jamais pour un texte de plus de trois mots. Jamais pour un titre de phrase : la phrase appartient à Stack Sans Headline.</p></div>
-    </div>
+    <p><b>Bebas Neue</b> porte les chiffres et les repères : compteurs, dates, numéros de piste, durées. Jamais plus de trois mots, jamais une phrase.</p>
   </div>` });
 
-page({ ch: 'typo', title: 'Hiérarchie', body: `
+page({ ch: 'typo', title: 'Hiérarchie et règles', body: `
   <div class="hier">
     <div class="sample-comp">
       <span class="h-eyebrow">Nouveau single · Dac-M</span>
@@ -342,35 +285,25 @@ page({ ch: 'typo', title: 'Hiérarchie', body: `
       <tr><td>Chiffres</td><td>Bebas Neue 400 · approche +0,04 em · Os</td></tr>
       <tr><td>Accent</td><td>Un seul mot en Braise par titre, même graisse</td></tr>
     </table>
-  </div>` });
-
-page({ ch: 'typo', title: 'Règles de composition', body: `
-  <div class="grid3 comp-rules">
-    <div><div class="demo-type"><span style="font-weight:200">Chaque titre est un <em>pas</em> de plus.</span></div><h3>Un mot brûle</h3><p>Un seul mot par titre passe en Braise : le verbe, le lieu, la promesse. Jamais deux.</p></div>
-    <div><div class="demo-type caps">TALENT · SON · SCÈNE</div><h3>Capitales courtes</h3><p>Les capitales sont réservées aux labels, à la navigation et aux titres de trois mots au plus, toujours espacées.</p></div>
-    <div><div class="demo-type"><span style="font-weight:300;letter-spacing:-.03em">Libreville a une voix.</span></div><h3>Serré et fin</h3><p>Grands titres en graisse légère, approche négative, alignés à gauche. Pas de cursive, pas de contour, pas de dégradé dans les lettres.</p></div>
   </div>
-  <div class="two tight fonts-legal">
-    <div><h3>Polices de secours</h3><p class="small">Web : <code>"Stack Sans Headline", "Helvetica Neue", Arial, sans-serif</code> et <code>"Bebas Neue", Impact, sans-serif</code>. Bureautique : Arial pour le texte, Impact pour les chiffres.</p></div>
-    <div><h3>Licences</h3><p class="small">Les deux familles sont distribuées par Google Fonts sous licence SIL Open Font License 1.1 : usage commercial, impression et web autorisés sans redevance.</p></div>
+  <div class="grid3 rules-strip">
+    <p><b>Un mot brûle.</b> Un seul mot par titre passe en braise : le verbe, le lieu, la promesse. Jamais deux.</p>
+    <p><b>Capitales courtes.</b> Réservées aux libellés, à la navigation et aux titres de trois mots au plus, toujours espacées.</p>
+    <p><b>Serré et fin.</b> Grands titres en graisse légère, approche négative, alignés à gauche. Ni cursive, ni contour, ni dégradé dans les lettres.</p>
   </div>` });
 
 /* ================= 05 IMAGE ================= */
-divider('image', 'On assombrit, on ne décolore pas. Les visages d’abord.', 'dom.jpg', '50% 30%');
-
-page({ ch: 'image', title: 'Étalonnage LBV', body: `
+{
+  const A = [['carty.jpg', 'Carty', 'Rap · Afro-urbain', '58% 42%', 1.3, '60% 45%'], ['dom.jpg', 'D.O.M', 'Alternatif', '50% 32%', 1.3, '50% 38%'], ['le-t.jpg', 'Le T', 'Underground', '48% 52%', 1.6, '45% 50%'], ['dac-m.jpg', 'Dac-M', 'Afrobeat · Humour', '38% 6%', 1.3, '32% 16%'], ['xquality.jpg', 'Xquality', 'Rap mélodique', '52% 18%', 1.35, '52% 22%'], ['lunxy.jpg', 'Lunxy', 'Ambiances', '50% 12%', 1.7, '50% 18%']];
+  page({ ch: 'image', title: 'Étalonnage et cadrage', cls: 'image-page', body: `
   <div class="grid3 grade">
     <figure><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%"></div><figcaption><b>Brut</b> La photo telle que livrée.</figcaption></figure>
     <figure><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%;filter:contrast(1.08) saturate(.78) brightness(.86)"><div class="vign"></div></div><figcaption><b>LBV</b> Contraste + 8 %, saturation − 22 %, luminosité − 14 %, vignettage doux.</figcaption></figure>
     <figure class="no"><div class="g-img"><img src="img/dom.jpg" alt="" style="object-position:50% 30%;filter:grayscale(1) contrast(1.2)"></div><figcaption><b>Non</b> Le noir et blanc systématique éteint la scène.</figcaption></figure>
   </div>
-  <p class="small wide">Les rouges et les oranges de la lumière restent vivants, la peau reste juste, les noirs descendent. En ligne, l’image reprend sa pleine couleur au survol.<br>Réglage web : <code>filter: contrast(1.08) saturate(.78) brightness(.86)</code>.</p>` });
-
-{
-  const A = [['carty.jpg', 'Carty', 'Rap · Afro-urbain', '58% 42%', 1.3, '60% 45%'], ['dom.jpg', 'D.O.M', 'Alternatif', '50% 32%', 1.3, '50% 38%'], ['le-t.jpg', 'Le T', 'Underground', '48% 52%', 1.6, '45% 50%'], ['dac-m.jpg', 'Dac-M', 'Afrobeat · Humour', '38% 6%', 1.3, '32% 16%'], ['xquality.jpg', 'Xquality', 'Rap mélodique', '52% 18%', 1.35, '52% 22%'], ['lunxy.jpg', 'Lunxy', 'Ambiances', '50% 12%', 1.7, '50% 18%']];
-  page({ ch: 'image', title: 'Portraits d’artistes', body: `
   <div class="artists">${A.map(([f, n, t, pos, z, o]) => `<figure><div class="sq"><img src="img/${f}" alt="${n}" style="object-position:${pos};transform:scale(${z});transform-origin:${o}"></div><figcaption><b>${n}</b><span>${t}</span></figcaption></figure>`).join('')}</div>
-  <div class="grid3 art-rules"><p><b>Carré.</b> Le portrait d’artiste est toujours carré : il vit aussi bien sur le site que sur Instagram et Spotify.</p><p><b>Le visage d’abord.</b> Les yeux dans le tiers supérieur, le visage occupe au moins un tiers du cadre. On recadre, on ne déforme pas.</p><p><b>Lumière de côté.</b> Photos de nuit, de scène ou de studio, lumière dirigée. Pas de fond blanc studio, pas de sourire publicitaire.</p></div>` });
+  <p class="small wide">Réglage web : <code>filter: contrast(1.08) saturate(.78) brightness(.86)</code> — la photo reprend sa pleine couleur au survol.</p>
+  <p class="small wide">Portrait carré, yeux dans le tiers supérieur, visage sur au moins un tiers du cadre. On recadre, on ne déforme pas. Lumière de nuit, de scène ou de studio ; jamais de fond blanc, jamais de sourire publicitaire.</p>` });
 }
 
 page({ ch: 'image', title: 'Pochettes : la direction existante', body: `
@@ -383,46 +316,16 @@ page({ ch: 'image', title: 'Pochettes : la direction existante', body: `
   </div></div>` });
 
 /* ================= 06 SIGNES ET MOUVEMENT ================= */
-divider('signes', 'Le feu, le filet, la croix. Et une manière lente d’apparaître.', 'feu.jpg', 'center 80%');
-
-page({ ch: 'signes', title: 'Signes graphiques', body: `
+page({ ch: 'signes', title: 'Signes et mouvement', body: `
   <div class="signs">
     <figure class="s-fire"><img src="img/feu.jpg" alt=""><figcaption><b>Le feu</b><span>Flammes réelles ou générées, montant du bas de l’image. Il sépare les chapitres forts : chiffres, annonces, LBV Show.</span></figcaption></figure>
     <figure><div class="s-demo"><span class="line-demo"></span><span class="line-demo short"></span></div><figcaption><b>Le filet</b><span>1 px, Os à 12 %. Il structure sans enfermer : pas de cadres, pas de coins arrondis.</span></figcaption></figure>
     <figure><div class="s-demo cross">${(() => { const c = '<svg viewBox="0 0 20 20" width="16" height="16"><path d="M10 1v18M1 10h18" stroke="#d8261e" stroke-width="1.2"/></svg>'; return c + '<span class="cw">TALENT</span>' + c + '<span class="cw">SON</span>' + c + '<span class="cw">SCÈNE</span>' + c; })()}</div><figcaption><b>La croix</b><span>Repère fin entre les mots d’une ligne de base : TALENT + SON + SCÈNE. Elle tourne au défilement.</span></figcaption></figure>
     <figure><div class="s-demo"><svg viewBox="0 0 100 100" width="86" height="86"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(231,227,218,.14)" stroke-width="2"/><circle cx="50" cy="50" r="40" fill="none" stroke="#d8261e" stroke-width="2" stroke-dasharray="251" stroke-dashoffset="88" transform="rotate(-90 50 50)"/><text x="50" y="58" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#e7e3da">03</text></svg></div><figcaption><b>L’anneau</b><span>Progression d’une série (artistes, pistes). Seul usage de la braise en trait.</span></figcaption></figure>
-    <figure><div class="s-demo grain"></div><figcaption><b>Le grain</b><span>Bruit fin à 4–6 % sur les grands aplats noirs, pour que le noir ait une matière. Sur les imprimés et les visuels ; sur le site, il vient des photos et du feu, jamais d’un calque plein écran.</span></figcaption></figure>
-  </div>` });
-
-page({ ch: 'signes', title: 'Mouvement', body: `
-  <div class="motion">
-    <div class="curve">
-      <svg viewBox="-12 -12 264 264" width="300" height="300">
-        <rect x="0" y="0" width="240" height="240" fill="none" stroke="rgba(231,227,218,.12)"/>
-        <path d="M0 120H240M120 0V240" stroke="rgba(231,227,218,.06)"/>
-        <path d="M0 240C52.8 240 86.4 0 240 0" fill="none" stroke="#d8261e" stroke-width="2.5"/>
-        <path d="M0 240L52.8 240M240 0L86.4 0" stroke="rgba(231,227,218,.35)" stroke-width="1" stroke-dasharray="3 3"/>
-        <circle cx="52.8" cy="240" r="4" fill="#e7e3da"/><circle cx="86.4" cy="0" r="4" fill="#e7e3da"/>
-      </svg>
-      <code>cubic-bezier(.22, 1, .36, 1)</code>
-      <p class="small">Départ franc, arrivée très longue : les choses arrivent vite et se posent lentement.</p>
-    </div>
-    <div>
-      <table class="kv motion-table">
-        <tr><td>Texte qui apparaît</td><td>Les mots montent de leur ligne, 1,2 à 1,4 s, décalage de 0,04 s</td></tr>
-        <tr><td>Image qui apparaît</td><td>Ouverture par masque de bas en haut, 1,2 s</td></tr>
-        <tr><td>Survol d’image</td><td>La couleur revient, zoom de 3 %, 1 s</td></tr>
-        <tr><td>Défilement</td><td>Défilement doux, interpolation 0,075</td></tr>
-        <tr><td>Logo en volume</td><td>Chrome rouge profond, rotation lente qui suit le pointeur</td></tr>
-      </table>
-      <h3>Jamais</h3>
-      <p>Flou d’apparition, rebond, clignotement, rotation gratuite, texte qui tape lettre à lettre, animation qui rejoue à chaque passage.</p>
-    </div>
+    <figure><div class="s-demo curve-demo"><svg viewBox="-6 -6 252 252" width="128" height="128"><rect x="0" y="0" width="240" height="240" fill="none" stroke="rgba(231,227,218,.12)"/><path d="M0 240C52.8 240 86.4 0 240 0" fill="none" stroke="#d8261e" stroke-width="4"/></svg></div><figcaption><b>Le mouvement</b><span><code>cubic-bezier(.22, 1, .36, 1)</code> : départ franc, arrivée longue. Les mots montent de leur ligne en 1,2 à 1,4 s, les images s’ouvrent par un masque. Ni flou, ni rebond, ni clignotement ; une apparition ne se rejoue pas.</span></figcaption></figure>
   </div>` });
 
 /* ================= 07 VOIX ================= */
-divider('voix', 'Peu de mots. Beaucoup de présence.', 'live.jpg', 'center 35%');
-
 page({ ch: 'voix', title: 'Ton et écriture', cls: 'voice-page', body: `
   <div class="grid4 voice">
     <div><h3>Direct</h3><p>Une idée par phrase. Le sujet, le verbe, la date. On coupe tout ce qui explique trop.</p></div>
@@ -438,8 +341,6 @@ page({ ch: 'voix', title: 'Ton et écriture', cls: 'voice-page', body: `
   </div>` });
 
 /* ================= 08 APPLICATIONS ================= */
-divider('app', 'Le système en situation : réseaux, pochettes, scène, papier, écran.', 'scene-lbv-show.jpg', 'center 60%');
-
 page({ ch: 'app', title: 'Réseaux sociaux', body: `
   <div class="social">
     <figure><div class="ig post"><img src="img/dac-m.jpg" alt="" style="object-position:38% 10%;filter:contrast(1.08) saturate(.78) brightness(.8)"><div class="post-veil"></div><div class="post-mark">${mark(22)}</div><div class="post-txt"><span class="eyebrow">Nouveau single</span><b>Allô</b><span class="post-art">DAC-M</span></div><span class="post-num">03.05</span></div><figcaption>Post 1080 × 1080</figcaption></figure>
@@ -456,47 +357,6 @@ page({ ch: 'app', title: 'Pochettes de single', body: `
   </div>
   <p class="small wide">Gabarits de principe : titres et visuels fictifs composés à partir des photos du label. Chaque artiste garde la liberté de sa pochette dans ce cadre.</p>` });
 
-page({ ch: 'app', title: 'LBV Show : affiche et billet', body: `
-  <div class="show">
-    <div class="poster"><img src="img/scene-lbv-show.jpg" alt="" style="object-position:50% 40%;filter:contrast(1.1) saturate(.85) brightness(.62)"><img src="img/feu.jpg" alt="" class="poster-fire"><div class="poster-top">${lockup(34)}<span class="post-num">2026</span></div><div class="poster-title">LBV<br>SHOW</div><div class="poster-names">Carty + D.O.M + Le T + Dac-M + Xquality + Lunxy</div><div class="poster-foot"><span>Libreville</span><span>Date et lieu à annoncer</span></div></div>
-    <div class="ticket">
-      <div class="t-main">
-        <div class="t-head">${mark(22)}<span>Carte d’embarquement</span></div>
-        <div class="t-route"><div><span>Départ</span><b>LBV</b><i>Libreville</i></div><svg viewBox="0 0 60 12" width="60"><path d="M0 6h56M50 1l6 5-6 5" fill="none" stroke="#d8261e" stroke-width="1.4"/></svg><div><span>Arrivée</span><b>SCÈNE</b><i>LBV Show</i></div></div>
-        <div class="t-meta"><div><span>Vol</span><b>LBV 241</b></div><div><span>Porte</span><b>B</b></div><div><span>Place</span><b>Fosse</b></div><div><span>Embarquement</span><b>20:00</b></div></div>
-      </div>
-      <div class="t-stub"><span>LBV 241</span><b>FOSSE</b><div class="barcode"></div></div>
-    </div>
-    <p class="small show-note">Le billet reprend le code d’aéroport de Libreville et l’indicatif du Gabon (241). Le jeu sur le voyage reste une idée d’événement, pas l’identité quotidienne.</p>
-  </div>` });
-
-{
-  const tee = (inner, back = false) => `<div class="tee"><svg viewBox="0 0 300 320" class="tee-shape"><path d="M96 18c14 18 94 18 108 0l74 34-26 66-30-13v200H76V105l-30 13-26-66z" fill="#101010" stroke="rgba(231,227,218,.18)"/><path d="M96 18c14 ${back ? 6 : 26} 94 ${back ? 6 : 26} 108 0" fill="none" stroke="rgba(231,227,218,.22)"/></svg><div class="tee-print ${back ? 'back' : ''}">${inner}</div></div>`;
-  page({ ch: 'app', title: 'Merch', body: `
-  <div class="merch">
-    <figure>${tee(mark(26))}<figcaption><b>T-shirt, face</b><span>Symbole os brodé, cœur, 7 cm.</span></figcaption></figure>
-    <figure>${tee(`<span class="tee-line">LIBREVILLE A UNE <em>VOIX.</em></span>${mark(46)}<span class="tee-small">TALENT + SON + SCÈNE</span>`, true)}<figcaption><b>T-shirt, dos</b><span>Sérigraphie os et braise, 28 cm de large.</span></figcaption></figure>
-    <figure><div class="label-woven">${mark(20)}<span>LBV PRODUCTION · AKANDA</span></div><div class="sticker">${markW(78, C.noir)}</div><figcaption><b>Étiquette et sticker</b><span>Étiquette tissée noire, sticker braise découpé à la forme.</span></figcaption></figure>
-  </div>
-  <p class="small wide">Supports : coton lourd noir délavé, sérigraphie à l’eau, pas d’impression numérique brillante. Le logo complet n’apparaît pas sur le vêtement : le symbole suffit.</p>` });
-}
-
-page({ ch: 'app', title: 'Papeterie', body: `
-  <div class="paper">
-    <div class="cards">
-      <div class="card front">${mark(72)}</div>
-      <div class="card back"><div class="c-name"><b>Prénom Nom</b><span>Direction artistique</span></div><div class="c-info">contact@lbvproduction.com<br>+241 077 04 75 64<br>Cité Magnolia, Villa 163, Akanda</div><div class="c-logo">${lockup(30, C.noir)}</div></div>
-      <p class="small">Carte 85 × 55 mm. Recto noir, symbole os en sérigraphie. Verso papier os, texte noir, logo oxblood en option gaufrée.</p>
-    </div>
-    <div class="mail">
-      <div class="mail-bar"><i></i><i></i><i></i></div>
-      <div class="mail-body">
-        <p>Bonjour,<br><br>Merci pour votre retour. Vous trouverez le dossier de presse en pièce jointe.<br><br>Bien à vous,</p>
-        <div class="sig"><div class="sig-mark">${mark(26, C.noir)}</div><div><b>Prénom Nom</b><span>LBV Production · Direction artistique</span><span>+241 077 04 75 64 · lbvproduction.com</span></div></div>
-      </div>
-      <p class="small">Signature e-mail : symbole en image de 52 px (affiché à 26), texte en police système, aucune bannière.</p>
-    </div>
-  </div>` });
 
 page({ ch: 'app', title: 'Écrans : site et YouTube', body: `
   <div class="screens">

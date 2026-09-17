@@ -243,7 +243,7 @@ table.scale td:first-child { width: 90px; color: var(--os); }
 .checks li::before { content: "+ "; color: var(--braise); }
 
 /* Signes */
-.signs { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 22px 28px; flex: 1; }
+.signs { display: grid; grid-template-columns: 1.6fr 1fr 1fr; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 18px 28px; flex: 1; min-height: 0; }
 .signs figure { display: flex; flex-direction: column; gap: 10px; min-height: 0; }
 .s-fire { grid-row: span 2; }
 .s-fire img { width: 100%; flex: 1; min-height: 0; object-fit: cover; object-position: center 85%; }
@@ -417,3 +417,54 @@ table.files code { color: var(--os); }
   .page { transform: none; box-shadow: none; }
 }
 .cw { font: 400 10px/1 var(--display); letter-spacing: .28em; color: var(--os); }
+
+/* ---------- Blocs regroupés (charte resserrée) ---------- */
+.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); margin-top: 22px; }
+.pillars > div { padding: 18px 22px 0 0; }
+.pillars > div + div { padding-left: 22px; border-left: 1px solid var(--line); }
+.pillars p { font: 300 17px/1.25 var(--display); letter-spacing: -.015em; color: var(--os); }
+.bebas-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; border-top: 1px solid var(--line); padding-top: 20px; margin-top: 6px; }
+.bebas-strip .big-num { font-size: 110px; }
+.bebas-strip p { font-size: 14px; }
+.rules-strip { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 4px; }
+.rules-strip p { font-size: 13.5px; }
+.rules-strip b { color: var(--os); font-weight: 400; }
+.grade .g-img { height: 250px; }
+.grade figcaption { font-size: 12.5px; }
+.curve-demo svg { display: block; }
+
+/* Ajustements des planches regroupées : tout doit tenir au-dessus du pied de page */
+.mani { gap: 24px; }
+.mani-big { font-size: 54px; }
+.mani-cols p { font-size: 13.5px; }
+.pillars { margin-top: 14px; }
+.pillars > div { padding-top: 14px; }
+.pillars p { font-size: 15px; }
+.swatch .chip { height: 150px; }
+.swatch dl { margin: 10px 0 6px; }
+.swatch p { font-size: 12px; }
+.dom-bar { height: 62px; margin-bottom: 4px; }
+.dom-bar span { font-size: 26px; }
+.grade .g-img { height: 160px; }
+.artists .sq { aspect-ratio: 1; }
+.artists { gap: 8px; }
+.artists figcaption { margin-top: 6px; }
+.artists b { font-size: 11.5px; letter-spacing: .16em; }
+.artists span { font-size: 10.5px; }
+
+.grade { flex: none; }
+.artists { flex: none; }
+.image-page .body { gap: 12px; }
+.grade .g-img { height: 150px; }
+
+.signs figcaption span { font-size: 12px; line-height: 1.4; }
+.s-demo { min-height: 0; flex: 1; }
+
+.signs { grid-auto-rows: minmax(0, 1fr); align-items: stretch; }
+.signs figure { min-height: 0; overflow: hidden; }
+.signs figcaption { flex: none; }
+.s-fire img { min-height: 0; }
+
+.image-page .g-img { height: 138px; }
+.image-page .artists figcaption { margin-top: 4px; }
+.image-page .small { font-size: 11.5px; }

@@ -19,14 +19,14 @@ lbv-production/
   audio/              Extrait « Amiricher » de Le T, musique de fond
   source/             Visuels d'archive et sources haute définition, non publiés
   brand/              Fichiers de marque : logo et symbole en SVG, géométrie du logo
-  charte/             Charte graphique (45 planches) et son PDF
+  charte/             Charte graphique (26 planches) et son PDF
   tools/              Scripts de génération, de mesure et de vérification
   robots.txt · sitemap.xml · netlify.toml
 ```
 
 ## Charte graphique
 
-La charte fait foi pour toute évolution : `charte/index.html` (45 planches, générées par `tools/build-charte.mjs`).
+La charte fait foi pour toute évolution : `charte/index.html` (26 planches, générées par `tools/build-charte.mjs`).
 
 Repères principaux : noir Akanda `#0A0A0A` dominant, os `#E7E3DA` pour le texte, oxblood `#7A0A0A` comme couleur de marque, braise `#D8261E` en accent (un seul mot par titre, à la graisse du titre). Stack Sans Headline pour la voix, Bebas Neue pour les chiffres. Photos en couleur, étalonnées sombres. Capitales réservées aux titres de trois mots au plus et aux libellés.
 
