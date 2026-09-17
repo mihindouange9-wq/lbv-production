@@ -252,7 +252,7 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
 }
 
 /* ---------- Fiche artiste ---------- */
-.artist-panel { position: fixed; inset: 0; z-index: 1400; background: var(--bg); color: var(--bone); overflow-y: auto; padding: 8vh 6vw 10vh; clip-path: inset(100% 0% 0% 0%); pointer-events: none; }
+.artist-panel { position: fixed; inset: 0; z-index: 1400; background: var(--bg); color: var(--bone); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 8vh 6vw 10vh; clip-path: inset(100% 0% 0% 0%); pointer-events: none; }
 .artist-panel .close-sidebar { position: fixed; top: 0; left: 0; z-index: 10; width: 60px; height: 60px; border-radius: 50%; background: var(--bone); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; }
 .artist-panel .close-sidebar svg path { fill: var(--bg); }
 .image-hero-side { width: 100%; height: 70vh; overflow: hidden; position: relative; z-index: 2; margin-bottom: 3rem; }
@@ -482,3 +482,6 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
   .method-section { display: flex; flex-direction: column; }
   .method-section .method-heading { order: -1; }
 }
+
+/* La modale actualité reste lisible même si le texte est long */
+.modal-blogs .news-modal-text { overflow-y: auto; }

@@ -20,11 +20,11 @@ window.LBV = {
     { name: 'XQUALITY', slug: 'xquality', img: 'images/img-0772.jpg', short: 'Chill, mélancolie, couleurs et imaginaire. Une musique intime et ouverte sur le monde.',
       bio: 'Xquality est un artiste singulier dont l’univers mêle chill, mélancolie, couleurs et imaginaire. Porté par des influences aussi variées que Don Toliver, Juice WRLD, Ninho, Tiakola ou Damso, il construit une musique à la fois intime et ouverte sur le monde. Son clip « Sang froid » est sorti en décembre 2025.',
       tags: ['Rap', 'Mélodique', 'Chill'], gallery: ['images/1777092910510.jpg', 'images/xquality.jpg', 'images/img-0772.jpg'],
-      links: [['Instagram', 'https://www.instagram.com/thequaliity/'], ['TikTok', 'https://www.tiktok.com/@x_thequality'], ['YouTube', 'https://youtube.com/@vndrxmusic'], ['Spotify', 'https://open.spotify.com/intl-fr/artist/4U1THLY26UOfygwm2iAHE7']] },
+      links: [['Instagram', 'https://www.instagram.com/thequaliity/'], ['TikTok', 'https://www.tiktok.com/@x_thequality'], ['Spotify', 'https://open.spotify.com/intl-fr/artist/4U1THLY26UOfygwm2iAHE7']] },
     { name: 'LUNXY', slug: 'lunxy', img: 'images/img-999.jpg', short: 'Des ambiances uniques, composées comme des décors. Lunxy fait la nuit à sa façon.',
       bio: 'Artiste et compositeur, Lunxy crée des ambiances uniques dans ses compositions, entre ombre et néons. Une signature sonore à découvrir sur scène et en ligne.',
       tags: ['Ambiances', 'Dark', 'Compositeur'], gallery: ['images/img-999.jpg'],
-      links: [['Instagram', 'https://www.instagram.com/lunxy_yz/'], ['YouTube', 'https://youtube.com/@lunxydark'], ['Spotify', 'https://open.spotify.com/artist/lunxy']] },
+      links: [['Instagram', 'https://www.instagram.com/lunxy_yz/']] },
   ],
   blogs: [
     { title: 'Le T — Money Dance (clip officiel)', date: '3 juin 2026', author: 'LE T · CLIP', img: 'images/1781439013684-h4m1bt4q40b.jpg', link: 'https://www.youtube.com/watch?v=LdnxTfDZ7dw',
