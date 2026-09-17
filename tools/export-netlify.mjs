@@ -6,7 +6,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, '..', 'lbv-production-netlify');
 await rm(OUT, { recursive: true, force: true });
 await mkdir(OUT, { recursive: true });
-const skip = new Set(['tools', 'research', 'README.md', '.git', '.gitignore']);
+const skip = new Set(['tools', 'research', 'charte', 'README.md', '.git', '.gitignore']);
 for (const entry of await readdir(ROOT)) {
   if (skip.has(entry)) continue;
   await cp(join(ROOT, entry), join(OUT, entry), { recursive: true, filter: (src) => !src.endsWith('credits.json') });

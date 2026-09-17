@@ -140,8 +140,8 @@
   const expLines = new Split('.expertise-text', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   K.set(expLines.lines, { yPercent: 100, opacity: 0 });
   K.to(expLines.lines, { yPercent: 0, opacity: 1, stagger: 0.05, duration: 1.6, ease: 'expo.out', delay: D });
-  K.to('.face-image', { y: 0, duration: 3.8, filter: 'brightness(0.92) grayscale(1) contrast(1.1)', scale: 1, ease: 'power2.out', delay: isReload ? 0.1 : D + 0.5 });
-  K.to('.hero-section-home', { backgroundImage: 'linear-gradient(250deg, #1a0606 0%, #0a0a0a 100%)', duration: 3, delay: D });
+  K.to('.face-image', { y: 0, duration: 3.8, filter: 'brightness(0.72) saturate(0.82) contrast(1.14)', scale: 1, ease: 'power2.out', delay: isReload ? 0.1 : D + 0.5 });
+  K.to('.hero-section-home', { backgroundImage: 'linear-gradient(250deg, #240707 0%, #0a0a0a 100%)', duration: 3, delay: D });
   K.to('.menu-2-bar', { opacity: 1, delay: D, pointerEvents: 'auto', duration: 1.5, ease: 'power3.out' });
   K.to('.logo-3d', { opacity: 1, delay: D });
   K.to('.cta-connect', { opacity: 1, delay: isReload ? 0.1 : D + 0.5 });
