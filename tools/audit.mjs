@@ -1,7 +1,7 @@
 /* Audit du site : console (erreurs, avertissements, exceptions), images cassées, ancres, ids dupliqués, au chargement puis après défilement.
    node tools/audit.mjs [largeur] [hauteur] [mobile] */
 import { spawn } from 'node:child_process';
-const [W = '1440', H = '900', mobile = ''] = process.argv.slice(2);
+const [W = '1440', H = '900', mobile = '', PAGE = 'index.html'] = process.argv.slice(2);
 const port = 9333 + Math.floor(Math.random() * 500);
 const chrome = spawn('C:/Program Files/Google/Chrome/Application/chrome.exe', ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files', '--no-first-run', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--autoplay-policy=no-user-gesture-required', `--remote-debugging-port=${port}`, `--user-data-dir=C:/Users/mihin/AppData/Local/Temp/claude/chrome-cdp-${port}`, `--window-size=${W},${H}`, 'about:blank'], { stdio: 'ignore' });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -13,7 +13,7 @@ const send = (method, params = {}) => new Promise((res) => { const i = ++id; pen
 const evaluate = async (expr) => (await send('Runtime.evaluate', { expression: expr, returnByValue: true, awaitPromise: true })).result?.result?.value;
 await send('Page.enable'); await send('Runtime.enable'); await send('Network.enable');
 await send('Emulation.setDeviceMetricsOverride', { width: +W, height: +H, deviceScaleFactor: 1, mobile: mobile === 'mobile' });
-await send('Page.navigate', { url: 'file:///C:/Users/mihin/Documents/geek/lbv-production/index.html' });
+await send('Page.navigate', { url: 'file:///C:/Users/mihin/Documents/geek/lbv-production/' + PAGE });
 await sleep(14000);
 const checks = await evaluate(`(() => {
   const out = {};
