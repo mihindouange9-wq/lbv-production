@@ -477,7 +477,7 @@
   const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
   const hideClose = () => { K.to(mClose, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' }); window.removeEventListener('mousemove', followClose); };
   const openBlog = (i) => {
-    if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on();
+    if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on(); document.body.classList.add('panel-open');
     const b = BLOGS[i]; mH1.textContent = b.title; mDate.textContent = b.date; mP.textContent = b.desc; mBy.textContent = b.author + ' · Voir sur YouTube'; mBy.href = b.link; mImg.src = b.img;
     K.killTweensOf(modal); K.killTweensOf(mImg);
     K.set(modal, { pointerEvents: 'all', clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0 });
@@ -489,7 +489,7 @@
     showClose();
   };
   const closeBlog = () => {
-    if (modalBusy || +getComputedStyle(modal).opacity === 0) return; modalBusy = true; blogScroll.off(); hideClose(); lenis.start();
+    if (modalBusy || +getComputedStyle(modal).opacity === 0) return; modalBusy = true; blogScroll.off(); hideClose(); lenis.start(); document.body.classList.remove('panel-open');
     K.timeline({ onComplete: () => { K.set(modal, { pointerEvents: 'none', opacity: 0, clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7 }); K.set(mImg, { clipPath: 'inset(100% 0 0 0)' }); modalBusy = false; } })
       .to(mImg, { clipPath: 'inset(100% 0 0 0)', duration: 0.6, ease: 'power4.in' })
       .to(modal, { clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0, duration: 1, ease: 'power4.inOut' }, '-=0.3');
@@ -504,8 +504,8 @@
   const contactModal = $('.modal-contact-us');
   const contactScroll = panelScroll(contactModal);
   let contactOpen = false;
-  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); contactScroll.on(); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
-  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; contactScroll.off(); lenis.start(); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); cb && cb(); } }); };
+  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); contactScroll.on(); document.body.classList.add('panel-open'); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
+  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; contactScroll.off(); lenis.start(); document.body.classList.remove('panel-open'); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); cb && cb(); } }); };
   $('#contactopen').addEventListener('click', openContact);
   $('.close-sidebar-contact').addEventListener('click', () => closeContact());
   const form = $('.modal-contact-us form');
@@ -539,7 +539,7 @@ ${data.get('message')}`;
   /* ---------- Fluide plein écran (encre rouge) ---------- */
   if (window.WebGLFluid && !reduce) {
     try {
-      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', TOUCH: true, SIM_RESOLUTION: petitEcran ? 20 : 32, DYE_RESOLUTION: petitEcran ? 128 : 256, DENSITY_DISSIPATION: 4.2, VELOCITY_DISSIPATION: 3.2, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.0, SPLAT_RADIUS: 0.03, SPLAT_FORCE: 1300, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
+      window.WebGLFluid($('#fluid2'), { IMMEDIATE: true, TRIGGER: 'hover', TOUCH: false /* les touchers arrivent par le relais pointermove ci-dessous ; l'écouteur tactile du paquet plante sur téléphone */, SIM_RESOLUTION: petitEcran ? 20 : 32, DYE_RESOLUTION: petitEcran ? 128 : 256, DENSITY_DISSIPATION: 4.2, VELOCITY_DISSIPATION: 3.2, PRESSURE: 0.12, PRESSURE_ITERATIONS: 6, CURL: 1.0, SPLAT_RADIUS: 0.03, SPLAT_FORCE: 1300, SHADING: false, COLORFUL: false, COLOR_UPDATE_SPEED: 0.5, PAUSED: false, BACK_COLOR: { r: 0, g: 0, b: 0 }, TRANSPARENT: true, BLOOM: false, SUNRAYS: false });
       const fluidCanvas = $('#fluid2');
       fluidCanvas.style.pointerEvents = 'none';
       // Le paquet écoute le canvas : on lui relaie les mouvements de la page.

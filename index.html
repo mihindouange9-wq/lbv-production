@@ -469,6 +469,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Flip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    // L'écouteur tactile de webgl-fluid plante au premier toucher (tableau de pointeurs vide) : ses écouteurs
+    // tactiles sont protégés ; les touchers arrivent de toute façon au fluide par le relais pointermove de main.js.
+    (function () {
+      var add = EventTarget.prototype.addEventListener;
+      EventTarget.prototype.addEventListener = function (type, fn, opts) {
+        if (typeof type === 'string' && type.indexOf('touch') === 0 && typeof fn === 'function' && (this === window || this === document || (this.tagName === 'CANVAS'))) {
+          var safe = function (e) { try { return fn.call(this, e); } catch (err) { /* écouteur fautif neutralisé */ } };
+          return add.call(this, type, safe, opts);
+        }
+        return add.call(this, type, fn, opts);
+      };
+    })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/webgl-fluid@0.3.7/dist/webgl-fluid.umd.min.js"></script>
   <script src="js/data.js"></script>
   <script src="js/fire.js"></script>

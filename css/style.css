@@ -94,6 +94,12 @@ button { font: inherit; color: inherit; background: none; border: 0; }
 .bottom-contact-ctas .menu-socials { display: flex; gap: 1.5rem; }
 .bottom-contact-ctas .line-mask { overflow: hidden; display: block; }
 @media (max-width: 800px) { .bottom-contact-ctas { flex-direction: column; gap: 1rem; } .menu-2-bar { top: 1.4rem; } }
+/* Un panneau ouvert (artiste, actualité, contact) : le bouton Fermer occupe l'angle, le menu s'efface pour ne pas le chevaucher */
+body.sidebar-open .menu-2-bar, body.panel-open .menu-2-bar { opacity: 0 !important; pointer-events: none !important; }
+@media (max-width: 800px) {
+  .artist-panel .close-sidebar, .close-sidebar-blog, .close-sidebar-contact { width: 56px; height: 56px; }
+  .artist-panel { padding-top: 12vh; }
+}
 
 /* ---------- Onde sonore ---------- */
 .sound-wave { display: flex; align-items: center; justify-content: center; position: fixed; z-index: 500; height: 10px; left: 3%; bottom: 10%; gap: 2px; mix-blend-mode: difference; cursor: none; padding: 10px 0; }
