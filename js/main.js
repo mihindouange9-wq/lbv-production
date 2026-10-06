@@ -21,6 +21,9 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isMobile = () => window.innerWidth <= 800;
+  // Téléphone : les mêmes séquences que l'ordinateur (épinglages, pile d'artistes), plus courtes ; la version
+  // compacte sans épinglage reste disponible en passant compactPhone à true.
+  const compactPhone = false;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
@@ -261,8 +264,8 @@
   /* ---------- Services : titre déplacé (Flip), lettres, pin, lignes SVG, mots, chute ---------- */
   const heading = $('.label-heading');
   const scrollDown = $('.label-center');
-  if (isMobile()) {
-    // Téléphone : un bloc court et lisible, aucun épinglage, aucun titre déplacé
+  if (compactPhone && isMobile()) {
+    // Téléphone compact : un bloc court et lisible, aucun épinglage, aucun titre déplacé
     K.fromTo('.label-section .label-thumb', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.label-thumbs', start: 'top 85%', once: true } });
     K.fromTo('.label-section .label-list, .label-section .label-panel-text', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.label-lists', start: 'top 85%', once: true } });
     // les quatre visuels glissent à des vitesses différentes : la profondeur sans coût
@@ -287,7 +290,7 @@
   const fallHead = new Split('.label-panel-title', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   const fallPara = new Split('.label-panel-para', { type: 'lines', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
   [...fallHead.lines, ...fallPara.lines].forEach((l) => { l.innerHTML = `<span>${l.innerHTML}</span>`; });
-  const svcTl = K.timeline({ scrollTrigger: { trigger: '.label-section', start: 'top top', end: '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+  const svcTl = K.timeline({ scrollTrigger: { trigger: '.label-section', start: 'top top', end: isMobile() ? '+=430%' : '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
   svcTl.to(strokes, { strokeDashoffset: 0, duration: 3, stagger: 0.11 }, '0');
   svcTl.to('.label-char', { y: '-130%', delay: 0.5, stagger: 0.1 });
   svcTl.to('.label-words .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
@@ -315,8 +318,8 @@
   /* ---------- Artistes : pile épinglée, fond, texte, cercle, sidebar ---------- */
   const ARTISTS = window.LBV.artists;
   const steps = K.utils.toArray('.artist-card'), total = steps.length;
-  if (isMobile()) {
-    // Téléphone : une grille de six vignettes carrées, nom et style sous chaque photo, aucun épinglage
+  if (compactPhone && isMobile()) {
+    // Téléphone compact : une grille de six vignettes carrées, nom et style sous chaque photo, aucun épinglage
     const legende = document.querySelector('.artists-legend p');
     if (legende) legende.textContent = 'Touchez une fiche pour la découvrir';
     steps.forEach((s, i) => {
@@ -361,7 +364,7 @@
       K.set([...hw, ...pw], { y: 40, opacity: 0 });
       textTl = K.timeline().to(hw, { y: 0, opacity: 1, stagger: 0.035, duration: 0.45, ease: 'power2.out' }).to(pw, { y: 0, opacity: 1, stagger: 0.018, duration: 0.35, ease: 'power2.out' }, '-=0.2');
     };
-    const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * 100 + '%', scrub: 0.6, pin: true,
+    const stepsTl = K.timeline({ scrollTrigger: { trigger: '.container', start: 'top top', end: '+=' + total * (isMobile() ? 70 : 100) + '%', scrub: 0.6, pin: true,
       onEnter() { inSteps = true; K.to('.artists-backdrop', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
       onEnterBack() { inSteps = true; K.to('.artists-backdrop', { opacity: 1, duration: 0.5, overwrite: 'auto' }); },
       onLeave() { inSteps = false; K.to('.artists-backdrop', { opacity: 0, duration: 0.5, overwrite: 'auto' }); },
@@ -454,7 +457,7 @@
 
   /* ---------- Sorties et actualités : cartes, titres ---------- */
   $$('.blog-section').forEach((sec) => {
-    if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
+    if (!(compactPhone && isMobile())) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
     K.fromTo(sec.querySelectorAll('.news-card'), { opacity: 0, y: 30, clipPath: 'inset(14% 0% 14% 0%)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: sec.querySelector('.news-cards, .releases-cards') || sec, start: 'top 88%', once: true } });
     new Split(sec.querySelector('.blog-heading'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     new Split(sec.querySelector('.blog-para'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
