@@ -274,12 +274,17 @@
     K.fromTo('.label-panel', { yPercent: 12, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 88%', once: true } });
     K.fromTo('.label-panel-title, .label-panel-para', { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 82%', once: true } });
   } else {
-  const flipState = window.Flip.getState(heading);
-  scrollDown.appendChild(heading);
-  window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.label-section', start: 'top 60%', end: 'center 50%', scrub: 1 } });
+  if (isMobile()) {
+    // Téléphone : le mot LE LABEL vit dans la scène dès le départ ; déplacé en vol, il passait derrière la section épinglée
+    scrollDown.appendChild(heading);
+  } else {
+    const flipState = window.Flip.getState(heading);
+    scrollDown.appendChild(heading);
+    window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.label-section', start: 'top 60%', end: 'center 50%', scrub: 1 } });
+  }
   const breaks = $('.label-heading .breaks');
   breaks.innerHTML = breaks.textContent.split('').map((c) => `<span class="label-char">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-  K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1 } })
+  if (!isMobile()) K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1 } })
     .to('.label-char', { fontSize: '16rem', stagger: 0.1, ease: 'none' })
     .to('.breaks', { transform: 'translateX(0%)', ease: 'none' }, '0');
   const charify = (sel) => $$(sel).forEach((el) => { const t = el.textContent; el.innerHTML = ''; t.split('').forEach((c) => { const s = document.createElement('span'); s.textContent = c === ' ' ? ' ' : c; el.appendChild(s); }); });
@@ -292,7 +297,9 @@
   [...fallHead.lines, ...fallPara.lines].forEach((l) => { l.innerHTML = `<span>${l.innerHTML}</span>`; });
   const svcTl = K.timeline({ scrollTrigger: { trigger: '.label-section', start: 'top top', end: isMobile() ? '+=430%' : '+=690%', scrub: 1.1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
   svcTl.to(strokes, { strokeDashoffset: 0, duration: 3, stagger: 0.11 }, '0');
-  svcTl.to('.label-char', { y: '-130%', delay: 0.5, stagger: 0.1 });
+  // Téléphone : le mot grandit au centre de la scène pendant que les lignes se dessinent, puis s'efface en montant
+  if (isMobile()) svcTl.fromTo('.label-char', { fontSize: '2.6rem' }, { fontSize: '4.4rem', stagger: 0.05, duration: 2, ease: 'none' }, '0');
+  svcTl.to('.label-char', { y: '-130%', autoAlpha: isMobile() ? 0 : 1, delay: 0.5, stagger: 0.1 });
   svcTl.to('.label-words .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
   svcTl.to('.set-1 .points span', { y: '0%', stagger: 0.04, duration: 0.6 }, '<');
   svcTl.to('.label-words .word1:nth-child(1) span', { y: '-120%', stagger: 0.02, duration: 1 }, '+=0.2');

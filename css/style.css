@@ -237,8 +237,11 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
   .box-section-ups { height: auto; padding: 10vh 5% 0; justify-content: flex-start; }
   .label-para { width: 100%; padding: 0; align-items: flex-start; height: auto; }
   .label-para p { padding-top: 0; text-align: left; font-size: 1rem; max-width: none; }
-  .label-heading { justify-content: flex-start; height: auto; font-size: 2.6rem; margin-bottom: 1.2rem; }
+  .label-heading { justify-content: center; height: auto; overflow: visible; font-size: 2.6rem; line-height: 1.1; margin-bottom: 1.2rem; }
   .breaks { transform: none; }
+  /* le mot LE LABEL, une fois déplacé au centre de la scène, dispose de toute la largeur */
+  .label-center { width: 100%; left: 0; height: 60vh; }
+  .label-center .label-heading { overflow: visible; line-height: 1.1; }
   /* La scène du Label est la même qu'à l'ordinateur : seules les tailles descendent */
   .label-thumbs .label-thumb { width: 38vw; height: 24vh; }
   /* six visuels suffisent sur un petit écran : les autres se chevauchaient */
@@ -247,6 +250,8 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
   .label-words .word1 { font-size: clamp(2.4rem, 12vw, 4rem); }
   .label-list { font-size: .95rem; right: 6%; left: 6%; top: auto; bottom: 11%; line-height: 1.55; padding: .9rem 1.1rem; background: rgba(10, 10, 10, .94); border-left: 2px solid var(--ember, #d8261e); z-index: 5; transform: none; gap: .1rem; text-shadow: 0 2px 12px rgba(10, 10, 10, .95), 0 0 24px rgba(10, 10, 10, .8); }
   .label-list::before { content: none; }
+  /* les listes passent au-dessus des visuels : lisibles sur leur bandeau */
+  .label-lists { z-index: 6; }
   .label-panel { width: 88vw; }
   .label-panel .label-panel-photo img { width: 72%; }
   .label-panel-text { left: 8%; width: 76%; }
