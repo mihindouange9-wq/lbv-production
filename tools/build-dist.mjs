@@ -12,3 +12,15 @@ for (const entry of await readdir(ROOT)) {
   await cp(join(ROOT, entry), join(OUT, entry), { recursive: true, filter: (src) => !src.endsWith('credits.json') });
 }
 console.log('dist →', OUT);
+
+/* Version dans l'adresse du style et des scripts : chaque mise en ligne invalide le cache des visiteurs,
+   même ceux qui ont gardé les anciens fichiers (cache de sept jours). */
+import { readFile, writeFile } from 'node:fs/promises';
+import { execSync } from 'node:child_process';
+let version = process.env.RENDER_GIT_COMMIT?.slice(0, 7);
+if (!version) { try { version = execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch { version = String(Date.now()); } }
+const page = join(OUT, 'index.html');
+let html = await readFile(page, 'utf8');
+html = html.replace(/(href|src)="((?:css|js)\/[^"?]+)"/g, (m, attr, file) => `${attr}="${file}?v=${version}"`);
+await writeFile(page, html);
+console.log('version des fichiers :', version);
