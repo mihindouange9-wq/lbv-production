@@ -93,8 +93,8 @@
     </div>
     <h2>PARLONS <span class="accent">Musique</span></h2>
     <img src="images/talents-gabonais-live.jpg" alt="" loading="lazy" decoding="async" width="1200" height="800">
-    <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="mailto:contact@lbvproduction.com">
-      <input type="hidden" name="form-name" value="contact">
+    <!-- Envoi : renseigner data-endpoint avec l'adresse du service de formulaire (ex. Formspree) ; vide, le bouton ouvre la messagerie. -->
+    <form name="contact" method="POST" action="mailto:contact@lbvproduction.com" data-endpoint="">
       <p class="hidden-field"><label>Ne pas remplir : <input name="bot-field"></label></p>
       <input type="text" name="name" placeholder="Votre nom" required autocomplete="name">
       <input type="tel" name="phone" placeholder="Votre numéro" required autocomplete="tel">

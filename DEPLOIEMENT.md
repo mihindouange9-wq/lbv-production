@@ -1,6 +1,53 @@
-# Mettre le site en ligne sur Netlify
+# Mettre le site en ligne
 
-Document de référence pour publier la nouvelle version du site LBV Production. Tout ce qui est à déposer se trouve dans un seul dossier.
+Document de référence pour publier le site LBV Production. Deux hébergeurs sont préparés : **Render** (déploiement
+automatique depuis GitHub, retenu) et Netlify (dépôt manuel d'un dossier, conservé en solution de repli).
+
+## Render : mise en ligne depuis GitHub
+
+Le dépôt contient `render.yaml` : Render y lit tout (commande de build `node tools/build-dist.mjs`, dossier publié
+`dist/`, en-têtes de sécurité et de cache). Rien à configurer à la main.
+
+### Première mise en ligne
+
+1. Pousser le dépôt sur GitHub (compte `mihindouange9-wq`, dépôt `lbv-production`, branche `main`).
+2. Sur **dashboard.render.com** : **New → Blueprint**, choisir le dépôt `lbv-production`, valider. Render crée le site
+   statique `lbv-production` et lance le premier build (une minute environ).
+3. Le site est en ligne sur une adresse en `.onrender.com`. Plan gratuit : les sites statiques ne se mettent pas en
+   veille, contrairement aux services Node.
+
+### Mettre à jour
+
+`git push` sur `main` : Render reconstruit et publie. Onglet **Events** du site pour suivre ; **Rollback** sur un
+déploiement précédent pour revenir en arrière en une action.
+
+### Nom de domaine
+
+**Settings → Custom Domains → Add** : saisir `lbvproduction.com` et `www.lbvproduction.com`. Render indique les
+enregistrements DNS à créer chez le registraire (`A` vers son adresse pour la racine, `CNAME` pour `www`). Le
+certificat HTTPS est automatique une fois la propagation faite. Le site déclare déjà `https://lbvproduction.com/`
+comme adresse de référence (lien canonique, plan de site, métadonnées de partage).
+
+### Formulaire de contact sur Render
+
+Render n'héberge pas de formulaires. Le formulaire est prêt pour un service d'envoi : créer un formulaire sur
+**formspree.io** (gratuit jusqu'à 50 messages par mois), copier son adresse (`https://formspree.io/f/xxxxxxxx`) et
+la coller dans l'attribut `data-endpoint` du formulaire, dans `index.html` (ligne `<form name="contact" …>`).
+Tant que cet attribut est vide, le bouton **Envoyer** ouvre la messagerie du visiteur avec le message pré-rempli :
+rien n'est perdu, mais l'envoi dépend alors de son logiciel de messagerie.
+
+### Vérifier le build en local
+
+```bash
+node tools/build-dist.mjs      # assemble dist/, exactement ce que Render publie
+node tools/check-ready.mjs dist
+```
+
+---
+
+## Netlify (solution de repli)
+
+Tout ce qui est à déposer se trouve dans un seul dossier.
 
 ## 1. Préparer le dossier à déposer
 
@@ -52,7 +99,7 @@ Le site déclare déjà `https://lbvproduction.com/` comme adresse de référenc
 
 ## 4. Formulaire de contact
 
-Le formulaire est prêt pour **Netlify Forms** : il porte le nom `contact`, un champ caché anti-robots et des champs obligatoires. Aucune configuration de code n'est nécessaire.
+Sur Netlify, le formulaire peut utiliser **Netlify Forms** : rétablir alors les attributs `data-netlify="true"` et `netlify-honeypot="bot-field"` sur la balise `<form>`, plus le champ caché `form-name`. Sinon, le service d'envoi configuré dans `data-endpoint` (voir la partie Render) fonctionne sur tout hébergeur.
 
 Après le premier dépôt :
 

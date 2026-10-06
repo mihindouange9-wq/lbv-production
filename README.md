@@ -66,7 +66,8 @@ Le coût est concentré dans trois calques : le feu (shader), le symbole en volu
 
 ## Déploiement
 
-`node tools/export-netlify.mjs` produit `../lbv-production-netlify/`, à déposer sur l'hébergeur. Le formulaire de contact est prêt pour Netlify Forms ; hors Netlify, il ouvre le client de messagerie. La charte, les sources et les outils ne sont pas exportés.
+`node tools/export-netlify.mjs` (Netlify) ou `tools/build-dist.mjs` → `dist/` (Render, voir `render.yaml`) ; marche à suivre dans `DEPLOIEMENT.md`
+<!-- -->` ` produit `../lbv-production-netlify/`, à déposer sur l'hébergeur. Le formulaire de contact est prêt pour Netlify Forms ; hors Netlify, il ouvre le client de messagerie. La charte, les sources et les outils ne sont pas exportés.
 
 ## Contenu
 

@@ -465,24 +465,33 @@
   $('#contactopen').addEventListener('click', openContact);
   $('.close-sidebar-contact').addEventListener('click', () => closeContact());
   const form = $('.modal-contact-us form');
+  const endpoint = form.dataset.endpoint || '';
+  const mailFallback = (data) => {
+    const body = `Nom : ${data.get('name')}
+Téléphone : ${data.get('phone')}
+E-mail : ${data.get('email')}
+
+${data.get('message')}`;
+    window.location.href = 'mailto:contact@lbvproduction.com?subject=' + encodeURIComponent('Contact via lbvproduction.com') + '&body=' + encodeURIComponent(body);
+  };
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
     const btn = form.querySelector('.cta-submit');
+    if (data.get('bot-field')) return;
+    // Sans service d'envoi configuré (attribut data-endpoint du formulaire) : messagerie avec le message pré-rempli
+    if (!endpoint) { mailFallback(data); return; }
     btn.value = 'Envoi…';
     try {
-      const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(data).toString() });
+      const res = await fetch(endpoint, { method: 'POST', headers: { Accept: 'application/json' }, body: data });
       if (!res.ok) throw new Error('form');
       btn.value = 'Message envoyé';
       setTimeout(() => { closeContact(); form.reset(); btn.value = 'Envoyer'; }, 1200);
     } catch {
-      // Hors Netlify : ouverture du client mail avec le message pré-rempli
-      const body = `Nom : ${data.get('name')}\nTéléphone : ${data.get('phone')}\nE-mail : ${data.get('email')}\n\n${data.get('message')}`;
-      window.location.href = 'mailto:contact@lbvproduction.com?subject=' + encodeURIComponent('Contact via lbvproduction.com') + '&body=' + encodeURIComponent(body);
+      mailFallback(data);
       btn.value = 'Envoyer';
     }
   });
-
   /* ---------- Fluide plein écran (encre rouge) ---------- */
   if (window.WebGLFluid && !reduce) {
     try {
