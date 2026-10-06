@@ -233,17 +233,22 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
   .label-para p { padding-top: 0; text-align: left; font-size: 1rem; max-width: none; }
   .label-heading { justify-content: flex-start; height: auto; font-size: 2.6rem; margin-bottom: 1.2rem; }
   .breaks { transform: none; }
-  /* La scène du Label est la même qu'à l'ordinateur : seules les tailles descendent */
-  .label-thumbs .label-thumb { width: 34vw; height: 22vh; }
-  .label-thumbs .label-thumb:nth-child(9) { height: 18vh; } .label-thumbs .label-thumb:nth-child(10) { height: 14vh; }
-  .label-words .word1 { font-size: clamp(2.4rem, 12vw, 4rem); }
-  .label-list { font-size: .85rem; right: 5%; top: auto; bottom: 14%; transform: none; gap: .1rem; text-shadow: 0 2px 12px rgba(10, 10, 10, .95), 0 0 24px rgba(10, 10, 10, .8); }
-  .label-list::before { content: none; }
-  .label-panel { width: 88vw; }
-  .label-panel .label-panel-photo img { width: 72%; }
-  .label-panel-text { left: 8%; width: 76%; }
-  .label-panel-text .label-panel-title { font-size: 2.1rem; }
-  .label-panel-text .label-panel-para { font-size: .95rem; width: 100%; }
+  .label-section { height: auto; display: block; padding: 6vh 5% 12vh; overflow: visible; }
+  .label-lines, .label-center, .paper-tear { display: none; }
+  .label-thumbs { position: relative; width: auto; height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 2.4rem; }
+  .label-thumbs .label-thumb { position: static; width: auto; height: auto; aspect-ratio: 4 / 5; clip-path: none; }
+  .label-thumbs .label-thumb:nth-child(n+5) { display: none; }
+  .label-lists { position: relative; inset: auto; pointer-events: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+  .label-list { position: static; transform: none; text-align: left; font-size: .9rem; gap: .4rem; }
+  .label-list::before { display: block; font-size: var(--label); letter-spacing: .26em; color: var(--mute); margin-bottom: .6rem; }
+  .set-1::before { content: "Produire"; } .set-2::before { content: "Diffuser"; }
+  .word1 span, .points span { transform: none; }
+  .label-panel { position: relative; width: auto; height: auto; transform: none; margin-top: 3rem; display: block; background: var(--sang); padding: 2rem 1.4rem; }
+  .label-panel .label-panel-photo { display: none; }
+  .label-panel-text { position: static; padding: 0; width: 100%; transform: none; }
+  .label-panel-text .label-panel-title { width: 100%; font-size: 2.2rem; line-height: 1.04; } .label-panel-text .label-panel-para { width: 100%; max-width: none; }
+  .label-panel-title .line, .label-panel-para .line { display: inline; overflow: visible; }
+  .label-panel-title .line span, .label-panel-para .line span { display: inline; transform: none; }
 }
 
 /* ---------- Fiche artiste ---------- */
@@ -290,10 +295,17 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
 .cursor-view { position: fixed; z-index: 50000; width: 84px; height: 84px; font-size: var(--label); letter-spacing: .28em; text-transform: uppercase; color: var(--bone); display: flex; left: 0; top: 0; text-align: center; opacity: 0; justify-content: center; pointer-events: none; align-items: center; border-radius: 50rem; mix-blend-mode: difference; }
 .ring-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
 @media (max-width: 800px) {
-  /* La pile épinglée des artistes est conservée : seule la vignette rétrécit */
-  .container { --sq: min(78vw, 42vh); }
-  .cursor-view { display: none; }
-  .artists-legend { flex-direction: column; align-items: flex-start; justify-content: flex-start; top: 8%; transform: none; padding: 1.5rem; gap: .5rem; }
+  /* Grille de vignettes : pas d'épinglage, tout est visible d'un coup */
+  .container { height: auto; overflow: visible; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem 8px; padding: 2vh 5% 10vh; align-content: start; }
+  .artist-card { position: relative; left: auto; top: auto !important; width: 100%; height: auto; display: block; background: none; transform: none !important; opacity: 1 !important; }
+  .artist-thumb { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--bg-3); }
+  .artist-thumb img { width: 100%; height: 100%; }
+  .artist-name { padding-top: .7rem; }
+  .artist-name b { display: block; font-weight: 400; font-size: .95rem; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); }
+  .artist-name span { display: block; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mute); margin-top: .2rem; }
+  .artists-backdrop, .artists-progress, .cursor-view { display: none; }
+  .artists-legend { position: relative; grid-column: 1 / -1; top: auto; transform: none; padding: 0 0 .5rem; }
+  .artists-legend { flex-direction: column; align-items: flex-start; justify-content: flex-start; top: 6%; transform: none; padding: 1.5rem; gap: .5rem; }
   .artists-legend h2 { width: 100%; padding: 0; font-size: 1.8rem; } .artists-legend p { width: 100%; font-size: .85rem; }
   .artists-progress { left: 5%; bottom: 6%; } .artists-progress .progress-ring { width: 64px; height: 64px; } .artists-progress .progress-ring .progress-value { font-size: 1.2rem; }
 }
@@ -457,12 +469,13 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
 
 /* ---------- Téléphone : lisibilité et respirations ---------- */
 @media (max-width: 800px) {
-  /* Barre du bas et onde sonore conservées, un cran plus haut pour ne pas croiser le contenu */
-  .ledger { bottom: .8rem; }
+  /* Les ornements fixes passaient sur le contenu : ils restent à l'ordinateur */
+  .ledger, .sound-wave, .sound-label { display: none; }
   /* Voile sous l'en-tête et au-dessus du texte d'accueil */
   .hero-section-home::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 42vh; background: linear-gradient(180deg, rgba(10, 10, 10, .9) 0%, rgba(10, 10, 10, .5) 55%, transparent 100%); z-index: 12; pointer-events: none; }
   .hero-intro { top: 12vh; z-index: 16; }
-  /* Marge de sécurité sous l'en-tête pour les sections qui défilent normalement */
+  /* Marges de sécurité : rien ne commence sous le symbole ni ne finit sous le bord */
+  .container { padding-top: 12vh; padding-bottom: 8vh; }
   .blog-section { padding-top: 13vh; }
   .before-footer-cta { padding-bottom: 6vh; }
   /* La phrase d'introduction de la méthode se lit avant les étapes */

@@ -253,6 +253,16 @@
   /* ---------- Services : titre déplacé (Flip), lettres, pin, lignes SVG, mots, chute ---------- */
   const heading = $('.label-heading');
   const scrollDown = $('.label-center');
+  if (isMobile()) {
+    // Téléphone : un bloc court et lisible, aucun épinglage, aucun titre déplacé
+    K.fromTo('.label-section .label-thumb', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.label-thumbs', start: 'top 85%', once: true } });
+    K.fromTo('.label-section .label-list, .label-section .label-panel-text', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: '.label-lists', start: 'top 85%', once: true } });
+    // les quatre visuels glissent à des vitesses différentes : la profondeur sans coût
+    $$('.label-section .label-thumb img').forEach((img, i) => K.fromTo(img, { yPercent: -6 - i * 2 }, { yPercent: 6 + i * 2, ease: 'none', scrollTrigger: { trigger: img.closest('.label-thumb'), start: 'top bottom', end: 'bottom top', scrub: 0.6 } }));
+    // le panneau oxblood monte et son titre se découvre
+    K.fromTo('.label-panel', { yPercent: 12, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.2, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 88%', once: true } });
+    K.fromTo('.label-panel-title, .label-panel-para', { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: 0.12, ease: 'expo.out', scrollTrigger: { trigger: '.label-panel', start: 'top 82%', once: true } });
+  } else {
   const flipState = window.Flip.getState(heading);
   scrollDown.appendChild(heading);
   window.Flip.from(flipState, { duration: 1, ease: 'none', absolute: true, scrollTrigger: { trigger: '.label-section', start: 'top 60%', end: 'center 50%', scrub: 1 } });
@@ -292,11 +302,35 @@
     window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
     K.ticker.add(() => { cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06; K.set(pics, { x: (cx - window.innerWidth / 2) * 0.6, y: (cy - window.innerHeight / 2) * 0.6, rotationX: K.utils.mapRange(0, window.innerHeight, 14, -14, cy), rotationY: K.utils.mapRange(0, window.innerWidth, -24, 24, cx), transformPerspective: 1400, transformOrigin: 'center center', force3D: true }); });
   }
-  // fin de la séquence du Label
+  } // fin du bloc ordinateur du Label
 
   /* ---------- Artistes : pile épinglée, fond, texte, cercle, sidebar ---------- */
   const ARTISTS = window.LBV.artists;
   const steps = K.utils.toArray('.artist-card'), total = steps.length;
+  if (isMobile()) {
+    // Téléphone : une grille de six vignettes carrées, nom et style sous chaque photo, aucun épinglage
+    const legende = document.querySelector('.artists-legend p');
+    if (legende) legende.textContent = 'Touchez une fiche pour la découvrir';
+    steps.forEach((s, i) => {
+      const a = ARTISTS[i];
+      if (!a) return;
+      // la photo va dans un cadre carré qui la rogne : le zoom de cadrage ne déborde pas sur le nom
+      const img = s.querySelector('img');
+      if (img && !img.parentElement.classList.contains('artist-thumb')) {
+        const media = document.createElement('div');
+        media.className = 'artist-thumb';
+        s.insertBefore(media, img);
+        media.appendChild(img);
+      }
+      const cap = document.createElement('div');
+      cap.className = 'artist-name';
+      cap.innerHTML = '<b>' + a.name + '</b><span>' + a.tags.slice(0, 2).join(' · ') + '</span>';
+      s.appendChild(cap);
+    });
+    K.fromTo(steps, { opacity: 0, y: 26, clipPath: 'inset(18% 0% 18% 0%)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'expo.out', stagger: 0.08, scrollTrigger: { trigger: '.container', start: 'top 85%', once: true } });
+    // la photo glisse dans son cadre pendant le défilement
+    steps.forEach((s) => { const img = s.querySelector('img'); if (img) K.fromTo(img, { yPercent: -4 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'bottom top', scrub: 0.6 } }); });
+  } else {
     const bgImg = $('.artists-backdrop img');
     const textBox = $('.artists-legend'), textH1 = textBox.querySelector('h2'), textP = textBox.querySelector('p');
     const circle = $('.progress-ring circle'), circleNum = $('.progress-ring .progress-value');
@@ -336,6 +370,8 @@
     const follow = $('.cursor-view');
     const moveFollow = (e) => { follow.style.transform = `translate(${e.clientX - follow.offsetWidth / 2}px, ${e.clientY - follow.offsetHeight / 2}px)`; };
     if (fine) { window.addEventListener('mousemove', moveFollow); steps.forEach((s) => { s.addEventListener('mouseenter', () => K.to(follow, { opacity: 1, duration: 0.4 })); s.addEventListener('mouseleave', () => K.to(follow, { opacity: 0, duration: 0.6 })); }); }
+
+  }
 
   // Sidebar artiste
   const sidebar = $('.artist-panel');
@@ -410,7 +446,7 @@
 
   /* ---------- Sorties et actualités : cartes, titres ---------- */
   $$('.blog-section').forEach((sec) => {
-    K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
+    if (!isMobile()) K.timeline({ scrollTrigger: { trigger: sec, start: 'top 10%', end: '120% bottom', scrub: 1 } }).to(sec.querySelector('.news-card:nth-child(2)'), { y: 0 }, '0');
     K.fromTo(sec.querySelectorAll('.news-card'), { opacity: 0, y: 30, clipPath: 'inset(14% 0% 14% 0%)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'expo.out', stagger: 0.1, scrollTrigger: { trigger: sec.querySelector('.news-cards, .releases-cards') || sec, start: 'top 88%', once: true } });
     new Split(sec.querySelector('.blog-heading'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
     new Split(sec.querySelector('.blog-para'), { type: 'words', wordsClass: 'word', charsClass: 'char', linesClass: 'line' });
