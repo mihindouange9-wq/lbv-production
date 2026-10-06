@@ -4,6 +4,12 @@
    ni flou, ni rebond, ni clignotement. Tout ce qui est coûteux est désactivé sur téléphone. */
 (function () {
   'use strict';
+  // La page s'ouvre toujours en haut : rechargement, retour arrière, adresse avec ancre.
+  if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+  const startHash = window.location.hash;
+  if (startHash) window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  window.scrollTo(0, 0);
+  window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   const K = window.gsap;
   const ST = window.ScrollTrigger;
   const Split = window.SplitText;
@@ -24,12 +30,13 @@
   const loaderPlayed = sessionStorage.getItem('loaderPlayed') === 'true';
   const playLoader = !isReload && !loaderPlayed && !reduce;
   const D = playLoader ? 8.5 : 0.1; // délai des animations d'entrée
-  window.history.scrollRestoration = 'manual';
   const refresh = () => requestAnimationFrame(() => requestAnimationFrame(() => ST.refresh()));
-  if (isReload) { window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50); }
+  window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50);
 
   /* ---------- Lenis ---------- */
   const lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
+  window.LBV.lenis = lenis;
+  if (startHash && $(startHash)) K.delayedCall(D + 0.6, () => lenis.scrollTo($(startHash), { duration: 1.6, force: true }));
   lenis.on('scroll', ST.update);
   K.ticker.add((t) => lenis.raf(t * 1000));
 
@@ -186,7 +193,7 @@
   }
 
   /* ---------- Logo 3D ---------- */
-  $('.brand-link').addEventListener('click', (e) => { e.preventDefault(); lenis.scrollTo(0); });
+  $('.brand-link').addEventListener('click', (e) => { e.preventDefault(); lenis.scrollTo(0, { force: true }); });
 
   /* ---------- Musique et onde ---------- */
   const music = $('#bgMusic');
@@ -214,17 +221,18 @@
     .from('.line-mask', { yPercent: 100, opacity: 0, stagger: 0.03, duration: 1.2, ease: 'expo.out' }, 0);
   let menuOpen = false;
   const openMenu = () => { lenis.stop(); K.fromTo('.bar-bgs', { scaleX: 0, transformOrigin: 'right center' }, { scaleX: 1, duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => menuTl.play(0) }); K.set('.navigation-menu', { visibility: 'visible', pointerEvents: 'auto' }); K.set('.menu-2-bar', { mixBlendMode: 'normal' }); menuOpen = true; };
-  const closeMenu = () => { menuTl.reverse(); K.delayedCall(0.45, () => K.to('.bar-bgs', { scaleX: 0, transformOrigin: 'left center', duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => { K.set('.navigation-menu', { visibility: 'hidden', pointerEvents: 'none' }); K.set('.menu-2-bar', { mixBlendMode: 'difference' }); lenis.start(); } })); menuOpen = false; };
+  // after : action lancée une fois le menu refermé et Lenis relancé (relancer Lenis annule tout défilement en cours)
+  const closeMenu = (after) => { menuTl.reverse(); K.delayedCall(0.45, () => K.to('.bar-bgs', { scaleX: 0, transformOrigin: 'left center', duration: 0.8, stagger: 0.06, ease: 'power4.inOut', onComplete: () => { K.set('.navigation-menu', { visibility: 'hidden', pointerEvents: 'none' }); K.set('.menu-2-bar', { mixBlendMode: 'difference' }); lenis.start(); if (typeof after === 'function') after(); } })); menuOpen = false; };
   $('.menu-2-bar').addEventListener('click', () => (menuOpen ? closeMenu() : openMenu()));
   $$('.menu-navigate-scroll a').forEach((a) => a.addEventListener('click', (e) => {
     e.preventDefault();
     K.to('.menu-cross', { scale: 0, rotation: 0, duration: 0.3, ease: 'power3.out' });
     K.to(a.querySelector('.menu-cross'), { scale: 1, rotation: 90, duration: 0.8, ease: 'expo.out' });
-    closeMenu();
     const target = $(a.getAttribute('href'));
-    if (target) K.delayedCall(0.9, () => lenis.scrollTo(target, { offset: 0, duration: 1.6 }));
+    // Le défilement part une fois le menu refermé et Lenis relancé, vers la position mesurée à cet instant
+    closeMenu(() => { if (target) lenis.scrollTo(Math.round(target.getBoundingClientRect().top + window.scrollY), { duration: 1.6 }); });
   }));
-  $$('nav a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const t = $(a.getAttribute('href')); if (t) lenis.scrollTo(t, { duration: 1.6 }); }));
+  $$('nav a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const t = $(a.getAttribute('href')); if (t) lenis.scrollTo(Math.round(t.getBoundingClientRect().top + window.scrollY), { duration: 1.6, force: true }); }));
 
   /* ---------- Titre cinématique et texte du label ---------- */
   const cine = $('.cinematic-title');
@@ -578,5 +586,5 @@ ${data.get('message')}`;
   let rt;
   window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => ST.refresh(), 200); });
   window.addEventListener('load', () => { document.fonts?.ready.then(refresh); refresh(); });
-  window.addEventListener('pageshow', () => { if (isReload) window.scrollTo(0, 0); refresh(); });
+  window.addEventListener('pageshow', () => { window.scrollTo(0, 0); refresh(); });
 })();
