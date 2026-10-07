@@ -48,7 +48,7 @@ export function fragments(c) {
     menuMail: `<a href="mailto:${esc(k.email)}?subject=Contact%20LBV%20Production" class="menu-mail-link">${esc(k.email)}</a>`,
     formAction: `action="mailto:${esc(k.email)}"`,
     audio: `<source src="${esc(c.audio.src)}" type="audio/mpeg">`,
-    soundLabel: `<div class="sound-label">${esc(c.audio.label)}</div>`,
+    soundLabel: `<div class="sound-label" aria-hidden="true">${esc(c.audio.label)}</div>`,
     heroTags: `<div class="hero-tags">\n${h.tags.map((t) => `      <span>${esc(t)}</span>`).join('\n')}\n    </div>`,
     heroIntro: `<div class="hero-intro">\n      ${esc(h.intro)}<span class="more"> ${esc(h.introMore)}</span>\n    </div>`,
     portrait: `<img class="hero-portrait-img" src="${esc(h.portrait.src)}" alt="${esc(h.portrait.alt)}"${h.portrait.width ? ` width="${h.portrait.width}" height="${h.portrait.height}"` : ''} fetchpriority="high">`,

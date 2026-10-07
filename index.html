@@ -44,7 +44,7 @@
   </div>
 
   <!-- Fluide WebGL plein écran -->
-  <canvas id="fluid2"></canvas>
+  <canvas id="fluid2" aria-hidden="true"></canvas>
 
   <!-- Bouton du menu (deux barres) -->
   <div class="menu-2-bar" role="button" tabindex="0" aria-label="Menu">
@@ -85,10 +85,12 @@
 
   <!-- Onde sonore (musique de fond : exclu Le T) -->
   <div class="sound-wave" role="button" tabindex="0" aria-label="Activer ou couper le son"></div>
-  <div class="sound-label">EXCLU · LE T — AMIRICHER</div>
+  <div class="sound-label" aria-hidden="true">EXCLU · LE T — AMIRICHER</div>
+
+  <main id="main">
 
   <!-- Modale contact -->
-  <div class="modal-contact-us" data-lenis-prevent>
+  <div class="modal-contact-us" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Contact" inert aria-hidden="true">
     <div class="close-sidebar-contact" role="button" tabindex="0" aria-label="Fermer">
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
     </div>
@@ -111,7 +113,9 @@
   </div>
 
   <!-- Symbole LBV (charte : sous 120 px de large, le symbole remplace le logo complet) -->
+  <header class="site-head">
   <a class="brand-link" href="#home" aria-label="LBV Production, retour en haut"><svg class="brand-mark" viewBox="175.4 306.5 729.8 372.2" aria-hidden="true"><use href="#lbv-mark"/></svg></a>
+  </header>
 
   <!-- Logo en volume : calque fixe au-dessus de l’accueil -->
   <div class="logo-stage"></div>
@@ -124,7 +128,7 @@
   </div>
 
   <!-- Modale actualités -->
-  <div class="modal-blogs" data-lenis-prevent>
+  <div class="modal-blogs" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Actualité" inert aria-hidden="true">
     <div class="close-sidebar-blog" role="button" tabindex="0" aria-label="Fermer">
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
     </div>
@@ -132,7 +136,7 @@
       <div class="news-modal-date"></div>
       <h2></h2>
       <p></p>
-      <a class="news-modal-link" href="https://www.youtube.com/@LBVProduction-241" target="_blank" rel="noopener"></a>
+      <a class="news-modal-link" href="https://www.youtube.com/@LBVProduction-241" target="_blank" rel="noopener">Voir</a>
     </div>
     <div class="news-image"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" loading="lazy" decoding="async" width="1200" height="800"></div>
   </div>
@@ -162,8 +166,8 @@
     <source src="audio/le-t-amiricher-premix.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Barre fixe du bas -->
-  <div class="ledger">
+  <!-- Barre fixe du bas (décor) -->
+  <div class="ledger" aria-hidden="true">
     <div class="ledger-cross"><span class="plus-svg"></span></div>
     <p class="ledger-label scale-up">TALENT</p>
     <div class="ledger-cross"><span class="plus-svg"></span></div>
@@ -187,7 +191,7 @@
       <img class="hero-portrait-img" src="images/img-9991.jpg" alt="Dac-M, artiste LBV Production" width="1600" height="2164" fetchpriority="high">
       <div class="shade"></div>
     </div>
-    <h1 class="sr-only">LBV Production, label de musique indépendant à Libreville</h1>
+    <h1 class="sr-only">LBV Production, label de musique indépendant à Libreville, Gabon</h1>
     <div class="marquee">
       <div class="rail" aria-hidden="true">
         <span class="rail-item">Libreville a une <span class="accent">voix.</span></span>
@@ -296,7 +300,7 @@
   </section>
 
   <!-- Fiche artiste (panneau latéral) -->
-  <div class="artist-panel" data-lenis-prevent>
+  <div class="artist-panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label="Fiche artiste" inert aria-hidden="true">
     <div class="close-sidebar" role="button" tabindex="0" aria-label="Fermer">
       <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none"><path d="M1.29074 23L0 21.7093L10.2093 11.5L0 1.29074L1.29074 0L11.5 10.2093L21.7093 0L23 1.29074L12.7907 11.5L23 21.7093L21.7093 23L11.5 12.7907L1.29074 23Z" fill="#E6E6E6"/></svg>
     </div>
@@ -434,6 +438,8 @@
       PARLONS <span class="accent">Musique</span>
     </div>
   </div>
+
+  </main>
 
   <!-- ================= FOOTER ================= -->
   <footer class="footer-hit" id="footer">

@@ -12,8 +12,21 @@
   window.addEventListener('pageshow', () => window.scrollTo(0, 0));
   const K = window.gsap;
   const ST = window.ScrollTrigger;
-  const Split = window.SplitText;
-  K.registerPlugin(ST, Split, window.Flip);
+  const SplitText = window.SplitText;
+  // Découpe de texte : les lignes et mots restent lisibles tels quels ; une découpe en lettres cache l'élément aux
+  // lecteurs d'écran et laisse une copie lisible (ou un libellé sur les liens). SplitText ne pose ainsi aucun
+  // attribut aria-label sur des paragraphes, ce que les lecteurs d'écran n'acceptent pas.
+  const Split = function (target, opts = {}) {
+    const chars = /chars/.test(opts.type || '');
+    if (chars) (typeof target === 'string' ? [...document.querySelectorAll(target)] : [target]).forEach((e) => {
+      const txt = e.textContent.trim();
+      if (e.tagName === 'A') e.setAttribute('aria-label', txt);
+      else if (!e.classList.contains('ledger-label')) { const sr = document.createElement('span'); sr.className = 'sr-only'; sr.textContent = txt; e.before(sr); }
+      e.setAttribute('aria-hidden', 'true');
+    });
+    return new SplitText(target, { ...opts, aria: chars ? 'hidden' : 'none' });
+  };
+  K.registerPlugin(ST, SplitText, window.Flip);
   K.ticker.lagSmoothing(0);
   const petitEcran = window.innerWidth <= 900 || !window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   if (petitEcran) K.ticker.fps(45); // 45 images par seconde suffisent sur téléphone : le rendu reste fluide, le processeur souffle
@@ -420,7 +433,7 @@
 
   const openArtist = (i) => {
     const a = ARTISTS[i]; if (!a || sidebarOpen) return;
-    sidebarOpen = true; lenis.stop(); sidebar.scrollTop = 0; document.body.classList.add('sidebar-open');
+    sidebarOpen = true; lenis.stop(); sidebar.scrollTop = 0; document.body.classList.add('sidebar-open'); sidebar.inert = false; sidebar.removeAttribute('aria-hidden');
     sidebarScroll.on();
     sbClose.style.pointerEvents = 'auto';
     sbGallery.innerHTML = a.gallery.map((g) => `<div class="gallery-item"><img src="${g}" alt=""></div>`).join('');
@@ -437,7 +450,7 @@
   };
   const closeArtist = () => {
     if (!sidebarOpen) return; sidebarOpen = false; sidebarScroll.off(); lenis.start(); document.body.classList.remove('sidebar-open');
-    K.to(sidebar, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.5, ease: 'power4.inOut', onComplete: () => { sidebar.style.pointerEvents = 'none'; ST.refresh(true); } });
+    K.to(sidebar, { clipPath: 'inset(100% 0% 0% 0%)', duration: 1.5, ease: 'power4.inOut', onComplete: () => { sidebar.style.pointerEvents = 'none'; sidebar.inert = true; sidebar.setAttribute('aria-hidden', 'true'); ST.refresh(true); } });
     K.to('.container', { opacity: 1, duration: 1.7, ease: 'power4.inOut' });
   };
   steps.forEach((s, i) => s.addEventListener('click', () => openArtist(i)));
@@ -487,7 +500,7 @@
   const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
   const hideClose = () => { K.to(mClose, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' }); window.removeEventListener('mousemove', followClose); };
   const openBlog = (i) => {
-    if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on(); document.body.classList.add('panel-open');
+    if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on(); document.body.classList.add('panel-open'); modal.inert = false; modal.removeAttribute('aria-hidden');
     const b = BLOGS[i]; mH1.textContent = b.title; mDate.textContent = b.date; mP.textContent = b.desc; mBy.textContent = b.author + ' · Voir sur YouTube'; mBy.href = b.link; mImg.src = b.img;
     K.killTweensOf(modal); K.killTweensOf(mImg);
     K.set(modal, { pointerEvents: 'all', clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0 });
@@ -500,7 +513,7 @@
   };
   const closeBlog = () => {
     if (modalBusy || +getComputedStyle(modal).opacity === 0) return; modalBusy = true; blogScroll.off(); hideClose(); lenis.start(); document.body.classList.remove('panel-open');
-    K.timeline({ onComplete: () => { K.set(modal, { pointerEvents: 'none', opacity: 0, clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7 }); K.set(mImg, { clipPath: 'inset(100% 0 0 0)' }); modalBusy = false; } })
+    K.timeline({ onComplete: () => { modal.inert = true; modal.setAttribute('aria-hidden', 'true'); K.set(modal, { pointerEvents: 'none', opacity: 0, clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7 }); K.set(mImg, { clipPath: 'inset(100% 0 0 0)' }); modalBusy = false; } })
       .to(mImg, { clipPath: 'inset(100% 0 0 0)', duration: 0.6, ease: 'power4.in' })
       .to(modal, { clipPath: 'inset(50% 50% 50% 50%)', rotate: -10, scale: 0.7, opacity: 0, duration: 1, ease: 'power4.inOut' }, '-=0.3');
   };
@@ -514,8 +527,8 @@
   const contactModal = $('.modal-contact-us');
   const contactScroll = panelScroll(contactModal);
   let contactOpen = false;
-  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); contactScroll.on(); document.body.classList.add('panel-open'); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
-  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; contactScroll.off(); lenis.start(); document.body.classList.remove('panel-open'); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); cb && cb(); } }); };
+  const openContact = () => { if (contactOpen) return; contactOpen = true; lenis.stop(); contactScroll.on(); document.body.classList.add('panel-open'); contactModal.inert = false; contactModal.removeAttribute('aria-hidden'); K.set(contactModal, { visibility: 'visible' }); K.fromTo(contactModal, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.2, ease: 'power4.inOut' }); K.from('.modal-contact-us h1, .modal-contact-us > img, .modal-contact-us form', { y: 60, opacity: 0, stagger: 0.08, duration: 0.8, delay: 0.35, ease: 'power3.out' }); };
+  const closeContact = (cb) => { if (!contactOpen) { cb && cb(); return; } contactOpen = false; contactScroll.off(); lenis.start(); document.body.classList.remove('panel-open'); K.to(contactModal, { clipPath: 'inset(0% 0% 100% 0%)', duration: 1, ease: 'power4.inOut', onComplete() { K.set(contactModal, { visibility: 'hidden' }); contactModal.inert = true; contactModal.setAttribute('aria-hidden', 'true'); cb && cb(); } }); };
   $('#contactopen').addEventListener('click', openContact);
   $('.close-sidebar-contact').addEventListener('click', () => closeContact());
   const form = $('.modal-contact-us form');
