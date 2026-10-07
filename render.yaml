@@ -44,3 +44,9 @@ services:
       - path: /index.html
         name: Cache-Control
         value: "public, max-age=0, must-revalidate"
+      - path: /admin/*
+        name: Cache-Control
+        value: "no-cache"
+      - path: /admin/*
+        name: X-Robots-Tag
+        value: "noindex, nofollow"

@@ -1,5 +1,29 @@
 # Mettre le site en ligne
 
+## Espace de pilotage (mise à jour du contenu sans technique)
+
+Adresse : **https://lbv-production.onrender.com/admin/** (puis `lbvproduction.com/admin/` une fois le domaine branché).
+
+Le chargé de communication y modifie tout le contenu du site : textes de l'accueil et du Label, chiffres clés,
+visuels, artistes (photo, cadrage, biographie, galerie, liens), sorties (pochette, date, lien d'écoute), actualités
+(visuel, date, texte, lien), méthode, contact et réseaux, extrait musical, titres pour Google et les réseaux.
+Il clique **Publier** : le site est reconstruit et mis en ligne tout seul, en une à deux minutes. Rien d'autre à faire.
+
+**Clé de publication.** L'admin demande une clé, à créer une fois par le responsable du compte GitHub
+`mihindouange9-wq` : *Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+Generate new token*, nom « LBV pilotage », dépôt `lbv-production` uniquement, permission **Contents : Read and
+write**, durée au choix (un an, à renouveler). La clé se transmet comme un mot de passe aux seules personnes
+autorisées ; elle se révoque à tout moment depuis GitHub.
+
+**Comment ça marche.** Le contenu vit dans `content/content.json`. L'admin enregistre un commit (contenu + nouveaux
+médias, redimensionnés dans le navigateur) ; Render reconstruit le site (`tools/build-content.mjs` génère
+`index.html` et `js/data.js` depuis le gabarit `templates/page.html`). Chaque publication apparaît dans
+l'historique GitHub et peut être annulée (*Rollback* dans Render, ou *revert* du commit).
+
+**Pour les modifications de mise en page** (développeur) : éditer `templates/page.html`, jamais `index.html`
+directement, puis `node tools/build-content.mjs`.
+
+
 Document de référence pour publier le site LBV Production. Deux hébergeurs sont préparés : **Render** (déploiement
 automatique depuis GitHub, retenu) et Netlify (dépôt manuel d'un dossier, conservé en solution de repli).
 

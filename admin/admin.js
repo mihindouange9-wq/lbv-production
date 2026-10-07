@@ -285,10 +285,15 @@
       close.hidden = false;
       // Le site en ligne porte le numéro du commit dans l'adresse de ses fichiers : on attend qu'il apparaisse
       const short = commit.sha.slice(0, 7);
-      for (let i = 0; i < 24; i++) {
-        await new Promise((r) => setTimeout(r, 15000));
-        try { const html = await (await fetch(SITE + '/?n=' + Date.now(), { cache: 'no-store' })).text(); if (html.includes('?v=' + short)) break; } catch {}
-        if (i === 23) throw new Error('Le site ne s’est pas encore mis à jour. Vérifiez sur dashboard.render.com.');
+      if (SITE !== location.origin) {
+        // Admin ouvert hors du site (poste de développement) : on ne peut pas interroger le site, on laisse le temps du build
+        await new Promise((r) => setTimeout(r, 100000));
+      } else {
+        for (let i = 0; i < 40; i++) {
+          await new Promise((r) => setTimeout(r, 15000));
+          try { const html = await (await fetch(SITE + '/?n=' + Date.now(), { cache: 'no-store' })).text(); if (html.includes('?v=' + short)) break; } catch {}
+          if (i === 39) throw new Error('Le site ne s’est pas encore mis à jour. Vérifiez sur dashboard.render.com, puis rechargez le site dans quelques minutes.');
+        }
       }
       mark(3, 'is-done'); mark(4, 'is-done');
       note.textContent = 'En ligne. Un rafraîchissement du site suffit pour voir les changements.';

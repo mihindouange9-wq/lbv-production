@@ -4,6 +4,12 @@ Site du label indépendant gabonais LBV Production (Akanda, Libreville) : accuei
 
 Page unique en HTML, CSS et JavaScript, sans framework ni étape de compilation. Les animations reposent sur GSAP (ScrollTrigger, SplitText, Flip), Lenis pour le défilement doux, three.js pour le feu et le symbole en volume.
 
+## Espace de pilotage
+
+`admin/` : interface de mise à jour du contenu (textes, images, son, artistes, sorties, actualités) qui publie
+directement sur GitHub ; Render reconstruit le site. Source du contenu : `content/content.json` ; gabarit de la page :
+`templates/page.html` ; génération : `node tools/build-content.mjs`. Détails dans `DEPLOIEMENT.md`.
+
 ## Dossier
 
 ```
