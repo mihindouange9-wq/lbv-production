@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LBV Production — Espace de pilotage</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0A0A0A">
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Headline:wght@200;300;400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Connexion -->
+  <section class="login" id="login" hidden>
+    <div class="login-box">
+      <img class="brand-mark" src="../images/favicon.svg" alt="">
+      <h1>Espace de pilotage</h1>
+      <p class="muted">Le site LBV Production se met à jour tout seul après chaque publication. Entrez votre clé de publication pour commencer.</p>
+      <form id="login-form">
+        <label for="token">Clé de publication</label>
+        <input type="password" id="token" autocomplete="current-password" placeholder="github_pat_…" required>
+        <label class="check"><input type="checkbox" id="remember" checked> Se souvenir de la clé sur cet appareil</label>
+        <button type="submit" class="btn-primary">Entrer</button>
+        <p class="error" id="login-error" hidden></p>
+      </form>
+      <details class="help">
+        <summary>Où trouver la clé ?</summary>
+        <p>La clé est créée une fois par le responsable du compte GitHub <b>mihindouange9-wq</b> : <i>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</i>, dépôt <b>lbv-production</b>, permission <b>Contents : Read and write</b>. Elle se partage comme un mot de passe, uniquement avec les personnes autorisées à modifier le site.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Application -->
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <div class="topbar-brand">
+        <img class="brand-mark" src="../images/favicon.svg" alt="">
+        <span>Pilotage du site</span>
+      </div>
+      <div class="topbar-status" id="status" aria-live="polite">Chargement…</div>
+      <div class="topbar-actions">
+        <a class="btn-ghost" href="../" target="_blank" rel="noopener">Voir le site</a>
+        <button type="button" class="btn-primary" id="publish" disabled>Publier</button>
+        <button type="button" class="btn-icon" id="logout" title="Se déconnecter" aria-label="Se déconnecter">⎋</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="sidenav" id="sidenav" aria-label="Rubriques"></nav>
+      <main class="content" id="content"></main>
+    </div>
+
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Rubriques">☰ Rubriques</button>
+  </div>
+
+  <!-- Fenêtre de publication -->
+  <div class="modal" id="publish-modal" hidden role="dialog" aria-modal="true" aria-labelledby="publish-title">
+    <div class="modal-box">
+      <h2 id="publish-title">Publication</h2>
+      <ol class="steps" id="publish-steps"></ol>
+      <p class="muted" id="publish-note"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn-primary" id="publish-close" hidden>Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <script src="admin.js"></script>
+</body>
+</html>

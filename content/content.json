@@ -1,0 +1,527 @@
+{
+  "site": {
+    "title": "LBV Production — Label de musique gabonais",
+    "description": "LBV Production, label indépendant gabonais : artistes urbains de Libreville, sorties, clips, actualités et contact.",
+    "url": "https://lbvproduction.com/",
+    "ogImage": "images/og-image.jpg",
+    "ogDescription": "Label indépendant gabonais dédié à la visibilité, au développement et à la promotion des talents locaux.",
+    "twitterDescription": "Label indépendant gabonais : artistes urbains de Libreville, sorties, clips, actualités et contact."
+  },
+  "hero": {
+    "tags": [
+      "LABEL INDÉPENDANT",
+      "MUSIQUE URBAINE",
+      "LIBREVILLE · GABON"
+    ],
+    "intro": "Un label gabonais indépendant. Une vraie visibilité et une vraie plateforme d'écoute pour toutes les musiques du Gabon.",
+    "introMore": "Sans distinction de genre, de style ou d'origine.",
+    "portrait": {
+      "src": "images/img-9991.jpg",
+      "alt": "Dac-M, artiste LBV Production",
+      "width": 1600,
+      "height": 2164
+    },
+    "h1": "LBV Production, label de musique indépendant à Libreville",
+    "rail": "Libreville a une",
+    "railAccent": "voix."
+  },
+  "about": {
+    "titleLines": [
+      "Ça va",
+      "Sonner",
+      "Différent"
+    ],
+    "text": "LBV Production est un label indépendant gabonais, dépourvu de toute orientation politique. Sa mission : donner une vraie visibilité et une véritable plateforme d'écoute à toutes les formes de musique présentes au Gabon, sans discrimination de genre, de style ou d'origine."
+  },
+  "facts": [
+    {
+      "number": "6+",
+      "text": "Artistes signés, chacun avec son univers et sa voix."
+    },
+    {
+      "number": "20+",
+      "text": "Clips, singles et projets sortis depuis 2025."
+    },
+    {
+      "number": "1",
+      "text": "LBV Show à Libreville. La scène, en vrai."
+    }
+  ],
+  "label": {
+    "intro": "La production donne la matière. La promotion lui donne une audience. LBV réunit les deux pour faire entendre les artistes gabonais, ici et bien plus loin.",
+    "heading": "Le Label",
+    "thumbs": [
+      {
+        "side": "right1",
+        "src": "images/1781444415268.jpg",
+        "alt": "Allo — Dac-M",
+        "framing": null
+      },
+      {
+        "side": "left1",
+        "src": "images/1777103063580.jpg",
+        "alt": "Skelewu",
+        "framing": null
+      },
+      {
+        "side": "right1",
+        "src": "images/img-0772.jpg",
+        "alt": "Xquality sur scène",
+        "framing": null
+      },
+      {
+        "side": "left1",
+        "src": "images/1777091931479.jpg",
+        "alt": "Wobebie",
+        "framing": null
+      },
+      {
+        "side": "left1",
+        "src": "images/img-0766.jpg",
+        "alt": "Carty",
+        "framing": null
+      },
+      {
+        "side": "left1",
+        "src": "images/1777103268304.jpg",
+        "alt": "Heroes and Villains — Le T",
+        "framing": null
+      },
+      {
+        "side": "right1",
+        "src": "images/img-999.jpg",
+        "alt": "Lunxy",
+        "framing": {
+          "position": "50% 12%",
+          "zoom": 1.7,
+          "origin": "50% 18%"
+        }
+      },
+      {
+        "side": "left1",
+        "src": "images/1777093338967.jpg",
+        "alt": "Venez voir — Dac-M",
+        "framing": null
+      },
+      {
+        "side": "right1",
+        "src": "images/1777093778745.jpg",
+        "alt": "10 Days in Hell — Chinois A4C",
+        "framing": null
+      },
+      {
+        "side": "left1",
+        "src": "images/789880b2-6ba6-4d84-8aa4-34253cb707ec.jpg",
+        "alt": "LBV Show",
+        "framing": null
+      }
+    ],
+    "words": [
+      "PRODUIRE",
+      "DIFFUSER"
+    ],
+    "lists": [
+      [
+        "Direction artistique",
+        "Enregistrement, mix, mastering",
+        "Clips officiels",
+        "Covers et visuels"
+      ],
+      [
+        "Distribution digitale",
+        "Promotion et médias",
+        "Scène et LBV Show",
+        "Boutique et merch"
+      ]
+    ],
+    "panelTitle": "Chaque titre est un",
+    "panelAccent": "pas",
+    "panelTitleEnd": "de plus.",
+    "panelPara": "Et à partir de là, tout se construit avec intention.",
+    "panelPhoto": "images/img-0772.jpg"
+  },
+  "artistsSection": {
+    "title": "Nos artistes",
+    "hint": "Défilez pour les découvrir"
+  },
+  "artists": [
+    {
+      "name": "CARTY",
+      "slug": "carty",
+      "img": "images/img-0766.jpg",
+      "short": "Textes percutants, flow distinctif : Carty représente la nouvelle génération de la musique gabonaise.",
+      "bio": "Chanteur aux textes percutants et au flow distinctif, Carty représente la nouvelle génération de la musique gabonaise. On le retrouve sur « Djouzz » avec NSTA et Slime Sandro, et sur « Wandafull » avec Boykls et Sandro.",
+      "tags": [
+        "Rap",
+        "Afro-urbain",
+        "Libreville"
+      ],
+      "gallery": [
+        "images/img-656.jpg",
+        "images/img-1849.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/carty_slow_/"
+        ],
+        [
+          "TikTok",
+          "https://www.tiktok.com/@cartyslow7"
+        ],
+        [
+          "YouTube",
+          "https://www.youtube.com/@Cartyslow"
+        ],
+        [
+          "Spotify",
+          "https://open.spotify.com/intl-fr/artist/33p7Ux3XLYuYDP1cjIaycW"
+        ]
+      ],
+      "framing": {
+        "position": "58% 42%",
+        "zoom": 1.3,
+        "origin": "60% 45%"
+      },
+      "alt": "Carty"
+    },
+    {
+      "name": "D.O.M",
+      "slug": "dom",
+      "img": "images/whatsapp-image-2026-02-08-at-11-31-02.jpg",
+      "short": "Un univers à part, entre nuit et lumière. D.O.M construit son propre langage.",
+      "bio": "D.O.M, alias Purple Trees, développe un univers à part, entre nuit et lumière. Un artiste de la nouvelle vague LBV, à suivre sur toutes les plateformes.",
+      "tags": [
+        "Alternatif",
+        "Urbain",
+        "Libreville"
+      ],
+      "gallery": [
+        "images/whatsapp-image-2026-02-08-at-11-31-02.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/_purpletrees"
+        ],
+        [
+          "TikTok",
+          "https://www.tiktok.com/@_purpletrees"
+        ],
+        [
+          "YouTube",
+          "https://youtube.com/@_purpletrees"
+        ],
+        [
+          "Spotify",
+          "https://open.spotify.com/artist/6g4wMoLTMotkMK4DjswbEl"
+        ]
+      ],
+      "framing": {
+        "position": "50% 32%",
+        "zoom": 1.3,
+        "origin": "50% 38%"
+      },
+      "alt": "D.O.M"
+    },
+    {
+      "name": "LE T",
+      "slug": "le-t",
+      "img": "images/img-0769.jpg",
+      "short": "Terrell Edima, dit Le T. Depuis 2022, seul sur sa wave : SSMW, SSMW 2, One of a Kind.",
+      "bio": "Terrell Edima, dit « Le T », né le 2 juillet à Libreville, est un jeune rappeur gabonais. En 2022, il se lance en solo avec un nouveau style et une nouvelle direction artistique : « SSMW (Seul Sur Ma Wave) », puis « SSMW 2 » en 2024 avec des noms reconnus de la scène underground comme Famous Freaky ou Ricky W4v3r. En 2025, il dévoile l’album « One of a Kind » et les clips « Hey » et « Money Dance ».",
+      "tags": [
+        "Underground",
+        "Rap",
+        "SSMW"
+      ],
+      "gallery": [
+        "images/1777103268304.jpg",
+        "images/le-t-one.jpg",
+        "images/1781439013684-h4m1bt4q40b.jpg",
+        "images/le-t-hey.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/t3rrell_slime/"
+        ],
+        [
+          "TikTok",
+          "https://www.tiktok.com/@nannn4rlterrell"
+        ],
+        [
+          "YouTube",
+          "https://www.youtube.com/@le_t_officiel27"
+        ],
+        [
+          "Spotify",
+          "https://open.spotify.com/intl-fr/artist/5M3PdggOjWa1Rci85iUWnH"
+        ]
+      ],
+      "framing": {
+        "position": "48% 52%",
+        "zoom": 1.6,
+        "origin": "45% 50%"
+      },
+      "alt": "Le T"
+    },
+    {
+      "name": "DAC-M",
+      "slug": "dac-m",
+      "img": "images/img-9991.jpg",
+      "short": "Humoriste, comédien, musicien. Dac-M passe de la scène au studio sans perdre son sourire.",
+      "bio": "Dac-M, de son vrai nom D’acquin Moudedi Nzengue, est un humoriste, comédien, musicien et acteur gabonais né le 26 janvier 1999 à Libreville. Révélé au FIHA en 2013 puis par la série web « Le Sisia de Dac-M » en 2018, il se lance dans la musique en 2019 avec « God ». Chez LBV, il signe « Le Don », « Venez voir » et « Allô », entre afrobeat et AfroNtcham.",
+      "tags": [
+        "Afrobeat",
+        "AfroNtcham",
+        "Humour"
+      ],
+      "gallery": [
+        "images/1781444415268.jpg",
+        "images/1777093338967.jpg",
+        "images/1781440983367-fjhfw4xsod5.jpg",
+        "images/img-635454.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/dacm241/"
+        ],
+        [
+          "TikTok",
+          "https://www.tiktok.com/@dac.241"
+        ],
+        [
+          "YouTube",
+          "https://www.youtube.com/@dac-mlhumoriste"
+        ],
+        [
+          "Spotify",
+          "https://open.spotify.com/intl-fr/artist/5ucBwqJSDPSu2zrXxKc7bo"
+        ]
+      ],
+      "framing": {
+        "position": "38% 6%",
+        "zoom": 1.3,
+        "origin": "32% 16%"
+      },
+      "alt": "Dac-M"
+    },
+    {
+      "name": "XQUALITY",
+      "slug": "xquality",
+      "img": "images/img-0772.jpg",
+      "short": "Chill, mélancolie, couleurs et imaginaire. Une musique intime et ouverte sur le monde.",
+      "bio": "Xquality est un artiste singulier dont l’univers mêle chill, mélancolie, couleurs et imaginaire. Porté par des influences aussi variées que Don Toliver, Juice WRLD, Ninho, Tiakola ou Damso, il construit une musique à la fois intime et ouverte sur le monde. Son clip « Sang froid » est sorti en décembre 2025.",
+      "tags": [
+        "Rap",
+        "Mélodique",
+        "Chill"
+      ],
+      "gallery": [
+        "images/1777092910510.jpg",
+        "images/xquality.jpg",
+        "images/img-0772.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/thequaliity/"
+        ],
+        [
+          "TikTok",
+          "https://www.tiktok.com/@x_thequality"
+        ],
+        [
+          "Spotify",
+          "https://open.spotify.com/intl-fr/artist/4U1THLY26UOfygwm2iAHE7"
+        ]
+      ],
+      "framing": {
+        "position": "52% 18%",
+        "zoom": 1.35,
+        "origin": "52% 22%"
+      },
+      "alt": "Xquality"
+    },
+    {
+      "name": "LUNXY",
+      "slug": "lunxy",
+      "img": "images/img-999.jpg",
+      "short": "Des ambiances uniques, composées comme des décors. Lunxy fait la nuit à sa façon.",
+      "bio": "Artiste et compositeur, Lunxy crée des ambiances uniques dans ses compositions, entre ombre et néons. Une signature sonore à découvrir sur scène et en ligne.",
+      "tags": [
+        "Ambiances",
+        "Dark",
+        "Compositeur"
+      ],
+      "gallery": [
+        "images/img-999.jpg"
+      ],
+      "links": [
+        [
+          "Instagram",
+          "https://www.instagram.com/lunxy_yz/"
+        ]
+      ],
+      "framing": {
+        "position": "50% 12%",
+        "zoom": 1.7,
+        "origin": "50% 18%"
+      },
+      "alt": "Lunxy"
+    }
+  ],
+  "method": {
+    "steps": [
+      {
+        "title": "Signature",
+        "text": "Tout commence par une écoute. On rencontre l'artiste, son univers, son public et ses ambitions, pour construire une base honnête et durable."
+      },
+      {
+        "title": "Direction artistique",
+        "text": "Choix des sons, des visuels, des collaborations. Chaque décision sert une identité claire, celle de l'artiste, jamais celle du label."
+      },
+      {
+        "title": "Production",
+        "text": "Enregistrement, mix, mastering, tournage des clips. Des productions de qualité professionnelle, pensées pour durer et pour voyager."
+      },
+      {
+        "title": "Sortie et promotion",
+        "text": "Distribution sur toutes les plateformes, presse, réseaux, scène. La sortie n'est qu'un début : on suit, on ajuste, on fait grandir."
+      }
+    ],
+    "intro": "Chaque projet est abordé avec intention, pas avec des recettes. De la signature à la scène, chaque étape est travaillée pour que la musique gabonaise soit entendue, respectée et écoutée au-delà de ses frontières.",
+    "photo": "images/img-0769.jpg",
+    "heading": "De la première maquette à la scène, chaque étape est pensée pour faire entendre le",
+    "headingAccent": "Gabon."
+  },
+  "releases": {
+    "heading": "NOS",
+    "accent": "Sorties",
+    "para": "Les titres et projets qui font bouger la scène. Singles, EP, clips : chaque sortie est disponible sur toutes les plateformes.",
+    "cards": [
+      {
+        "title": "ALLO",
+        "artists": "Dac-M",
+        "type": "Single",
+        "genre": "Afrobeat",
+        "date": "2026-05-08",
+        "link": "https://open.spotify.com/intl-fr/album/2PLtFOs85PgHhzTyfWP9jR",
+        "cover": "images/1781444415268.jpg",
+        "alt": "Allo — Dac-M"
+      },
+      {
+        "title": "SKELEWU",
+        "artists": "Slime Sandro, NSTA, Chinois A4C, Nicosurf",
+        "type": "Single",
+        "genre": "Trap",
+        "date": "2026-04-09",
+        "link": "https://open.spotify.com/intl-fr/album/1kpcS0QHCYGbSmZg2exdBh",
+        "cover": "images/1777103063580.jpg",
+        "alt": "Skelewu"
+      },
+      {
+        "title": "WOBEBIE",
+        "artists": "Frenezy, Slime Sandro",
+        "type": "Single",
+        "genre": "Hip-Hop",
+        "date": "2026-03-21",
+        "link": "https://open.spotify.com/intl-fr/track/51iEuZiPAKOhGhxjiBbjIx",
+        "cover": "images/1777091931479.jpg",
+        "alt": "Wobebie"
+      }
+    ],
+    "more": [
+      {
+        "title": "SUMMER IN LBV",
+        "artists": "FC88",
+        "link": "https://open.spotify.com/intl-fr/album/3FMbz0yWTddeZsK1OTmFjk"
+      },
+      {
+        "title": "VENEZ VOIR",
+        "artists": "Dac-M",
+        "link": "https://open.spotify.com/intl-fr/track/3Ox8cvyfJ5EBJaI7VPBbj7"
+      },
+      {
+        "title": "HEROES AND VILLAINS",
+        "artists": "Le T",
+        "link": "https://open.spotify.com/intl-fr/album/7lSDBjNmyhxkbgbEEV2Ean"
+      },
+      {
+        "title": "SANG FROID",
+        "artists": "Xquality",
+        "link": "https://open.spotify.com/intl-fr/track/0ls8jIwaX1x9xit8c8cFDY"
+      },
+      {
+        "title": "CASAMIGOS",
+        "artists": "Chinois A4C, Boykls",
+        "link": "https://open.spotify.com/intl-fr/track/6boR10H2fJEFwWO3AGOlzV"
+      }
+    ]
+  },
+  "news": {
+    "heading": "ACTUALITÉS",
+    "accentOff": "du",
+    "accent": "label",
+    "para": "Clips, sorties, événements : ce qui se passe chez LBV Production et sur la scène urbaine gabonaise, au fil des semaines.",
+    "items": [
+      {
+        "title": "Le T — Money Dance (clip officiel)",
+        "date": "2026-06-03",
+        "author": "LE T · CLIP",
+        "img": "images/1781439013684-h4m1bt4q40b.jpg",
+        "link": "https://www.youtube.com/watch?v=LdnxTfDZ7dw",
+        "desc": "Le T dévoile le clip officiel de « Money Dance », réalisé par 97RG. Un banger underground signé LBV Production, entre énergie brute et images léchées : la wave de Le T continue, et elle s’accélère. À voir sur YouTube.",
+        "alt": "Le T — Money Dance"
+      },
+      {
+        "title": "Chinois A4C — Tue 3 (clip officiel)",
+        "date": "2026-05-20",
+        "author": "CHINOIS A4C · CLIP",
+        "img": "images/1781439308315-l2e95uy53za.jpg",
+        "link": "https://www.youtube.com/watch?v=AGCn_ynLbtA",
+        "desc": "Chinois A4C frappe fort avec « Tue 3 », troisième volet de la série qui a lancé sa chaîne en 2025. Après « 10 Days in Hell », l’artiste emblématique de la scène urbaine gabonaise confirme : la pression ne redescend pas.",
+        "alt": "Chinois A4C — Tue 3"
+      },
+      {
+        "title": "Dac-M — Allô (clip vidéo)",
+        "date": "2026-05-03",
+        "author": "DAC-M · CLIP",
+        "img": "images/1781440983367-fjhfw4xsod5.jpg",
+        "link": "https://www.youtube.com/watch?v=DGJc-FhZeBU",
+        "desc": "Dac-M présente le clip officiel de « Allô », son single afrobeat sorti le 8 mai 2026 sur toutes les plateformes. Damier noir et blanc, sourire en coin et refrain qui reste : l’humoriste-musicien signe son titre le plus solaire.",
+        "alt": "Dac-M — Allô"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Chaque grand titre commence par une",
+    "accent": "Rencontre.",
+    "button": "PARLONS",
+    "buttonAccent": "Musique"
+  },
+  "contact": {
+    "address": [
+      "Cité Magnolia (Villa 163)",
+      "Akanda, Libreville, Gabon"
+    ],
+    "phone": "+241 077 04 75 64",
+    "email": "contact@lbvproduction.com",
+    "hours": "Lundi – vendredi, 10 h – 19 h",
+    "copyright": "LBV Production. Tous droits réservés.",
+    "copyrightLine2": "Label indépendant gabonais.",
+    "socials": {
+      "instagram": "https://www.instagram.com/lbv_production/",
+      "youtube": "https://www.youtube.com/@LBVProduction-241",
+      "facebook": "https://www.facebook.com/people/LBV-Production/61575781109680/",
+      "x": "https://x.com/Lbvproduction1"
+    },
+    "year": "2026"
+  },
+  "audio": {
+    "src": "audio/le-t-amiricher-premix.mp3",
+    "label": "EXCLU · LE T — AMIRICHER"
+  }
+}
