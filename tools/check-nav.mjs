@@ -49,8 +49,9 @@ for (const t of targets) {
 }
 
 // 3. Adresse avec ancre : on arrive en haut, puis la section vient en douceur
-await page.goto('about:blank'); await page.goto(url + '#work', { waitUntil: 'load' });
-await sleep(16000);
+// sans préchargeur (déjà joué dans la session) : en Chrome headless sans GPU, l'horloge GSAP tourne au ralenti pendant l'intro
+await page.goto('about:blank'); await page.evaluateOnNewDocument(() => sessionStorage.setItem('loaderPlayed', 'true')); await page.goto(url + '#work', { waitUntil: 'load' });
+await sleep(9000);
 const anchored = await page.evaluate(() => ({ top: Math.round(document.querySelector('#work').getBoundingClientRect().top), hash: location.hash }));
 ok('adresse avec #work : section atteinte, ancre retirée', anchored.top <= 120 && anchored.hash === '', JSON.stringify(anchored));
 ok('aucune erreur de script', errors.length === 0, errors.join(' | '));

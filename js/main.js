@@ -47,12 +47,12 @@
   const playLoader = !isReload && !loaderPlayed && !reduce;
   const D = playLoader ? 8.5 : 0.1; // délai des animations d'entrée
   const refresh = () => requestAnimationFrame(() => requestAnimationFrame(() => ST.refresh()));
-  window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50);
+  if (!startHash) { window.scrollTo(0, 0); setTimeout(() => { window.scrollTo(0, 0); refresh(); }, 50); } else setTimeout(refresh, 50);
 
   /* ---------- Lenis ---------- */
   const lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
   window.LBV.lenis = lenis;
-  if (startHash && $(startHash)) K.delayedCall(D + 0.6, () => { const el = $(startHash); lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 1.6, force: true, onComplete: () => { if (Math.abs(el.getBoundingClientRect().top) > 4) lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 0.6, force: true }); } }); });
+  if (startHash && $(startHash)) setTimeout(() => { const el = $(startHash); lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 1.6, force: true, onComplete: () => { if (Math.abs(el.getBoundingClientRect().top) > 4) lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 0.6, force: true }); } }); }, (Math.max(D, 1.2) + 0.6) * 1000);
   lenis.on('scroll', ST.update);
   K.ticker.add((t) => lenis.raf(t * 1000));
 
