@@ -42,7 +42,7 @@ for (const t of targets) {
   await page.click('.menu-2-bar');
   await sleep(1500);
   await page.click(`.menu-navigate-scroll a[href="${t}"]`);
-  await sleep(3600);
+  await sleep(5200);
   const r = await page.evaluate((t) => { const el = document.querySelector(t); const b = el.getBoundingClientRect(); return { top: Math.round(b.top), h: Math.round(b.height), y: Math.round(window.scrollY), menu: getComputedStyle(document.querySelector('.navigation-menu')).visibility }; }, t);
   const reached = t === '#home' ? r.y < 40 : r.top <= 120 && r.top > -r.h;
   ok(`menu → ${t}`, reached && r.menu === 'hidden', `haut ${r.top}px, scrollY ${r.y}, menu ${r.menu}`);
@@ -50,7 +50,7 @@ for (const t of targets) {
 
 // 3. Adresse avec ancre : on arrive en haut, puis la section vient en douceur
 await page.goto('about:blank'); await page.goto(url + '#work', { waitUntil: 'load' });
-await sleep(3500);
+await sleep(16000);
 const anchored = await page.evaluate(() => ({ top: Math.round(document.querySelector('#work').getBoundingClientRect().top), hash: location.hash }));
 ok('adresse avec #work : section atteinte, ancre retirée', anchored.top <= 120 && anchored.hash === '', JSON.stringify(anchored));
 ok('aucune erreur de script', errors.length === 0, errors.join(' | '));

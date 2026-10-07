@@ -52,7 +52,7 @@
   /* ---------- Lenis ---------- */
   const lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true, wheelMultiplier: 1, touchMultiplier: 1.6 });
   window.LBV.lenis = lenis;
-  if (startHash && $(startHash)) K.delayedCall(D + 0.6, () => lenis.scrollTo($(startHash), { duration: 1.6, force: true }));
+  if (startHash && $(startHash)) K.delayedCall(D + 0.6, () => { const el = $(startHash); lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 1.6, force: true, onComplete: () => { if (Math.abs(el.getBoundingClientRect().top) > 4) lenis.scrollTo(Math.round(el.getBoundingClientRect().top + window.scrollY), { duration: 0.6, force: true }); } }); });
   lenis.on('scroll', ST.update);
   K.ticker.add((t) => lenis.raf(t * 1000));
 
@@ -246,7 +246,9 @@
     K.to(a.querySelector('.menu-cross'), { scale: 1, rotation: 90, duration: 0.8, ease: 'expo.out' });
     const target = $(a.getAttribute('href'));
     // Le défilement part une fois le menu refermé et Lenis relancé, vers la position mesurée à cet instant
-    closeMenu(() => { if (target) lenis.scrollTo(Math.round(target.getBoundingClientRect().top + window.scrollY), { duration: 1.6 }); });
+    // Les images chargées en route peuvent décaler la cible : on recale en fin de course si besoin
+    const goTo = (el, duration, again) => { const y = Math.round(el.getBoundingClientRect().top + window.scrollY); lenis.scrollTo(y, { duration, force: true, onComplete: () => { if (again && Math.abs(el.getBoundingClientRect().top) > 4) goTo(el, 0.6, false); } }); };
+    closeMenu(() => { if (target) goTo(target, 1.6, true); });
   }));
   $$('nav a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); const t = $(a.getAttribute('href')); if (t) lenis.scrollTo(Math.round(t.getBoundingClientRect().top + window.scrollY), { duration: 1.6, force: true }); }));
 
