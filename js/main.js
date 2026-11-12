@@ -299,8 +299,9 @@
   }
   const breaks = $('.label-heading .breaks');
   breaks.innerHTML = breaks.textContent.split('').map((c) => `<span class="label-char">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-  if (!isMobile()) K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1 } })
-    .to('.label-char', { fontSize: '16rem', stagger: 0.1, ease: 'none' })
+  // 16rem à 1440 px de large, réduit en proportion en dessous : le mot tient dans la scène sur tablette et en paysage
+  if (!isMobile()) K.timeline({ scrollTrigger: { trigger: '.box-section-ups', start: 'top top', end: '100% top', scrub: 1, invalidateOnRefresh: true } })
+    .to('.label-char', { fontSize: () => Math.round(256 * Math.min(1, window.innerWidth / 1440)) + 'px', stagger: 0.1, ease: 'none' })
     .to('.breaks', { transform: 'translateX(0%)', ease: 'none' }, '0');
   const charify = (sel) => $$(sel).forEach((el) => { const t = el.textContent; el.innerHTML = ''; t.split('').forEach((c) => { const s = document.createElement('span'); s.textContent = c === ' ' ? ' ' : c; el.appendChild(s); }); });
   charify('.word1'); charify('.points');
@@ -314,7 +315,8 @@
   svcTl.to(strokes, { strokeDashoffset: 0, duration: 3, stagger: 0.11 }, '0');
   // Téléphone : le mot grandit au centre de la scène pendant que les lignes se dessinent, puis s'efface en montant
   if (isMobile()) svcTl.fromTo('.label-char', { fontSize: '2.6rem' }, { fontSize: '4.4rem', stagger: 0.05, duration: 2, ease: 'none' }, '0');
-  svcTl.to('.label-char', { y: '-130%', autoAlpha: isMobile() ? 0 : 1, delay: 0.5, stagger: 0.1 });
+  // sous 1200 px de large le mot est plus petit : il monte plus loin pour sortir entièrement de son cadre
+  svcTl.to('.label-char', { y: () => (!isMobile() && window.innerWidth < 1200 ? '-260%' : '-130%'), autoAlpha: isMobile() ? 0 : 1, delay: 0.5, stagger: 0.1 });
   svcTl.to('.label-words .word1:nth-child(1) span', { y: '0%', stagger: 0.03, duration: 1 });
   svcTl.to('.set-1 .points span', { y: '0%', stagger: 0.04, duration: 0.6 }, '<');
   svcTl.to('.label-words .word1:nth-child(1) span', { y: '-120%', stagger: 0.02, duration: 1 }, '+=0.2');
@@ -497,9 +499,10 @@
   const mClose = $('.close-sidebar-blog');
   let modalBusy = false;
   let followClose = () => {};
-  if (fine) { const qx = K.quickTo(mClose, 'x', { duration: 0.3, ease: 'power3.out' }), qy = K.quickTo(mClose, 'y', { duration: 0.3, ease: 'power3.out' }); followClose = (e) => { qx(e.clientX - 28); qy(e.clientY - 28); }; }
-  else K.set(mClose, { x: window.innerWidth - 72, y: 16 });
-  const showClose = () => { K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
+  // La modale est transformée (rotation, échelle) : son bouton Fermer, bien que « fixed », se place par rapport à elle
+  // et non à l'écran. Ses coordonnées sont donc comptées depuis l'angle de la modale (sinon il fuit le curseur ou sort du cadre).
+  if (fine) { const qx = K.quickTo(mClose, 'x', { duration: 0.3, ease: 'power3.out' }), qy = K.quickTo(mClose, 'y', { duration: 0.3, ease: 'power3.out' }); followClose = (e) => { const r = modal.getBoundingClientRect(); qx(e.clientX - r.left - modal.clientLeft - 28); qy(e.clientY - r.top - modal.clientTop - 28); }; }
+  const showClose = () => { if (!fine) K.set(mClose, { x: modal.clientWidth - 72, y: 16 }); K.to(mClose, { scale: 1, opacity: 1, duration: 0.8, ease: 'expo.out' }); window.addEventListener('mousemove', followClose); };
   const hideClose = () => { K.to(mClose, { scale: 0, opacity: 0, duration: 0.3, ease: 'power3.in' }); window.removeEventListener('mousemove', followClose); };
   const openBlog = (i) => {
     if (modalBusy) return; modalBusy = true; lenis.stop(); blogScroll.on(); document.body.classList.add('panel-open'); modal.inert = false; modal.removeAttribute('aria-hidden');

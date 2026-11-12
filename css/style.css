@@ -506,3 +506,54 @@ nav ul li:hover .nav-cross .plus-svg { transform: rotate(90deg) scale(1); }
 @media (max-width: 900px) {
   #fluid2 { width: 40vw; height: 40vh; transform: scale(2.5); transform-origin: 0 0; }
 }
+
+/* Les sorties précèdent les actualités : pas de recouvrement entre les deux blocs (les pochettes restaient cachées sous les actualités) */
+.releases-section + .blog-section { margin-top: 0; }
+/* Les autres sorties se lisent sous les pochettes, pas par-dessus leurs titres */
+@media (min-width: 801px) {
+  .releases-section { height: auto; min-height: 120vh; padding-bottom: 5vh; display: flex; flex-direction: column; }
+  /* la réserve au-dessus des pochettes laisse monter celle du milieu sans toucher le titre */
+  .releases-section .news-cards { position: relative; height: auto; margin-top: auto; padding-top: calc(22vw + 3.5rem); }
+  .releases-more { position: relative; left: auto; bottom: auto; padding: 2.4rem 3% 0; }
+}
+
+/* Tablette : les étapes de droite gardent une marge avec le bord de l'écran */
+@media (min-width: 801px) and (max-width: 1024px) {
+  .method-steps .method-step:nth-child(even) { left: 57%; }
+}
+
+/* Petit téléphone : les réseaux du menu passent à la ligne au lieu d'être rognés */
+@media (max-width: 480px) {
+  .bottom-contact-ctas .menu-socials { flex-wrap: wrap; gap: 0 1rem; }
+}
+
+/* ---------- Téléphone en paysage (hauteur réduite) ---------- */
+@media (max-height: 560px) and (orientation: landscape) {
+  /* Accueil : le texte passe sous le logo, les mots-clés quittent la zone du bouton WhatsApp */
+  .hero-intro { top: 5.2rem; }
+  .hero-tags { top: auto; bottom: 5.8rem; right: auto; left: 3%; text-align: start; }
+  /* Menu : les sept entrées tiennent dans la hauteur, au-dessus des coordonnées */
+  .navigation-menu { padding-bottom: 22vh; }
+  .menu-navigate-scroll a { font-size: 7.2vh; padding: .12rem 0; }
+  .navigation-menu .menu-navigate-scroll a .menu-cross { display: none; }
+  /* Titres de section : sous le logo et le bouton du menu quand on arrive par une ancre */
+  .section-headings { padding-top: 5.6rem; }
+  /* Appel : titre sur deux lignes, anneau réduit, pour que l'anneau ne coupe plus le titre */
+  .cta-title { font-size: 2.4rem; }
+  .before-footer-cta .cta-footer { margin-top: 3rem; padding: 2.4rem 2rem; }
+  .before-footer-cta .cta-footer .ring-circle { width: 150px; height: 150px; }
+  /* Artistes : nom à gauche, vignette carrée au centre, phrase à droite (comme à l'ordinateur) */
+  .container { --sq: min(40vw, 56vh); }
+  .artist-card { width: var(--sq); height: var(--sq); left: calc(50% - var(--sq) / 2); }
+  .artists-legend { flex-direction: row; align-items: center; justify-content: space-between; top: 50%; transform: translateY(-50%); padding: 0 3rem; gap: 0; }
+  .artists-legend h2 { width: 26%; font-size: 1.8rem; } .artists-legend p { width: 26%; font-size: .85rem; }
+  /* Actualités : assez de hauteur pour que la carte du milieu monte sans recouvrir l'introduction */
+  .blog-section:not(.releases-section) { height: calc(120vh + 22vw + 3.5rem); }
+}
+
+/* Le nom du titre en écoute se place au-dessus de l'onde sonore, plus haute sur écran tactile, et non dessus */
+@media (max-width: 1024px) { .sound-label { bottom: calc(10% + 54px); } }
+@media (max-width: 800px) { .sound-label { bottom: calc(5.9rem + 54px); } }
+
+/* Ordinateur : les titres de section commencent sous la navigation fixe (elle recouvrait le texte d'introduction à l'arrivée par une ancre) */
+@media (min-width: 1001px) { .section-headings { padding-top: max(12vh, 11.5rem); } }

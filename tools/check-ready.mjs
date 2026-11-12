@@ -9,7 +9,7 @@ const ok = [], ko = [], warn = [];
 const say = (list, msg) => list.push(msg);
 
 /* 1. Fichiers référencés */
-const refs = [...html.matchAll(/(?:src|href)="((?!https?:|mailto:|tel:|data:|#)[^"]+)"/g)].map((m) => m[1]);
+const refs = [...html.matchAll(/(?:src|href)="((?!https?:|mailto:|tel:|data:|#)[^"]+)"/g)].map((m) => m[1].replace(/\?v=[^"]*$/, '')); // sans le suffixe de version posé par build-dist
 const dataRefs = [...readFileSync(join(root, 'js/data.js'), 'utf8').matchAll(/'((?:images|audio)\/[^']+)'/g)].map((m) => m[1]);
 const missing = [...new Set([...refs, ...dataRefs])].filter((f) => !existsSync(join(root, f)));
 missing.length ? say(ko, 'fichiers référencés absents : ' + missing.join(', ')) : say(ok, `${new Set([...refs, ...dataRefs]).size} fichiers référencés, tous présents`);
